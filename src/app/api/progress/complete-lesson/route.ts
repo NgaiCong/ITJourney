@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/middleware"; // Or wherever your auth helper is
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
