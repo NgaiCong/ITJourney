@@ -1,0 +1,465 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum Role {
+  STUDENT
+  ADMIN
+  INSTRUCTOR
+}
+
+enum LessonType {
+  VIDEO
+  TEXT
+  QUIZ
+  PROJECT
+  EXERCISE
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum GoalType {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum GoalStatus {
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+enum NotificationType {
+  SYSTEM
+  REMINDER
+  ACHIEVEMENT
+  SOCIAL
+}
+
+// 1. User & Auth
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // Hashed password
+  role          Role      @default(STUDENT)
+  bio           String?
+  
+  // Gamification
+  xp            Int       @default(0)
+  level         Int       @default(1)
+  streak        Int       @default(0)
+  coins         Int       @default(0)
+  lastStudyDate DateTime?
+
+  // Relations
+  progress        UserProgress[]
+  submissions     Submission[]
+  vocabularies    UserVocabulary[]
+  streaks         Streak[]
+  goals           Goal[]
+  mindsetLogs     MindsetLog[]
+  notifications   Notification[]
+  careerProfile   CareerProfile?
+  posts           Post[]
+  comments        Comment[]
+  activityLogs    ActivityLog[]
+  achievements    UserAchievement[]
+  quizAttempts    QuizAttempt[]
+  exerciseAttempts ExerciseAttempt[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// 2. Learning Content Structure (Hierarchical)
+model Stage {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  order       Int
+  slug        String   @unique
+  
+  months      Month[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Month {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  order       Int
+  slug        String   @unique
+  
+  stageId     String
+  stage       Stage    @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  
+  weeks       Week[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Week {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  order       Int
+  slug        String   @unique
+  
+  monthId     String
+  month       Month    @relation(fields: [monthId], references: [id], onDelete: Cascade)
+  
+  lessons     Lesson[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lesson {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  content     String?    // Markdown content or video URL
+  type        LessonType
+  duration    Int?       // Estimated minutes
+  order       Int
+  slug        String     @unique
+  xpReward    Int        @default(10)
+  
+  weekId      String
+  week        Week       @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  
+  // Content specific relations
+  quiz        Quiz?
+  exercise    Exercise?
+  project     Project?
+  resources   Resource[]
+  
+  // User progress
+  progress    UserProgress[]
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+// 3. Content Types
+model Quiz {
+  id          String   @id @default(cuid())
+  lessonId    String   @unique
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions   Json     // Array of questions with options and correct answer
+  passScore   Int      @default(70) // Percentage
+  
+  attempts    QuizAttempt[]
+}
+
+model QuizAttempt {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizId      String
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  score       Int
+  answers     Json     // User's answers
+  passed      Boolean
+  createdAt   DateTime @default(now())
+}
+
+model Exercise {
+  id          String   @id @default(cuid())
+  lessonId    String   @unique
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  instructions String
+  starterCode  String?
+  solutionCode String?
+  testCases    Json?
+  
+  attempts    ExerciseAttempt[]
+}
+
+model ExerciseAttempt {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exerciseId  String
+  exercise    Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  code        String
+  passed      Boolean
+  testResults Json?    // Detailed results
+  createdAt   DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  lessonId    String   @unique
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  requirements String
+  rubric       Json?    // Grading criteria
+}
+
+model Resource {
+  id          String   @id @default(cuid())
+  title       String
+  url         String
+  type        String   // e.g., "PDF", "LINK", "GITHUB"
+  lessonId    String?
+  lesson      Lesson?  @relation(fields: [lessonId], references: [id])
+}
+
+// 4. Progress Tracking
+model UserProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  lesson      Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  status      String    @default("NOT_STARTED") // NOT_STARTED, IN_PROGRESS, COMPLETED
+  completedAt DateTime?
+  score       Int?      // For quizzes
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([userId, lessonId])
+}
+
+model Submission {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  
+  content     String?          // Text or URL
+  status      SubmissionStatus @default(PENDING)
+  feedback    String?
+  grade       Int?
+  
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+// 5. Vocabulary
+model Vocabulary {
+  id          String   @id @default(cuid())
+  term        String   @unique
+  pronunciation String?
+  definition  String
+  example     String?
+  translation String?
+  category    String   // e.g., "Hardware", "Software"
+  
+  userProgress UserVocabulary[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model UserVocabulary {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  vocabularyId String
+  vocabulary   Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
+  
+  // Spaced Repetition (SM-2)
+  easeFactor  Float    @default(2.5)
+  interval    Int      @default(0) // Days
+  repetitions Int      @default(0)
+  
+  nextReview  DateTime @default(now())
+  lastReviewed DateTime?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, vocabularyId])
+}
+
+// 6. Streaks & Activity
+model Streak {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String   @default("LOGIN") // LOGIN, STUDY, AIDETOX, FLASHCARD
+  currentCount Int     @default(0)
+  longestCount Int     @default(0)
+  lastActivityDate DateTime @default(now())
+  startDate   DateTime @default(now()) // When the current streak started
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, type])
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action      String   // e.g., "LESSON_COMPLETE", "LOGIN", "QUIZ_PASS"
+  metadata    Json?
+  
+  createdAt   DateTime @default(now())
+}
+
+// 7. Goals
+model Goal {
+  id          String     @id @default(cuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  type        GoalType
+  target      Int        // e.g., 5 lessons
+  current     Int        @default(0)
+  status      GoalStatus @default(IN_PROGRESS)
+  deadline    DateTime?
+  
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+// 8. Mindset
+model MindsetLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mood        String   // e.g., "MOTIVATED", "TIRED", "CONFUSED"
+  note        String?
+  date        DateTime @default(now())
+}
+
+// 9. Gamification (Achievements)
+model Achievement {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  category    String   @default("PROGRESS") // PROGRESS, STREAK, SKILL, PROJECT, SOCIAL
+  rarity      String   @default("COMMON")   // COMMON, RARE, EPIC, LEGENDARY
+  icon        String
+  xpReward    Int
+  criteria    Json?    // For automatic checking logic
+  
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  earnedAt      DateTime    @default(now())
+
+  @@unique([userId, achievementId])
+}
+
+// 10. Notifications
+model Notification {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  message     String
+  type        NotificationType
+  read        Boolean          @default(false)
+  link        String?
+  
+  createdAt   DateTime         @default(now())
+}
+
+// 11. Career
+model CareerProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline    String?
+  resumeUrl   String?
+  linkedin    String?
+  github      String?
+  portfolio   String?
+  skills      String[]
+  
+  applications JobApplication[]
+  
+  updatedAt   DateTime @updatedAt
+}
+
+model JobApplication {
+  id              String   @id @default(cuid())
+  careerProfileId String
+  careerProfile   CareerProfile @relation(fields: [careerProfileId], references: [id], onDelete: Cascade)
+  company         String
+  position        String
+  status          String   // APPLIED, INTERVIEWING, OFFER, REJECTED
+  appliedDate     DateTime @default(now())
+  notes           String?
+}
+
+// 12. Blog
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String
+  published   Boolean  @default(false)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  tags        String[]
+  
+  comments    Comment[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Comment {
+  id          String   @id @default(cuid())
+  content     String
+  postId      String
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 13. Admin Audit
+model AuditLog {
+  id          String   @id @default(cuid())
+  adminId     String
+  action      String
+  entity      String
+  entityId    String?
+  details     Json?
+  
+  createdAt   DateTime @default(now())
+}
