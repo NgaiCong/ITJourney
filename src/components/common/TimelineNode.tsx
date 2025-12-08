@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { X, ExternalLink, BookOpen, Terminal, Cpu, Video, Code, Globe, FileText, Brain, Target, CheckCircle2 } from "lucide-react";
 import type { PhaseData, Resource } from "@/data/roadmap";
 
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { SpotlightCard } from "@/components/common/ui/SpotlightCard";
 
 // Get icon based on resource type
 function getResourceIcon(type: Resource["type"]) {
