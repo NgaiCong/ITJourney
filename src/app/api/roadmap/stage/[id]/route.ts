@@ -4,7 +4,7 @@ import { getStageDetail } from "@/lib/roadmap-service";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -12,7 +12,8 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const stage = await getStageDetail(params.id, session.user.id || "user-id-placeholder");
+    const { id } = await params;
+    const stage = await getStageDetail(id, session.user.id || "user-id-placeholder");
     
     if (!stage) {
       return NextResponse.json({ error: "Stage not found" }, { status: 404 });
