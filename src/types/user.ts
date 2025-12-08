@@ -3,7 +3,7 @@ import { DefaultSession } from "next-auth";
 
 export type User = PrismaUser;
 
-export interface SafeUser extends Omit<User, 'password'> {
+export interface SafeUser extends Omit<User, 'password' | 'createdAt' | 'updatedAt' | 'emailVerified'> {
   createdAt: string;
   updatedAt: string;
   emailVerified: string | null;
