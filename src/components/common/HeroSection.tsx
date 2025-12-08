@@ -1,381 +1,244 @@
-// components/HeroSection.tsx
-"use client";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ArrowDown, Sparkles, Zap } from "lucide-react";
-import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+﻿"use client";
 
-// Matrix rain characters
-const matrixChars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
 
-// Seeded random for consistent values
-function seededRandom(seed: number) {
-  const x = Math.sin(seed * 9999) * 10000;
-  return x - Math.floor(x);
-}
+// --- Components ---
 
-// Typewriter effect hook
-function useTypewriter(text: string, speed: number = 50, delay: number = 0) {
-  const [displayText, setDisplayText] = useState("");
-  const [isComplete, setIsComplete] = useState(false);
+function Spotlight({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    let currentIndex = 0;
-
-    const startTyping = () => {
-      if (currentIndex < text.length) {
-        setDisplayText(text.slice(0, currentIndex + 1));
-        currentIndex++;
-        timeout = setTimeout(startTyping, speed);
-      } else {
-        setIsComplete(true);
-      }
-    };
-
-    const delayTimeout = setTimeout(startTyping, delay);
-
-    return () => {
-      clearTimeout(timeout);
-      clearTimeout(delayTimeout);
-    };
-  }, [text, speed, delay]);
-
-  return { displayText, isComplete };
-}
-
-// Matrix Rain Column Component
-function MatrixColumn({ delay, duration, seed }: { delay: number; duration: number; seed: number }) {
-  const chars = useMemo(() => 
-    Array.from({ length: 20 }, (_, i) => 
-      matrixChars[Math.floor(seededRandom(seed + i) * matrixChars.length)]
-    ), [seed]
-  );
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
 
   return (
-    <motion.div
-      initial={{ y: "-100%" }}
-      animate={{ y: "100%" }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-      className="absolute text-white/20 font-mono text-xs leading-tight whitespace-pre select-none"
-    >
-      {chars.map((char, i) => (
-        <div
-          key={i}
-          style={{ opacity: 1 - i * 0.05 }}
-          className={i === 0 ? "text-white" : ""}
-        >
-          {char}
-        </div>
-      ))}
-    </motion.div>
-  );
-}
-
-// Magnetic Button Component
-function MagneticButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springConfig = { damping: 15, stiffness: 150 };
-  const xSpring = useSpring(x, springConfig);
-  const ySpring = useSpring(y, springConfig);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const distanceX = e.clientX - centerX;
-    const distanceY = e.clientY - centerY;
-    
-    x.set(distanceX * 0.3);
-    y.set(distanceY * 0.3);
-  }, [x, y]);
-
-  const handleMouseLeave = useCallback(() => {
-    x.set(0);
-    y.set(0);
-  }, [x, y]);
-
-  return (
-    <motion.button
-      ref={ref}
-      style={{ x: xSpring, y: ySpring }}
+    <div
+      className={group relative border border-neutral-800 bg-neutral-900 overflow-hidden }
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="group relative px-8 py-4 bg-transparent border-2 border-white/20 rounded-full overflow-hidden transition-all duration-300"
     >
-      {/* Glow effect */}
-      <div className="absolute inset-0 bg-white/10 blur-xl group-hover:bg-white/20 transition-all duration-500" />
-      
-      {/* Animated border gradient */}
-      <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute inset-[-2px] rounded-full bg-linear-to-r from-white via-neutral-400 to-neutral-600 animate-spin-slow" />
-        <div className="absolute inset-[2px] rounded-full bg-[#050505]" />
-      </div>
-      
-      {/* Button content */}
-      <span className="relative z-10 flex items-center gap-2 text-white font-semibold tracking-wider uppercase text-sm group-hover:text-white transition-colors">
-        <Sparkles className="w-4 h-4" />
-        {children}
-        <Zap className="w-4 h-4" />
-      </span>
-      
-      {/* Shine effect */}
       <motion.div
-        className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{
+          background: useMotionTemplateadial-gradient(
+              650px circle at px px,
+              rgba(255,255,255,0.1),
+              transparent 80%
+            )
+          ,
+        }}
       />
-    </motion.button>
-  );
-}
-
-// Pre-computed particle data
-const particleData = Array.from({ length: 50 }, (_, i) => ({
-  id: i,
-  initialX: seededRandom(i * 100) * 100,
-  initialY: seededRandom(i * 200) * 100,
-  animateY: seededRandom(i * 300) * -500,
-  duration: seededRandom(i * 400) * 10 + 10,
-  delay: seededRandom(i * 500) * 5,
-}));
-
-// Floating Particles
-function FloatingParticles() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particleData.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute w-1 h-1 bg-white/20 rounded-full"
-          style={{
-            left: `${particle.initialX}%`,
-            top: `${particle.initialY}%`,
-          }}
-          animate={{
-            y: [0, particle.animateY],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Infinity,
-            delay: particle.delay,
-          }}
-        />
-      ))}
+      {children}
     </div>
   );
 }
 
-// Pre-computed matrix column data
-const matrixColumnData = Array.from({ length: 30 }, (_, i) => ({
-  id: i,
-  left: i * 3.33,
-  delay: seededRandom(i * 10) * 2,
-  duration: seededRandom(i * 20) * 3 + 2,
-  seed: i * 100,
-}));
+function Badge({ text }: { text: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="inline-flex items-center rounded-full border border-neutral-800 bg-neutral-900/50 px-3 py-1 text-sm text-neutral-400 backdrop-blur-xl"
+    >
+      <span className="flex h-2 w-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
+      {text}
+    </motion.div>
+  );
+}
 
-// Code snippet that appears to be typing
-const codeSnippet = `> Initializing Re-Engineer Protocol...
-> Loading mindset: GROWTH_MODE
-> Purging AI dependencies...
-> status: READY_FOR_TRANSFORMATION`;
+function KineticText({ text, className }: { text: string; className?: string }) {
+  const words = text.split(" ");
 
-export default function HeroSection() {
-  const { displayText, isComplete } = useTypewriter(codeSnippet, 30, 1500);
-  const [showMatrix, setShowMatrix] = useState(true);
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.04 * i },
+    }),
+  };
 
-  // Hide matrix after initial animation
-  useEffect(() => {
-    const timer = setTimeout(() => setShowMatrix(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const scrollToContent = () => {
-    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
   };
 
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
-      {/* Matrix Rain Background */}
-      {showMatrix && (
-        <div className="absolute inset-0 overflow-hidden opacity-30">
-          {matrixColumnData.map((col) => (
-            <div
-              key={col.id}
-              className="absolute h-full"
-              style={{ left: `${col.left}%` }}
-            >
-              <MatrixColumn delay={col.delay} duration={col.duration} seed={col.seed} />
-            </div>
-          ))}
-        </div>
-      )}
+    <motion.h1
+      className={lex flex-wrap justify-center overflow-hidden }
+      variants={container}
+      initial="hidden"
+      animate="visible"
+    >
+      {words.map((word, index) => (
+        <motion.span key={index} variants={child} className="mr-2 lg:mr-4 pb-2">
+          {word}
+        </motion.span>
+      ))}
+    </motion.h1>
+  );
+}
 
-      {/* Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[64px_64px]" />
+function MagneticButton({ children, className, onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const xSpring = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
+  const ySpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = ref.current!.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    x.set(clientX - centerX);
+    y.set(clientY - centerY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: xSpring, y: ySpring }}
+      className={className}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {children}
+    </motion.button>
+  );
+}
+
+// --- Main Component ---
+
+export default function HeroSection() {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  return (
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#050505] text-white selection:bg-white/20">
       
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050505_70%)]" />
-
-      {/* Multiple Lighting Effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-neutral-400/5 blur-[100px] rounded-full pointer-events-none animate-pulse-slow" />
-      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-neutral-500/5 blur-[80px] rounded-full pointer-events-none animate-pulse-slow" style={{ animationDelay: '2s' }} />
-
-      {/* Floating Particles */}
-      <FloatingParticles />
-
-      {/* Main Content */}
-      <div className="z-10 text-center space-y-8 px-4 max-w-6xl mx-auto">
-        {/* Terminal Code Block */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="relative mx-auto max-w-md"
-        >
-          <div className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-lg p-4 font-mono text-xs text-left">
-            <div className="flex gap-2 mb-3">
-              <div className="w-3 h-3 rounded-full bg-red-500/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <div className="w-3 h-3 rounded-full bg-green-500/80" />
-            </div>
-            <pre className="text-neutral-300 whitespace-pre-wrap">
-              {displayText}
-              {!isComplete && <span className="animate-pulse">█</span>}
-            </pre>
-          </div>
-        </motion.div>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-white tracking-[0.3em] text-xs md:text-sm uppercase font-mono"
-        >
-          From Knowledge Debt to Engineering Mastery
-        </motion.p>
-
-        {/* Main Title with Kinetic Typography */}
-        <div className="relative">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: 1 }}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tighter leading-[0.85]"
-          >
-            <motion.span
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="block"
-            >
-              THE
-            </motion.span>
-            <motion.span
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              className="block relative"
-            >
-              RE-ENGINEER
-              {/* Glitch effect on hover */}
-              <span className="absolute inset-0 text-white opacity-0 hover:opacity-100 transition-opacity" style={{ clipPath: 'inset(10% 0 60% 0)' }}>
-                RE-ENGINEER
-              </span>
-            </motion.span>
-            <motion.span
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
-              className="block text-transparent bg-clip-text bg-linear-to-r from-white via-neutral-300 to-neutral-500 animate-gradient-x"
-            >
-              PATH.
-            </motion.span>
-          </motion.h1>
-        </div>
-
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 0.8, y: 0 }}
-          transition={{ duration: 1, delay: 2 }}
-          className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg lg:text-xl font-light leading-relaxed"
-        >
-          Hành trình <span className="text-white font-medium">12 tháng</span> tái cấu trúc tư duy lập trình từ con số 0.
-          <span className="block mt-3 text-neutral-300 font-mono text-sm tracking-wider">
-            KHÔNG ĐƯỜNG TẮT. KHÔNG LẠM DỤNG AI. CHỈ CÓ KỸ THUẬT THUẦN TÚY.
-          </span>
-        </motion.p>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 2.5 }}
-          className="pt-8"
-        >
-          <MagneticButton onClick={scrollToContent}>
-            Bắt Đầu Hành Trình
-          </MagneticButton>
-        </motion.div>
-
-        {/* Stats Row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="flex flex-wrap justify-center gap-8 md:gap-16 pt-12 text-center"
-        >
-          {[
-            { value: "4", label: "Phases" },
-            { value: "12", label: "Months" },
-            { value: "∞", label: "Growth" },
-          ].map((stat, i) => (
-            <div key={i} className="group">
-              <div className="text-3xl md:text-4xl font-bold text-white group-hover:text-white transition-colors">
-                {stat.value}
-              </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </motion.div>
+      {/* Background Effects */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-900/10 blur-[120px]" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 3.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      {/* Spotlight Overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0)_0%,#050505_100%)]" />
+
+      <motion.div 
+        style={{ y: y1, opacity }} 
+        className="relative z-10 flex flex-col items-center text-center px-4 max-w-5xl mx-auto"
       >
-        <span className="text-[10px] text-gray-600 uppercase tracking-[0.3em] font-mono">Cuộn xuống để bắt đầu</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        {/* Badge */}
+        <div className="mb-8">
+          <Badge text="LỘ TRÌNH 2025" />
+        </div>
+
+        {/* Main Headline */}
+        <div className="mb-6 relative">
+          <KineticText 
+            text="Xây Dựng Lại" 
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-[1.1]" 
+          />
+          <KineticText 
+            text="Gốc Rễ Lập Trình" 
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-neutral-400 leading-[1.1]" 
+          />
+          
+          {/* Decorative Elements */}
+          <motion.div 
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            className="absolute -top-12 -right-12 w-24 h-24 border border-white/10 rounded-full hidden lg:block animate-spin-slow"
+          />
+        </div>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="max-w-2xl text-lg md:text-xl text-neutral-400 mb-10 font-light leading-relaxed"
         >
-          <ArrowDown className="w-5 h-5 text-white/50" />
+          Hành trình từ "mất gốc" trở thành Kỹ sư phần mềm vững vàng. 
+          Ngừng phụ thuộc vào AI, học lại tư duy cốt lõi để làm chủ công nghệ.
+        </motion.p>
+
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="flex flex-col sm:flex-row gap-4 items-center"
+        >
+          <MagneticButton className="group relative px-8 py-4 bg-white text-black rounded-full font-medium text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95">
+            <span className="relative z-10 flex items-center gap-2">
+              Bắt đầu ngay
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 bg-neutral-200 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+          </MagneticButton>
+
+          <Link href="/roadmap" className="group px-8 py-4 text-neutral-400 hover:text-white transition-colors text-lg font-medium flex items-center gap-2">
+            Xem chi tiết lộ trình
+            <div className="h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
+          </Link>
         </motion.div>
       </motion.div>
 
-      {/* Corner Decorations */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-white/10" />
-      <div className="absolute top-8 right-8 w-16 h-16 border-r-2 border-t-2 border-white/10" />
-      <div className="absolute bottom-8 left-8 w-16 h-16 border-l-2 border-b-2 border-white/10" />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-white/10" />
+      {/* Scroll Indicator */}
+      <motion.div
+        style={{ opacity }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-6 h-6 text-neutral-600" />
+        </motion.div>
+      </motion.div>
+
+      {/* Grain Overlay for Texture */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") }} />
     </section>
   );
 }
