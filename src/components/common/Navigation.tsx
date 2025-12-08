@@ -83,6 +83,18 @@ export default function Navigation() {
                 />
               </button>
             ))}
+
+            <a
+              href="https://www.facebook.com/groups/719531714538364"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              <span className="relative z-10">Cộng đồng</span>
+              <span 
+                className="absolute bottom-1 left-4 right-4 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left bg-blue-500"
+              />
+            </a>
           </motion.div>
 
           {/* Right side */}
@@ -153,6 +165,30 @@ export default function Navigation() {
                 </div>
               </motion.button>
             ))}
+
+            <motion.a
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : 20 }}
+              transition={{ delay: navigationData.length * 0.1 }}
+              href="https://www.facebook.com/groups/719531714538364"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "w-full flex items-center gap-4 p-4 rounded-xl text-left",
+                "bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-white/10",
+                "transition-all duration-300"
+              )}
+            >
+              <div 
+                className="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold bg-blue-500/20 text-blue-500"
+              >
+                FB
+              </div>
+              <div>
+                <div className="text-white font-medium">Cộng đồng</div>
+                <div className="text-gray-500 text-xs">Tham gia nhóm Facebook</div>
+              </div>
+            </motion.a>
           </div>
 
           {/* Mobile CTA */}

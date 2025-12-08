@@ -108,11 +108,11 @@ async function main() {
     { slug: 'architect', name: 'Architect', description: 'Complete 10 projects', category: 'PROJECT', rarity: 'EPIC', icon: '🏛️', xpReward: 1500, criteria: { type: 'projects_completed', count: 10 } },
     { slug: 'perfectionist', name: 'Perfectionist', description: 'Score 100% on any project', category: 'PROJECT', rarity: 'LEGENDARY', icon: '✨', xpReward: 1000, criteria: { type: 'project_score', value: 100 } },
 
-    // Social/Special
-    { slug: 'early-bird', name: 'Early Bird', description: 'Join in first month', category: 'SOCIAL', rarity: 'RARE', icon: '🐦', xpReward: 100, criteria: { type: 'join_date', before: '2024-02-01' } },
-    { slug: 'night-owl', name: 'Night Owl', description: 'Study session after midnight', category: 'SOCIAL', rarity: 'COMMON', icon: '🦉', xpReward: 50, criteria: { type: 'study_time', after: '00:00', before: '04:00' } },
-    { slug: 'speed-demon', name: 'Speed Demon', description: 'Complete week in 3 days', category: 'SOCIAL', rarity: 'RARE', icon: '⚡', xpReward: 300, criteria: { type: 'week_speed', days: 3 } },
-    { slug: 'overachiever', name: 'Overachiever', description: '150% weekly goal 4 weeks in row', category: 'SOCIAL', rarity: 'EPIC', icon: '🌟', xpReward: 1000, criteria: { type: 'goal_exceeded', count: 4 } },
+    // Special/Habit
+    { slug: 'early-bird', name: 'Early Bird', description: 'Join in first month', category: 'PROGRESS', rarity: 'RARE', icon: '🐦', xpReward: 100, criteria: { type: 'join_date', before: '2024-02-01' } },
+    { slug: 'night-owl', name: 'Night Owl', description: 'Study session after midnight', category: 'PROGRESS', rarity: 'COMMON', icon: '🦉', xpReward: 50, criteria: { type: 'study_time', after: '00:00', before: '04:00' } },
+    { slug: 'speed-demon', name: 'Speed Demon', description: 'Complete week in 3 days', category: 'PROGRESS', rarity: 'RARE', icon: '⚡', xpReward: 300, criteria: { type: 'week_speed', days: 3 } },
+    { slug: 'overachiever', name: 'Overachiever', description: '150% weekly goal 4 weeks in row', category: 'PROGRESS', rarity: 'EPIC', icon: '🌟', xpReward: 1000, criteria: { type: 'goal_exceeded', count: 4 } },
   ];
 
   for (const ach of achievements) {

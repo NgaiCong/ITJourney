@@ -1,7 +1,7 @@
 "use client";
 
 import { Notification } from "@/types/dashboard";
-import { Bell, Info, Trophy, Users, Clock } from "lucide-react";
+import { Bell, Info, Trophy, Clock } from "lucide-react";
 
 interface NotificationsListProps {
   notifications: Notification[];
@@ -11,8 +11,6 @@ const getNotificationIcon = (type: Notification['type']) => {
   switch (type) {
     case 'ACHIEVEMENT':
       return <Trophy className="w-4 h-4 text-yellow-500" />;
-    case 'SOCIAL':
-      return <Users className="w-4 h-4 text-blue-500" />;
     case 'REMINDER':
       return <Clock className="w-4 h-4 text-orange-500" />;
     default:

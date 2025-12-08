@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import FacebookGroupFAB from "@/components/facebook/FacebookGroupFAB";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -106,6 +107,7 @@ export default function RootLayout({
         <Providers>
           <Navigation />
           {children}
+          <FacebookGroupFAB />
         </Providers>
       </body>
     </html>

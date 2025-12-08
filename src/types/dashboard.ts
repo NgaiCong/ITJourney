@@ -32,7 +32,7 @@ export interface Notification {
   id: string;
   title: string;
   message: string;
-  type: 'SYSTEM' | 'REMINDER' | 'ACHIEVEMENT' | 'SOCIAL';
+  type: 'SYSTEM' | 'REMINDER' | 'ACHIEVEMENT';
   read: boolean;
   createdAt: string;
 }

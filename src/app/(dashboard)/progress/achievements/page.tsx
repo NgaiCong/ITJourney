@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, Trophy, Filter } from "lucide-react";
+import { Loader2, Trophy } from "lucide-react";
 import AchievementCard from "@/components/gamification/AchievementCard";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +40,7 @@ export default function AchievementsPage() {
     fetchAchievements();
   }, []);
 
-  const categories = ["ALL", "PROGRESS", "STREAK", "SKILL", "PROJECT", "SOCIAL"];
+  const categories = ["ALL", "PROGRESS", "STREAK", "SKILL", "PROJECT"];
   
   const filteredAchievements = filter === "ALL" 
     ? achievements 

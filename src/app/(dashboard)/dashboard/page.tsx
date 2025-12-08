@@ -11,6 +11,8 @@ import WeeklyGoals from "@/components/dashboard/WeeklyGoals";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import AchievementsBadge from "@/components/dashboard/AchievementsBadge";
 import NotificationsList from "@/components/dashboard/NotificationsList";
+import FacebookGroupWidget from "@/components/facebook/FacebookGroupWidget";
+import FacebookGroupCTA from "@/components/facebook/FacebookGroupCTA";
 import { Loader2 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -75,6 +77,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-6">
+            <FacebookGroupCTA />
             {/* Continue Learning & Today Progress */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <ContinueLearning lesson={data.roadmap.currentLesson} />
@@ -94,6 +97,7 @@ export default function DashboardPage() {
 
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
+            <FacebookGroupWidget />
             <WeeklyGoals goals={data.goals.weekly} />
             <AchievementsBadge achievements={data.achievements} />
             <RecentActivity activities={data.recentActivities} />

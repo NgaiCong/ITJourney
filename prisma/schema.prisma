@@ -53,7 +53,6 @@ enum NotificationType {
   SYSTEM
   REMINDER
   ACHIEVEMENT
-  SOCIAL
 }
 
 // 1. User & Auth
@@ -84,7 +83,6 @@ model User {
   notifications   Notification[]
   careerProfile   CareerProfile?
   posts           Post[]
-  comments        Comment[]
   activityLogs    ActivityLog[]
   achievements    UserAchievement[]
   quizAttempts    QuizAttempt[]
@@ -361,7 +359,7 @@ model Achievement {
   slug        String   @unique
   name        String
   description String
-  category    String   @default("PROGRESS") // PROGRESS, STREAK, SKILL, PROJECT, SOCIAL
+  category    String   @default("PROGRESS") // PROGRESS, STREAK, SKILL, PROJECT
   rarity      String   @default("COMMON")   // COMMON, RARE, EPIC, LEGENDARY
   icon        String
   xpReward    Int
@@ -433,20 +431,6 @@ model Post {
   authorId    String
   author      User     @relation(fields: [authorId], references: [id])
   tags        String[]
-  
-  comments    Comment[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Comment {
-  id          String   @id @default(cuid())
-  content     String
-  postId      String
-  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
