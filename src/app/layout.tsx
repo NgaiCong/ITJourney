@@ -78,6 +78,7 @@ export const metadata: Metadata = {
 };
 
 import Navigation from "@/components/common/Navigation";
+import { Providers } from "@/components/providers/Providers";
 
 export default function RootLayout({
   children,
@@ -102,8 +103,10 @@ export default function RootLayout({
           Skip to main content
         </a>
         
-        <Navigation />
-        {children}
+        <Providers>
+          <Navigation />
+          {children}
+        </Providers>
       </body>
     </html>
   );
