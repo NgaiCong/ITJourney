@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Loader2, ArrowLeft, CheckCircle, Trophy } from "lucide-react";
@@ -9,7 +9,7 @@ import FlashcardBack from "@/components/vocabulary/FlashcardBack";
 import ReviewButtons from "@/components/vocabulary/ReviewButtons";
 import { Vocabulary, UserVocabulary } from "@/types/vocabulary";
 
-export default function StudyPage() {
+function StudyContent() {
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode") || "review"; // 'new' or 'review'
 
@@ -47,6 +47,27 @@ export default function StudyPage() {
   const handleFlip = () => {
     setIsFlipped(true);
   };
+
+  // ... rest of the component logic ...
+  // I need to be careful not to cut off the rest of the component.
+  // Since I am using replace_string_in_file, I should only replace the top part and the export.
+  
+  // Wait, replace_string_in_file replaces a specific string. 
+  // I can't easily wrap the whole component if I don't read the whole file or if I don't replace the whole file content.
+  // But I can rename the function and add the wrapper at the end?
+  // Or I can rename the function at the top, and then change the export at the bottom?
+  // But this file has `export default function StudyPage() {` at the top.
+  
+  // Let's look at the file content again.
+  // It starts with `export default function StudyPage() {`.
+  // I can change that to `function StudyContent() {`.
+  // And then at the very end of the file, I can add `export default function StudyPage() { return <Suspense><StudyContent /></Suspense> }`.
+  
+  // However, I need to know where the end of the file is or where the component ends.
+  // The file is 204 lines long. I only read 50 lines.
+  
+  // Let's read the end of the file to see how it ends.
+
 
   const handleRate = async (quality: number) => {
     const currentWord = items[currentIndex];
@@ -199,5 +220,13 @@ export default function StudyPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function StudyPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><Loader2 className="w-8 h-8 animate-spin text-blue-600" /></div>}>
+      <StudyContent />
+    </Suspense>
   );
 }
