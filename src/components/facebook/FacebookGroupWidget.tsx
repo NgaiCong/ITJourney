@@ -19,7 +19,7 @@ export default function FacebookGroupWidget({
       <div className="h-24 bg-blue-600 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
         <div className="absolute bottom-4 left-4 text-white">
-          <h3 className="font-bold text-lg">The Re-Engineer Path Community</h3>
+          <h3 className="font-bold text-lg">KHÔNG BAO GIỜ LÀ MUỘN - ITJ</h3>
           <p className="text-xs opacity-90">{memberCount.toLocaleString()} thành viên</p>
         </div>
       </div>

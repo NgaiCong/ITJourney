@@ -1,7 +1,11 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import SmoothScroll from "@/components/ui/SmoothScroll";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return (
+    <SmoothScroll>
+      {children}
+    </SmoothScroll>
+  );
 }

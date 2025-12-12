@@ -1,80 +1,66 @@
-// hooks/useAuth.ts
-"use client";
-import { useState, useEffect } from "react";
-import { onAuthStateChange, signInWithGoogle, signOutUser, getUserProfile, type User } from "@/lib/firebase";
-
-interface UserProfile {
-  uid: string;
-  email: string | null;
-  displayName: string | null;
-  photoURL: string | null;
-  progress?: {
-    currentPhase: number;
-    completedPhases: string[];
-    startedAt?: Date;
-  };
-}
+import { useState, useEffect } from 'react';
+import { StorageService, UserProfile } from '@/lib/storage';
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChange(async (firebaseUser) => {
-      setUser(firebaseUser);
-      
-      if (firebaseUser) {
-        // Fetch user profile from Firestore
-        try {
-          const profile = await getUserProfile(firebaseUser.uid);
-          setUserProfile(profile as UserProfile);
-        } catch (err) {
-          console.error("Error fetching user profile:", err);
-        }
-      } else {
-        setUserProfile(null);
-      }
-      
+    // Check storage for existing session on mount
+    const checkAuth = () => {
+      const currentUser = StorageService.getUser();
+      setUser(currentUser);
       setLoading(false);
-    });
+    };
 
-    return () => unsubscribe();
+    checkAuth();
+
+    // Listen for storage events (optional, for multi-tab support)
+    window.addEventListener('storage', checkAuth);
+    return () => window.removeEventListener('storage', checkAuth);
   }, []);
 
-  const signIn = async () => {
-    setError(null);
+  const login = async (username: string, password: string) => {
     setLoading(true);
-    
-    const result = await signInWithGoogle();
-    
-    if (!result.success) {
-      setError("Failed to sign in. Please try again.");
+    // Simulate network delay for realism
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const result = StorageService.login(username, password);
+    if (result.success) {
+      setUser(StorageService.getUser());
     }
-    
     setLoading(false);
     return result;
   };
 
-  const signOut = async () => {
-    setError(null);
-    const result = await signOutUser();
-    
-    if (!result.success) {
-      setError("Failed to sign out. Please try again.");
+  const register = async (username: string, password: string, displayName: string, avatarUrl: string) => {
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const result = StorageService.register(username, password, displayName, avatarUrl);
+    if (result.success) {
+      setUser(StorageService.getUser());
     }
-    
+    setLoading(false);
     return result;
+  };
+
+  const logout = async () => {
+    setLoading(true);
+    StorageService.logout();
+    setUser(null);
+    setLoading(false);
   };
 
   return {
     user,
-    userProfile,
     loading,
-    error,
-    signIn,
-    signOut,
+    login,
+    register,
+    logout,
     isAuthenticated: !!user,
+    // Data Portability
+    exportData: () => StorageService.exportUserData(),
+    importData: (json: string) => StorageService.importUserData(json)
   };
 }

@@ -1,18 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import FacebookGroupFAB from "@/components/facebook/FacebookGroupFAB";
+import { Space_Grotesk } from "next/font/google";
+
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin", "vietnamese"],
   display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
+  variable: "--font-space",
 });
 
 export const viewport: Viewport = {
@@ -23,8 +17,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "The Re-Engineer Path | 12-Month IT Transformation Journey",
-  description: "An interactive 12-month roadmap to rebuild your IT foundation from scratch. From C++ fundamentals to full-stack engineering. No shortcuts. No AI cheating. Just pure engineering mastery.",
+  title: "IT Journey | Your roadmap to IT mastery",
+  description: "IT Journey - The ultimate interactive roadmap to rebuild your IT foundation from scratch. From C++ fundamentals to full-stack engineering. No shortcuts. Just pure engineering mastery.",
   keywords: ["IT roadmap", "programming learning path", "C++ tutorial", "DSA", "software engineering", "career development", "coding bootcamp"],
   authors: [{ name: "Tworice Studio" }],
   creator: "Tworice Studio",
@@ -43,23 +37,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "vi_VN",
-    url: "https://re-engineer-path.vercel.app",
-    siteName: "The Re-Engineer Path",
-    title: "The Re-Engineer Path | 12-Month IT Transformation Journey",
-    description: "An interactive 12-month roadmap to rebuild your IT foundation from scratch. From Knowledge Debt to Engineering Mastery.",
+    url: "https://it-journey.vercel.app",
+    siteName: "IT Journey",
+    title: "IT Journey | Your roadmap to IT mastery",
+    description: "IT Journey - The ultimate interactive roadmap to rebuild your IT foundation from scratch.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "The Re-Engineer Path - Interactive Learning Roadmap",
+        alt: "IT Journey - Interactive Learning Roadmap",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Re-Engineer Path | 12-Month IT Transformation",
-    description: "An interactive 12-month roadmap to rebuild your IT foundation from scratch.",
+    title: "IT Journey | Your roadmap to IT mastery",
+    description: "IT Journey - The ultimate interactive roadmap to rebuild your IT foundation from scratch.",
     images: ["/og-image.png"],
     creator: "@tworicestudio",
   },
@@ -80,6 +74,9 @@ export const metadata: Metadata = {
 
 import Navigation from "@/components/common/Navigation";
 import { Providers } from "@/components/providers/Providers";
+import ClickSpark from "@/components/ui/ClickSpark";
+
+import Footer from "@/components/common/Footer";
 
 export default function RootLayout({
   children,
@@ -94,20 +91,28 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050505] text-white`}
+        className={`${spaceGrotesk.variable} font-sans antialiased bg-black text-white`}
       >
         {/* Skip to main content for accessibility */}
-        <a 
-          href="#main-content" 
+        <a
+          href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg"
         >
           Skip to main content
         </a>
-        
+
         <Providers>
-          <Navigation />
-          {children}
-          <FacebookGroupFAB />
+          <ClickSpark
+            sparkColor='#fff'
+            sparkSize={10}
+            sparkRadius={15}
+            sparkCount={8}
+            duration={400}
+          >
+            <Navigation />
+            {children}
+            <Footer />
+          </ClickSpark>
         </Providers>
       </body>
     </html>

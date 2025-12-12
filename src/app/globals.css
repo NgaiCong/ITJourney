@@ -3,408 +3,178 @@
 @tailwind utilities;
 
 /* ========================================
-   THE RE-ENGINEER PATH - Global Styles
-   Awwwards 2025 Luxurious Minimalism
+   THE RE-ENGINEER PATH - Luxurious Minimalism
+   Redesigned for Awwwards 2025
    ======================================== */
 
-:root {
-  /* Color Palette */
-  --color-obsidian: #050505;
-  --color-obsidian-light: #0a0a0a;
-  --color-neon-cyan: #05d9e8;
-  --color-neon-blue: #0066ff;
-  --color-neon-purple: #bf00ff;
-  --color-frost: rgba(255, 255, 255, 0.05);
-  
-  /* Typography */
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist-mono), "SF Mono", Monaco, monospace;
-  
-  /* Spacing & Sizing */
-  --header-height: 80px;
-  
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slower: 800ms cubic-bezier(0.16, 1, 0.3, 1);
-}
+@layer base {
+  :root {
+    --background: 0 0% 0%;
 
-/* ========================================
-   Base Styles
-   ======================================== */
+    /* #0a0a0a - Neutral 950 */
+    --foreground: 0 0% 98%;
 
-* {
-  box-sizing: border-box;
-}
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
 
-body {
-  background-color: var(--color-obsidian);
-  color: white;
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-}
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
 
-/* Custom Selection */
-::selection {
-  background: rgba(5, 217, 232, 0.3);
-  color: white;
-}
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-/* ========================================
-   Scrollbar Styling
-   ======================================== */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-/* Hide Scrollbar for Glass Modal */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
 
-::-webkit-scrollbar-track {
-  background: var(--color-obsidian);
-}
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 98%;
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
+    --radius: 0.5rem;
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* ========================================
-   Animations
-   ======================================== */
-
-/* Gradient Animation for Text */
-@keyframes gradient-x {
-  0%, 100% {
-    background-position: 0% 50%;
-    background-size: 200% 200%;
+    --radius: 0.5rem;
   }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    /* Hide default scrollbar to use Lenis only */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+}
+
+/* Cursor Overrides must be outside @layer base to win specificity or explicitly rigorous */
+/* Cursor Overrides must be outside @layer base to win specificity or explicitly rigorous */
+:root {
+  /* Default Cursor - Figma Black Arrow */
+  cursor: url("data:image/svg+xml;utf8,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 2L13 19.5L16.5 13L23 13L5.5 2Z' fill='black' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 6 2, auto;
+}
+
+/* Interactive Elements - Figma Black Hand */
+a,
+button,
+[role="button"],
+label,
+select,
+summary,
+input[type="submit"],
+input[type="button"],
+.cursor-pointer {
+  cursor: url("data:image/svg+xml;utf8,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 2C6.34 2 5 3.34 5 5V14.5L3.5 13C2.67 12.17 1.33 12.17 0.5 13C-0.33 13.83 -0.33 15.17 0.5 16L6 21.5C6.5 22 7.17 22.33 7.83 22.33H16C17.66 22.33 19 21 19 19.33V9C19 7.34 17.66 6 16 6H13V5C13 3.34 11.66 2 10 2C9.33 2 8 2 8 2Z' fill='black' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 8 2, pointer !important;
+}
+
+/* Text Inputs Only - I-Beam Cursor */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+[contenteditable],
+.cursor-text {
+  cursor: url("data:image/svg+xml;utf8,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 4V20M8 4H16M8 20H16' stroke='white' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 4V20M8 4H16M8 20H16' stroke='black' stroke-width='1.5' stroke-linecap='square'/%3E%3C/svg%3E") 12 12, text !important;
+}
+
+/* Busy State */
+[aria-busy="true"],
+.is-busy,
+body.is-busy {
+  cursor: url("data:image/svg+xml;utf8,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 2H18L18 8L12 12L6 8L6 2Z' fill='black' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M6 16L12 12L18 16L18 22H6L6 16Z' fill='black' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 12 12, wait !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Minimalist Utility Classes */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .full-screen {
+    @apply min-h-screen w-full;
+  }
+
+  /* Luxurious Text Styles */
+  .text-display-giant {
+    @apply text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.85];
+    font-family: var(--font-space);
+  }
+
+  .text-luxury-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#D4AF37] via-[#F2D06B] to-[#D4AF37];
+  }
+
+  .text-luxury-silver {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#C0C0C0] via-[#E8E8E8] to-[#C0C0C0];
+  }
+
+  /* Reveal Animations */
+  .mask-reveal {
+    mask-image: linear-gradient(to top, transparent, black 20%);
+    -webkit-mask-image: linear-gradient(to top, transparent, black 20%);
+  }
+
+  /* Smooth Transition Override */
+  .transition-luxury {
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* Custom Selection Logic */
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  /* Gold tint */
+  color: white;
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 8s ease infinite;
+  }
+}
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+
   50% {
     background-position: 100% 50%;
-    background-size: 200% 200%;
   }
-}
 
-.animate-gradient-x {
-  animation: gradient-x 3s ease infinite;
-  background-size: 200% 200%;
-}
-
-/* Slow Spin */
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
-}
-
-/* Slow Pulse */
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
-}
-
-/* Glow Pulse */
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(5, 217, 232, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(5, 217, 232, 0.6);
-  }
-}
-
-.animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-
-/* Float Animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Line Draw Animation */
-@keyframes line-draw {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-line-draw {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: line-draw 2s ease forwards;
-}
-
-/* Shimmer Effect */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
   100% {
-    background-position: 200% 0;
+    background-position: 0% 50%;
   }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* ========================================
-   Utility Classes
-   ======================================== */
-
-/* 3D Perspective */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.perspective-2000 {
-  perspective: 2000px;
-}
-
-/* Glassmorphism */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-strong {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Neon Glow Effects */
-.glow-cyan {
-  box-shadow: 0 0 20px rgba(5, 217, 232, 0.5),
-              0 0 40px rgba(5, 217, 232, 0.3),
-              0 0 60px rgba(5, 217, 232, 0.1);
-}
-
-.glow-purple {
-  box-shadow: 0 0 20px rgba(191, 0, 255, 0.5),
-              0 0 40px rgba(191, 0, 255, 0.3),
-              0 0 60px rgba(191, 0, 255, 0.1);
-}
-
-.glow-blue {
-  box-shadow: 0 0 20px rgba(0, 102, 255, 0.5),
-              0 0 40px rgba(0, 102, 255, 0.3),
-              0 0 60px rgba(0, 102, 255, 0.1);
-}
-
-/* Text Glow */
-.text-glow-cyan {
-  text-shadow: 0 0 10px rgba(5, 217, 232, 0.8),
-               0 0 20px rgba(5, 217, 232, 0.5),
-               0 0 30px rgba(5, 217, 232, 0.3);
-}
-
-/* Border Gradient */
-.border-gradient {
-  border: 1px solid transparent;
-  background: linear-gradient(var(--color-obsidian), var(--color-obsidian)) padding-box,
-              linear-gradient(135deg, var(--color-neon-cyan), var(--color-neon-purple)) border-box;
-}
-
-/* Noise Texture Overlay */
-.noise-overlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
-
-/* ========================================
-   Typography Enhancements
-   ======================================== */
-
-/* Giant Display Text */
-.text-display {
-  font-size: clamp(3rem, 10vw, 10rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-}
-
-/* Mono Code Style */
-.text-code {
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-}
-
-/* ========================================
-   Interactive Elements
-   ======================================== */
-
-/* Magnetic Button Base */
-.btn-magnetic {
-  position: relative;
-  overflow: hidden;
-  transition: var(--transition-base);
-}
-
-.btn-magnetic::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
-}
-
-.btn-magnetic:hover::before {
-  transform: translateX(100%);
-}
-
-/* Card Hover Effects */
-.card-hover {
-  transition: var(--transition-base);
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* ========================================
-   Layout Utilities
-   ======================================== */
-
-/* Full Bleed */
-.full-bleed {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
-/* Container with max-width */
-.container-narrow {
-  max-width: 65ch;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-/* Grid Lines Background */
-.grid-lines {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 80px 80px;
-}
-
-/* ========================================
-   Responsive Helpers
-   ======================================== */
-
-@media (max-width: 768px) {
-  .text-display {
-    font-size: clamp(2.5rem, 12vw, 5rem);
-  }
-  
-  .hide-mobile {
-    display: none;
-  }
-}
-
-@media (min-width: 769px) {
-  .hide-desktop {
-    display: none;
-  }
-}
-
-/* ========================================
-   Print Styles
-   ======================================== */
-
-@media print {
-  body {
-    background: white;
-    color: black;
-  }
-  
-  .no-print {
-    display: none !important;
-  }
-}
-@keyframes spotlight {
-  0% {
-    opacity: 0;
-    transform: translate(-72%, -62%) scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%,-40%) scale(1);
-  }
-}
-
-.animate-spotlight {
-  animation: spotlight 2s ease .75s 1 forwards;
 }
