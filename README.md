@@ -36,7 +36,7 @@ Dự án này sinh ra để giải quyết 3 vấn đề lớn của sinh viên:
 ## ✨ Tài nguyên cung cấp
 
 - **🗺️ Interactive Roadmap**: Lộ trình học tập 12 tháng, từ C++ cơ bản đến Full-stack Engineer.
-- **📚 Wiki Knowledge Base**: Kho tàng kiến thức tập trung, được trình bày theo phong cách Bento Grid hiện đại.
+- **📚 Wiki Knowledge Base**: Kho tàng kiến thức tập trung, được trình bày theo phong cách hiện đại.
 - **🛠️ Tools & Resource**: Tổng hợp các công cụ, tài liệu chọn lọc nhất cho dev.
 - **🤝 Community**: Kết nối, chia sẻ và cùng nhau tiến bộ.
 
@@ -57,5 +57,5 @@ Nếu bạn thấy hay, hãy để lại một ⭐ **Star** để ủng hộ tea
 ---
 
 <div align="center">
-  <p>Built with ❤️ for the Vietnam IT Community.</p>
+  <p>Built with ❤️ by <a href="https://github.com/NgaiCong">NgaiCong</a></p>
 </div>

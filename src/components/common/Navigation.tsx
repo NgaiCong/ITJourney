@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Home, Map, Library, Wrench, Book } from 'lucide-react';
 import StaggeredMenu from '@/components/ui/StaggeredMenu';
+import GitHubStarButton from '@/components/common/GitHubStarButton';
 
 const navItems = [
   { name: 'Trang Chủ', href: '/', icon: Home },
@@ -89,6 +90,12 @@ export default function Navigation() {
                 </Link>
               );
             })}
+
+            {/* Separator */}
+            <div className="w-px h-6 bg-white/10 mx-2" />
+
+            {/* GitHub Star Button */}
+            <GitHubStarButton />
           </nav>
         </div>
       </div>
