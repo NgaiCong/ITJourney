@@ -17,7 +17,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "IT Journey | Your roadmap to IT mastery",
+  title: "IT Journey",
   description: "IT Journey - The ultimate interactive roadmap to rebuild your IT foundation from scratch. From C++ fundamentals to full-stack engineering. No shortcuts. Just pure engineering mastery.",
   keywords: ["IT roadmap", "programming learning path", "C++ tutorial", "DSA", "software engineering", "career development", "coding bootcamp"],
   authors: [{ name: "Tworice Studio" }],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: "https://it-journey.vercel.app",
     siteName: "IT Journey",
-    title: "IT Journey | Your roadmap to IT mastery",
+    title: "IT Journey",
     description: "IT Journey - The ultimate interactive roadmap to rebuild your IT foundation from scratch.",
     images: [
       {
@@ -52,15 +52,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "IT Journey | Your roadmap to IT mastery",
+    title: "IT Journey",
     description: "IT Journey - The ultimate interactive roadmap to rebuild your IT foundation from scratch.",
     images: ["/og-image.png"],
     creator: "@tworicestudio",
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon.png", sizes: "any" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180" },

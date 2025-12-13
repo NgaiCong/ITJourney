@@ -49,9 +49,9 @@ export default function Navigation() {
         {/* Logo - Left */}
         <Link href="/" className="pointer-events-auto transition-transform hover:scale-105">
           <img
-            src="/icons/icon.png"
+            src="/images/logongang.png"
             alt="IT Journey Logo"
-            className="h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+            className="h-20 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
           />
         </Link>
 
