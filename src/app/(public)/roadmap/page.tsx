@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Code, Brain, Rocket } from 'lucide-react';
-import SpotlightCard from '@/components/ui/SpotlightCard';
+import GlassSurface from '@/components/ui/GlassSurface';
 import StageDetailModal from '@/components/roadmap/StageDetailModal';
 import { roadmapData, RoadmapPhase } from '@/data/roadmap';
 
@@ -26,65 +26,99 @@ function PhaseCard({ phase, index, onSelect }: { phase: RoadmapPhase; index: num
             viewport={{ once: true }}
             onClick={onSelect}
         >
-            <SpotlightCard
-                className="!p-0 !bg-[#0a0a0a] !border-white/10 cursor-pointer hover:!border-white/20 transition-colors"
-                spotlightColor="rgba(255, 255, 255, 0.1)"
+            <GlassSurface
+                width="100%"
+                height="auto"
+                borderRadius={20}
+                opacity={0.6}
+                className="cursor-pointer hover:border-emerald-500/50 transition-all duration-300 hover:scale-[1.02] border border-white/10 group"
             >
-                {/* Header */}
-                <div className="p-6 md:p-8">
-                    <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
-                                {phaseIcons[phase.id] || phase.icon}
-                            </div>
-                            <div>
-                                <span className="text-xs font-bold tracking-widest uppercase text-white/40">
-                                    {phase.phase}
-                                </span>
-                                <h3 className="text-xl font-bold text-white">{phase.title}</h3>
-                                <p className="text-sm text-neutral-400">{phase.description}</p>
+                <div className="p-6 md:p-8 w-full">
+                    <div className="flex flex-col md:flex-row gap-6 md:items-start mb-6">
+                        {/* Icon Box */}
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/5 flex items-center justify-center border border-emerald-500/20 shrink-0 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(16,185,129,0.1)] group-hover:shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                            <div className="text-emerald-400">
+                                {phaseIcons[phase.id]}
                             </div>
                         </div>
-                        <span className="text-xs font-mono text-neutral-500 hidden sm:block">{phase.duration}</span>
+
+                        {/* Content */}
+                        <div className="flex-1 space-y-2">
+                            <div className="flex items-center gap-2 mb-1">
+                                <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    {phase.phase}
+                                </span>
+                            </div>
+                            <h3 className="text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors">{phase.title}</h3>
+                            <p className="text-sm text-neutral-300 leading-relaxed">{phase.description}</p>
+                        </div>
                     </div>
 
                     {/* Summary Preview */}
-                    <div className="space-y-2 mt-4">
-                        {phase.summary.slice(0, 2).map((item, idx) => (
-                            <div key={idx} className="flex items-start gap-2">
-                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
-                                <span className="text-sm text-neutral-400 line-clamp-1">{item}</span>
+                    <div className="space-y-3 pl-2 border-l-2 border-white/5 group-hover:border-emerald-500/30 transition-colors">
+                        {phase.summary.slice(0, 3).map((item, idx) => (
+                            <div key={idx} className="flex items-start gap-3">
+                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-emerald-500/50 flex-shrink-0" />
+                                <span className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">{item}</span>
                             </div>
                         ))}
                     </div>
 
-                    <div className="mt-4 text-xs text-neutral-500 font-mono">
-                        (Ấn để xem chi tiết)
+                    <div className="mt-6 flex items-center text-xs text-emerald-500/70 font-medium opacity-60 group-hover:opacity-100 transition-opacity">
+                        <span className="mr-2">Xem chi tiết lộ trình</span>
+                        <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
                     </div>
                 </div>
-            </SpotlightCard>
+            </GlassSurface>
         </motion.div>
     );
 }
+
+import Silk from '@/components/ui/Silk';
+import TextType from '@/components/ui/TextType';
+import BlurText from '@/components/ui/BlurText';
 
 export default function RoadmapPage() {
     const [selectedStage, setSelectedStage] = useState<RoadmapPhase | null>(null);
 
     return (
-        <main className="min-h-screen bg-neutral-950 text-white pt-24 pb-16">
-            <div className="container mx-auto px-6 max-w-4xl">
+        <main className="min-h-screen bg-[#0a0a0a] text-white pt-36 pb-16 relative overflow-hidden">
+            {/* Background Effect */}
+            <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+                <Silk
+                    color="#047857" // Emerald-700
+                    speed={5.0} // Faster
+                    scale={1.2}
+                    noiseIntensity={0.5}
+                />
+            </div>
+
+            <div className="container mx-auto px-6 max-w-4xl relative z-10">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/60 mb-6">
-                        LỘ TRÌNH 12 THÁNG
-                    </span>
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                        Từ "Mất Gốc" đến Kỹ Sư IT
+                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-center">
+                        <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                            IT JOURNEY ROADMAP
+                        </span>
                     </h1>
-                    <p className="text-neutral-400 max-w-2xl mx-auto">
-                        Lộ trình 12 tháng xây dựng lại nền tảng CNTT từ con số không. Không đi tắt, không phụ thuộc AI.
-                    </p>
-                </div>
+
+                    <div className="h-[60px] md:h-[40px] flex items-center justify-center">
+                        <TextType
+                            text={[
+                                "Xây dựng nền tảng tư duy Khoa học Máy tính vững chắc.",
+                                "Làm chủ công nghệ cốt lõi.",
+                                "Trở thành kỹ sư phần mềm thực thụ."
+                            ]}
+                            typingSpeed={50}
+                            deletingSpeed={30}
+                            pauseDuration={2000}
+                            loop={true}
+                            cursorCharacter="|"
+                            className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto font-light leading-relaxed"
+                        />
+                    </div>    </div>
 
                 {/* Timeline */}
                 <div className="space-y-6">
@@ -103,7 +137,7 @@ export default function RoadmapPage() {
                     <p className="text-neutral-500 text-sm mb-4">Sẵn sàng bắt đầu hành trình?</p>
                     <a
                         href="/assessment"
-                        className="inline-block px-8 py-3 bg-white text-neutral-950 font-semibold rounded-full hover:bg-neutral-200 transition-colors"
+                        className="inline-block px-8 py-3 bg-white text-emerald-950 font-bold rounded-full hover:bg-emerald-50 transition-colors shadow-lg shadow-emerald-900/20"
                     >
                         Đánh giá năng lực ngay
                     </a>

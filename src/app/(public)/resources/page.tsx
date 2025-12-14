@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Search, BookOpen, Code, Video, Brain, Wrench, Book, Languages, GitBranch, X, Target, Sparkles, CheckCircle } from 'lucide-react';
-import SpotlightCard from '@/components/ui/SpotlightCard';
+import GlassSurface from '@/components/ui/GlassSurface';
+import BlurText from '@/components/ui/BlurText';
 
 type ResourceType = 'all' | 'docs' | 'practice' | 'video' | 'mental' | 'tool' | 'book' | 'lang' | 'repo';
 
@@ -481,6 +482,8 @@ function ResourceDetailModal({ resource, onClose }: { resource: Resource | null;
     );
 }
 
+import Silk from '@/components/ui/Silk';
+
 export default function ResourcesPage() {
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState<ResourceType>('all');
@@ -494,25 +497,39 @@ export default function ResourcesPage() {
     });
 
     return (
-        <main className="min-h-screen bg-neutral-950 text-white pt-24 pb-16">
-            <div className="container mx-auto px-6 max-w-6xl">
+        <main className="min-h-screen bg-[#0a0a0a] text-white pt-36 pb-16 relative overflow-hidden">
+            {/* Background Effect */}
+            <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+                <Silk
+                    color="#1d4ed8" // Blue-700
+                    speed={5.0}
+                    scale={1.2}
+                    noiseIntensity={0.5}
+                />
+            </div>
+
+            <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Kho Tài Nguyên</h1>
-                    <p className="text-neutral-400 max-w-2xl mx-auto">
+                    <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-center">
+                        <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+                            TÀI NGUYÊN HỌC TẬP
+                        </span>
+                    </h1>
+                    <p className="text-neutral-400 max-w-2xl mx-auto text-lg">
                         Tổng hợp tất cả tài liệu, video, và công cụ từ lộ trình học tập.
                     </p>
                 </div>
 
                 {/* Search */}
                 <div className="relative mb-6">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 group-focus-within:text-blue-400 transition-colors" />
                     <input
                         type="text"
-                        placeholder="Tìm kiếm tài nguyên..."
+                        placeholder="Tìm kiếm tài nguyên (C++, Python, DSA...)"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-neutral-500 focus:outline-none focus:border-white/20"
+                        className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-neutral-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
                     />
                 </div>
 
@@ -549,8 +566,16 @@ export default function ResourcesPage() {
                             onClick={() => setSelectedResource(resource)}
                             className="h-full"
                         >
-                            <SpotlightCard className="h-full cursor-pointer hover:scale-[1.02] transition-transform duration-300" spotlightColor="rgba(59, 130, 246, 0.2)">
-                                <div className="p-6 h-full flex flex-col">
+                            <GlassSurface
+                                width="100%"
+                                height="100%"
+                                borderRadius={20}
+                                opacity={0.3}
+                                backgroundOpacity={0.05}
+                                blur={10}
+                                className="cursor-pointer hover:scale-[1.02] transition-transform duration-300 hover:border-blue-500/50 border border-white/10"
+                            >
+                                <div className="p-6 h-full flex flex-col w-full">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className={`p-2 rounded-lg bg-white/5 border border-white/10 text-blue-400 group-hover:text-white transition-colors`}>
                                             {typeIcons[resource.type]}
@@ -573,7 +598,7 @@ export default function ResourcesPage() {
                                         </span>
                                     </div>
                                 </div>
-                            </SpotlightCard>
+                            </GlassSurface>
                         </motion.div>
                     ))}
                 </motion.div>

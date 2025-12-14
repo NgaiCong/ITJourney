@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal, Code2, Database, GitBranch, Box, FileText, Laptop, Layout, X, ExternalLink, Target, Sparkles, CheckCircle, Brain } from 'lucide-react';
-import SpotlightCard from '@/components/ui/SpotlightCard';
+import GlassSurface from '@/components/ui/GlassSurface';
+import BlurText from '@/components/ui/BlurText';
 
 interface Tool {
     name: string;
@@ -326,14 +327,30 @@ function ToolDetailModal({ tool, onClose }: { tool: Tool | null; onClose: () => 
     );
 }
 
+import Silk from '@/components/ui/Silk';
+
 export default function ToolsPage() {
     const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
 
     return (
-        <main className="min-h-screen pt-32 pb-20 px-4 bg-neutral-950 text-white">
-            <div className="container mx-auto max-w-6xl">
+        <main className="min-h-screen pt-36 pb-20 px-4 bg-[#0a0a0a] text-white relative overflow-hidden">
+            {/* Background Effect */}
+            <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+                <Silk
+                    color="#c2410c" // Orange-700
+                    speed={5.0}
+                    scale={1.2}
+                    noiseIntensity={0.5}
+                />
+            </div>
+
+            <div className="container mx-auto max-w-6xl relative z-10">
                 <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Công Cụ Lập Trình</h1>
+                    <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-center">
+                        <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-red-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+                            CÔNG CỤ NÊN CÓ
+                        </span>
+                    </h1>
                     <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
                         Bộ công cụ tiêu chuẩn được khuyên dùng cho lộ trình này.
                     </p>
@@ -348,7 +365,7 @@ export default function ToolsPage() {
                             viewport={{ once: true }}
                             transition={{ delay: sectionIdx * 0.1 }}
                         >
-                            <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 border-l-4 border-indigo-500 pl-4">
+                            <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 border-l-4 border-amber-500 pl-4 text-white">
                                 {section.category}
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -364,19 +381,27 @@ export default function ToolsPage() {
                                             onClick={() => setSelectedTool(tool)}
                                             className="cursor-pointer h-full"
                                         >
-                                            <SpotlightCard className="h-full hover:scale-[1.02] transition-transform duration-300" spotlightColor="rgba(99, 102, 241, 0.2)">
-                                                <div className="p-6 h-full flex flex-col items-start gap-4">
+                                            <GlassSurface
+                                                width="100%"
+                                                height="100%"
+                                                borderRadius={20}
+                                                opacity={0.3}
+                                                backgroundOpacity={0.05}
+                                                blur={10}
+                                                className="hover:scale-[1.02] transition-transform duration-300 hover:border-amber-500/50 border border-white/10"
+                                            >
+                                                <div className="p-6 h-full flex flex-col items-start gap-4 w-full">
                                                     <div className={`p-3 rounded-lg bg-white/5 border border-white/10 ${tool.color}`}>
                                                         <Icon className="w-8 h-8" />
                                                     </div>
                                                     <div>
-                                                        <h3 className="text-lg font-bold mb-1 group-hover:text-indigo-400 transition-colors">
+                                                        <h3 className="text-lg font-bold mb-1 group-hover:text-amber-400 transition-colors">
                                                             {tool.name}
                                                         </h3>
                                                         <p className="text-sm text-neutral-400">{tool.desc}</p>
                                                     </div>
                                                 </div>
-                                            </SpotlightCard>
+                                            </GlassSurface>
                                         </motion.div>
                                     );
                                 })}

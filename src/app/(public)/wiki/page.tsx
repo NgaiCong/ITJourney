@@ -2,9 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, Sparkles } from 'lucide-react';
 import MagicBento, { BentoCardProps } from '@/components/ui/MagicBento';
+import BlurText from '@/components/ui/BlurText';
 import ContributionModal from '@/components/wiki/ContributionModal';
+import Silk from '@/components/ui/Silk';
 
 interface Topic {
     title: string;
@@ -104,17 +106,27 @@ export default function WikiPage() {
         textAutoHide: false
     };
 
-    return (
-        <main className="min-h-screen bg-[#0a0a0a] text-white pt-24 pb-10">
 
-            <div className="max-w-[1600px] mx-auto px-4 lg:px-8">
+
+    return (
+        <main className="min-h-screen bg-[#0a0a0a] text-white pt-36 pb-10 relative overflow-hidden">
+            {/* Background Effect */}
+            <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+                <Silk
+                    color="#7c3aed" // Violet-600
+                    speed={5.0}
+                    scale={1.2}
+                    noiseIntensity={0.5}
+                />
+            </div>
+
+            <div className="max-w-[1600px] mx-auto px-4 lg:px-8 relative z-10">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-white/10 pb-8">
                     <div>
                         <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-red-400">
-                                Wiki
-                            </span>{' '}
-                            Knowledge
+                            <span className="bg-gradient-to-r from-purple-400 via-violet-300 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(139,92,246,0.3)]">
+                                WIKI KIẾN THỨC
+                            </span>
                         </h1>
                         <p className="text-neutral-400 max-w-2xl text-lg">
                             Kho tàng kiến thức lập trình, thuật toán và công nghệ mới.
