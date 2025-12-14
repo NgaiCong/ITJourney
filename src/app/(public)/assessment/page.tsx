@@ -9,123 +9,123 @@ import { StorageService } from '@/lib/storage';
 const questions = [
     {
         id: 1,
-        category: 'C++ Cơ bản',
-        question: 'Con trỏ (pointer) trong C++ dùng để làm gì?',
+        category: 'Math for AI',
+        question: 'Phép tính nào sau đây KHÔNG giữ nguyên số chiều (dimensions) của ma trận/vector biến đổi?',
         options: [
-            'Lưu trữ địa chỉ bộ nhớ của một biến khác',
-            'Tạo vòng lặp vô hạn',
-            'In ra màn hình',
-            'Không biết'
+            'Rotation (Xoay)',
+            'Scaling (Co giãn)',
+            'Dot Product (Tích vô hướng)',
+            'Translation (Tịnh tiến)'
         ],
-        correct: 0
+        correct: 2 // Dot product 2 vector trả về 1 scalar (giảm chiều)
     },
     {
         id: 2,
-        category: 'C++ Cơ bản',
-        question: 'Sự khác biệt giữa Stack và Heap là gì?',
+        category: 'Math for AI',
+        question: 'Cosine Similarity giữa hai vector A và B đo lường điều gì?',
         options: [
-            'Stack nhanh hơn, tự động giải phóng. Heap chậm hơn, cần giải phóng thủ công.',
-            'Không có sự khác biệt',
-            'Heap nhanh hơn Stack',
-            'Không biết'
-        ],
-        correct: 0
-    },
-    {
-        id: 3,
-        category: 'DSA',
-        question: 'Linked List khác Array như thế nào?',
-        options: [
-            'Linked List lưu trữ phân tán, Array lưu trữ liên tiếp',
-            'Linked List nhanh hơn trong mọi trường hợp',
-            'Array không thể lưu số nguyên',
-            'Không biết'
-        ],
-        correct: 0
-    },
-    {
-        id: 4,
-        category: 'DSA',
-        question: 'Big O của Binary Search là gì?',
-        options: [
-            'O(n)',
-            'O(log n)',
-            'O(n²)',
-            'Không biết'
+            'Khoảng cách Euclid giữa hai điểm',
+            'Góc giữa hai vector (hướng)',
+            'Độ lớn (magnitude) của vector hiệu',
+            'Diện tích hình bình hành tạo bởi hai vector'
         ],
         correct: 1
     },
     {
-        id: 5,
-        category: 'DSA',
-        question: 'BFS và DFS là thuật toán dùng cho cấu trúc dữ liệu nào?',
+        id: 3,
+        category: 'System Foundation',
+        question: 'Tại sao Heap Memory chậm hơn Stack Memory?',
         options: [
-            'Array',
-            'Linked List',
-            'Graph/Tree',
-            'Không biết'
+            'Vì Heap nhỏ hơn Stack',
+            'Vì Heap cần cơ chế tìm kiếm vùng nhớ trống (allocation) và garbage collection',
+            'Vì Heap chỉ lưu trữ số nguyên',
+            'Không, Heap nhanh hơn Stack'
+        ],
+        correct: 1
+    },
+    {
+        id: 4,
+        category: 'System Foundation',
+        question: 'Trong kiến trúc Database hiện đại, cấu trúc dữ liệu nào tối ưu nhất cho Vector Search?',
+        options: [
+            'B-Tree',
+            'Hash Table',
+            'HNSW (Hierarchical Navigable Small World)',
+            'Linked List'
         ],
         correct: 2
+    },
+    {
+        id: 5,
+        category: 'AI Engineering',
+        question: 'Giới hạn "Context Window" của LLM ảnh hưởng đến điều gì nhất?',
+        options: [
+            'Tốc độ sinh token',
+            'Dung lượng mô hình (Model size)',
+            'Độ chính xác của từng từ',
+            'Lượng thông tin đầu vào (input) mà mô hình có thể "nhớ" và xử lý cùng lúc'
+        ],
+        correct: 3
     },
     {
         id: 6,
-        category: 'Tư duy Logic',
-        question: 'Với một mảng 1000 phần tử đã sắp xếp, cần bao nhiêu bước tối đa để tìm một phần tử (Binary Search)?',
+        category: 'AI Engineering',
+        question: 'Embedding là gì trong bối cảnh NLP?',
         options: [
-            '1000 bước',
-            '500 bước',
-            'Khoảng 10 bước',
-            'Không biết'
+            'Một file text nén',
+            'Biểu diễn dữ liệu dưới dạng vector số thực trong không gian n-chiều',
+            'Một plugin gắn vào trình duyệt',
+            'Mã hóa ký tự sang ASCII'
         ],
-        correct: 2
+        correct: 1
     },
     {
         id: 7,
-        category: 'Tư duy Logic',
-        question: 'Đệ quy (Recursion) là gì?',
+        category: 'System Design',
+        question: 'Để xử lý 100k request/giây cho AI API, kỹ thuật nào sau đây quan trọng nhất?',
         options: [
-            'Hàm gọi chính nó với bài toán nhỏ hơn',
-            'Vòng lặp vô hạn',
-            'Biến toàn cục',
-            'Không biết'
+            'Dùng database lớn hơn',
+            'Asynchronous Processing (Queue) & Rate Limiting',
+            'Viết lại bằng Assembly',
+            'Tăng RAM cho server'
         ],
-        correct: 0
+        correct: 1
     },
     {
         id: 8,
-        category: 'Tiếng Anh IT',
-        question: '"Deploy" nghĩa là gì?',
+        category: 'Modern Web',
+        question: 'Server Components (RSC) trong React/Next.js giúp giải quyết vấn đề gì?',
         options: [
-            'Xóa code',
-            'Triển khai ứng dụng lên server',
-            'Viết comment',
-            'Không biết'
+            'Làm đẹp UI',
+            'Giảm Javascript bundle size gửi xuống client & bảo mật logic server',
+            'Tăng tốc độ gõ phím',
+            'Thay thế hoàn toàn HTML'
         ],
         correct: 1
     },
     {
         id: 9,
-        category: 'Tiếng Anh IT',
-        question: '"Latency" trong hệ thống nghĩa là gì?',
+        category: 'Vibe Coding',
+        question: 'Trong kỷ nguyên AI-Native, kỹ năng nào trở nên quan trọng hơn việc "thuộc cú pháp code"?',
         options: [
-            'Dung lượng bộ nhớ',
-            'Độ trễ',
-            'Tốc độ CPU',
-            'Không biết'
+            'Gõ phím 10 ngón',
+            'System Architecture Design & Prompt Engineering',
+            'Ghi nhớ thư viện chuẩn',
+            'Viết CSS thủ công'
         ],
         correct: 1
     },
     {
         id: 10,
-        category: 'Tiếng Anh IT',
-        question: '"Technical Debt" là gì?',
+        category: 'Logic',
+        question: 'Nếu A implies B (A -> B), điều nào sau đây tương đương logic?',
         options: [
-            'Tiền lương IT',
-            'Nợ kỹ thuật - code tạm bợ cần sửa sau',
-            'Vay tiền mua laptop',
-            'Không biết'
+            'B implies A',
+            'Not A implies Not B',
+            'Not B implies Not A (Contrapositive)',
+            'A and B are true'
         ],
-        correct: 1
+        correct: 2
     }
 ];
 
@@ -239,10 +239,10 @@ export default function AssessmentPage() {
                             <div className="text-left max-w-sm mx-auto mb-8">
                                 <p className="text-sm text-neutral-500 mb-2">Bao gồm:</p>
                                 <ul className="space-y-2 text-sm text-neutral-400">
-                                    <li>✓ C++ cơ bản (2 câu)</li>
-                                    <li>✓ DSA (3 câu)</li>
-                                    <li>✓ Tư duy Logic (2 câu)</li>
-                                    <li>✓ Tiếng Anh IT (3 câu)</li>
+                                    <li>✓ Toán cho AI & Linear Algebra (2 câu)</li>
+                                    <li>✓ System Design & Database (3 câu)</li>
+                                    <li>✓ AI Engineering & LLM (3 câu)</li>
+                                    <li>✓ Web & Vibe Coding (2 câu)</li>
                                 </ul>
                             </div>
 
@@ -275,7 +275,7 @@ export default function AssessmentPage() {
 
                             <div className="space-y-3 text-left mb-8">
                                 <p className="text-sm text-neutral-500">Chi tiết theo lĩnh vực:</p>
-                                {['C++ Cơ bản', 'DSA', 'Tư duy Logic', 'Tiếng Anh IT'].map((cat) => {
+                                {['Math for AI', 'System Foundation', 'AI Engineering', 'System Design', 'Modern Web', 'Vibe Coding', 'Logic'].map((cat) => {
                                     const catQuestions = questions.filter(q => q.category === cat);
                                     const catScore = catQuestions.reduce((acc, q, idx) => {
                                         const qIdx = questions.findIndex(qq => qq.id === q.id);

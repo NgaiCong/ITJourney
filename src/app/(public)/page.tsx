@@ -1,12 +1,14 @@
 import Hero from "@/components/landing/Hero";
 import Manifesto from "@/components/landing/Manifesto";
-import Roadmap from "@/components/landing/Roadmap";
+import Community from "@/components/landing/Community";
+import Introduction from "@/components/landing/Introduction";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="min-h-screen bg-black text-foreground overflow-x-hidden">
       <Hero />
-      <Roadmap />
+      <Introduction />
+      <Community />
       <Manifesto />
     </main>
   );

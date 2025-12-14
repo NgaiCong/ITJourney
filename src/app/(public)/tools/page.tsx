@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Code2, Database, GitBranch, Box, FileText, Laptop, Layout, X, ExternalLink, Target, Sparkles, CheckCircle } from 'lucide-react';
-import GlassCard from '@/components/ui/GlassCard';
+import { Terminal, Code2, Database, GitBranch, Box, FileText, Laptop, Layout, X, ExternalLink, Target, Sparkles, CheckCircle, Brain } from 'lucide-react';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 
 interface Tool {
     name: string;
@@ -26,24 +26,34 @@ const toolsSections: ToolSection[] = [
         category: "Development Environment",
         items: [
             {
-                name: "VS Code",
-                desc: "Code Editor phổ biến nhất hiện nay.",
+                name: "VS Code (Agentic)",
+                desc: "Code Editor + AI Agents (Cline/Supermaven).",
                 icon: Code2,
                 href: "https://code.visualstudio.com",
                 color: "text-blue-400",
-                whatIs: "Visual Studio Code là trình soạn thảo code miễn phí của Microsoft.",
-                purpose: "Viết code, debug, quản lý dự án với giao diện hiện đại và extensions phong phú.",
-                features: ["IntelliSense (Gợi ý code) thông minh", "Tích hợp sẵn Git", "Kho mở rộng (Extensions) khổng lồ", "Trình gỡ lỗi (Debugger) mạnh mẽ", "Tích hợp dòng lệnh (Terminal)"]
+                whatIs: "Visual Studio Code được 'độ' thêm các AI Agent như Cline để tự động hóa code.",
+                purpose: "Môi trường lập trình tích hợp AI, giúp bạn code ít hơn và quản lý nhiều hơn.",
+                features: ["Hệ sinh thái Extensions vô địch", "Tích hợp Cline (Autonomous Agent)", "Supermaven (1M Context Cache)", "Remote Development (WSL/SSH)", "Terminal tích hợp"]
             },
             {
-                name: "Windows Terminal",
-                desc: "Terminal hiện đại cho Windows.",
+                name: "Ghostty / Warp",
+                desc: "Terminal thế hệ mới (GPU Accelerated).",
                 icon: Terminal,
-                href: "https://aka.ms/terminal",
+                href: "https://mitchellh.com/ghostty",
                 color: "text-neutral-200",
-                whatIs: "Ứng dụng terminal chính thức của Microsoft với giao diện đẹp.",
-                purpose: "Thay thế CMD cũ, chạy PowerShell, WSL, và nhiều shell khác trong cùng 1 cửa sổ.",
-                features: ["Hỗ trợ nhiều Tab", "GPU Rendering (Tăng tốc phần cứng)", "Tùy biến giao diện linh hoạt", "Hỗ trợ đầy đủ Unicode (Emoji, Font)", "Cấu hình (Profiles) đa dạng"]
+                whatIs: "Terminal emulator hiện đại, sử dụng GPU để render, siêu mượt và nhanh.",
+                purpose: "Thay thế Terminal cũ kỹ. Ghostty (Nhanh, Minimal) hoặc Warp (AI tích hợp).",
+                features: ["GPU Rendering (60FPS+)", "Giao diện hiện đại", "AI Command Suggestions (Warp)", "Hỗ trợ Ligatures & Emoji đẹp", "Cross-platform"]
+            },
+            {
+                name: "TablePlus",
+                desc: "GUI quản lý Database tốt nhất (All-in-one).",
+                icon: Database,
+                href: "https://tableplus.com",
+                color: "text-blue-300",
+                whatIs: "Công cụ quản lý cơ sở dữ liệu (SQL/NoSQL) với giao diện Native cực nhanh.",
+                purpose: "Quản lý Supabase, Postgres, MySQL, Redis... tất cả trong một ứng dụng.",
+                features: ["Native App (Không phải Electron)", "Khởi động trong tích tắc", "Hỗ trợ đa Database", "Giao diện Dark Mode đẹp mắt", "Bảo mật cao (End-to-end encryption)"]
             },
             {
                 name: "WSL 2",
@@ -54,47 +64,7 @@ const toolsSections: ToolSection[] = [
                 whatIs: "Windows Subsystem for Linux - chạy Linux kernel thật trên Windows.",
                 purpose: "Phát triển với môi trường Linux mà không cần dual-boot hoặc VM.",
                 features: ["Chạy nhân Linux (Kernel) thật", "Tích hợp hoàn hảo với VS Code", "Truy cập file Windows dễ dàng", "Hỗ trợ Docker gốc", "Hiệu năng cao"]
-            },
-            {
-                name: "Cursor",
-                desc: "Code Editor tích hợp AI siêu mạnh.",
-                icon: Code2,
-                href: "https://cursor.sh",
-                color: "text-purple-500",
-                whatIs: "Fork của VS Code được tích hợp sâu AI vào lõi editor.",
-                purpose: "Code nhanh hơn với AI Pair Programmer, Chat với codebase, và tự động sửa lỗi.",
-                features: ["Chat với toàn bộ mã nguồn (Codebase)", "Tự động sửa lỗi (Auto-fix) thông minh", "Dùng lại được Extensions của VS Code", "AI giải thích logic code chi tiết", "Miễn phí cho sinh viên"]
-            },
-            {
-                name: "Windsurf",
-                desc: "IDE thấu hiểu ngữ cảnh dòng chảy (Flow).",
-                icon: Layout,
-                href: "https://windsurf.ai",
-                color: "text-cyan-400",
-                whatIs: "IDE tập trung vào khả năng hiểu sâu ngữ cảnh dự án và dòng chảy suy nghĩ.",
-                purpose: "Hỗ trợ lập trình viên giữ mạch tư duy (Flow) với các gợi ý thông minh theo ngữ cảnh.",
-                features: ["Hiểu sâu ngữ cảnh (Context) dự án", "Cascade: Gợi ý theo mạch suy nghĩ", "Giảm thiểu việc nhập lệnh (Prompt) lặp lại", "Tốt cho việc tái cấu trúc (Refactor) code cũ", "Gói cơ bản miễn phí"]
-            },
-            {
-                name: "IntelliJ IDEA / CLion",
-                desc: "IDE thông minh nhất thế giới từ JetBrains.",
-                icon: Laptop,
-                href: "https://www.jetbrains.com",
-                color: "text-pink-500",
-                whatIs: "Bộ công cụ IDE chuyên nghiệp: IntelliJ (Java), CLion (C/C++), PyCharm (Python).",
-                purpose: "Phát triển phần mềm quy mô lớn với các tính năng refactoring và analysis mạnh mẽ.",
-                features: ["Tự động hoàn thành mã (Auto-complete) thông minh nhất", "Tái cấu trúc (Refactoring) an toàn", "Gỡ lỗi (Debugger) trực quan", "Tích hợp sẵn Database, Docker", "Miễn phí tài khoản Pro với email .edu"]
-            },
-            {
-                name: "Visual Studio",
-                desc: "IDE chuẩn công nghiệp cho C++ và .NET.",
-                icon: Layout,
-                href: "https://visualstudio.microsoft.com",
-                color: "text-purple-600",
-                whatIs: "IDE toàn diện nhất của Microsoft cho phát triển ứng dụng Windows và C++.",
-                purpose: "Làm game (Unreal Engine), ứng dụng Desktop, và hệ thống lớn.",
-                features: ["Trình gỡ lỗi (Debugger) C++ mạnh nhất", "Công cụ đo lường (Profiler) tìm rò rỉ bộ nhớ", "Cần thiết nếu làm Unreal Engine", "Hỗ trợ CMake, vcpkg", "Bản Community miễn phí"]
-            },
+            }
         ]
     },
     {
@@ -126,6 +96,46 @@ const toolsSections: ToolSection[] = [
         category: "Backend & Database",
         items: [
             {
+                name: "Bun",
+                desc: "JavaScript Runtime siêu tốc độ (All-in-one).",
+                icon: Box,
+                href: "https://bun.sh",
+                color: "text-orange-200",
+                whatIs: "Runtime thay thế Node.js, tích hợp sẵn package manager và bundler.",
+                purpose: "Chạy JS/TS nhanh gấp 4 lần Node.js, cài package trong tích tắc.",
+                features: ["Tốc độ khởi động tức thì", "Hỗ trợ TypeScript mặc định", "Tương thích 90% với Node.js API", "Cài package nhanh nhất thế giới", "Bundler tích hợp sẵn"]
+            },
+            {
+                name: "Hono",
+                desc: "Web Framework siêu nhẹ cho kỷ nguyên Edge.",
+                icon: Box,
+                href: "https://hono.dev",
+                color: "text-orange-500",
+                whatIs: "Framework web chuẩn mực mới: Nhanh, Nhẹ, chạy mọi nơi (Cloudflare, Bun, Node).",
+                purpose: "Viết API cực nhanh, deploy ra Edge để giảm độ trễ tối đa.",
+                features: ["Siêu nhẹ (<14kb)", "Hỗ trợ TypeScript tốt nhất", "Chạy trên Cloudflare Workers/Bun", "Cú pháp giống Express nhưng hiện đại hơn", "AI viết code Hono cực chuẩn"]
+            },
+            {
+                name: "Supabase",
+                desc: "Backend-as-a-Service (Firebase thay thế).",
+                icon: Database,
+                href: "https://supabase.com",
+                color: "text-emerald-400",
+                whatIs: "Nền tảng Backend dựa trên PostgreSQL, cung cấp sẵn Auth, Realtime, Storage.",
+                purpose: "Có ngay Backend xịn trong 2 phút mà không cần setup server.",
+                features: ["PostgreSQL đầy đủ sức mạnh", "Authentication tích hợp sẵn", "Realtime Subscriptions", "Auto-generated API", "Dashboard quản lý cực đẹp"]
+            },
+            {
+                name: "Bruno",
+                desc: "API Client mã nguồn mở, nhẹ và Git-friendly.",
+                icon: Box,
+                href: "https://www.usebruno.com",
+                color: "text-orange-500",
+                whatIs: "Công cụ test API thế hệ mới, lưu collection trực tiếp trong folder dự án.",
+                purpose: "Test API nhanh chóng, không bắt buộc Cloud, dễ dàng commit vào Git.",
+                features: ["Lưu trữ cấu hình ngay trong Repo", "Hoạt động Offline 100%", "Giao diện sạch, không Bloatware", "Hỗ trợ Scripting mạnh mẽ", "Thay thế hoàn hảo cho Postman"]
+            },
+            {
                 name: "Docker",
                 desc: "Container hóa ứng dụng.",
                 icon: Box,
@@ -134,27 +144,52 @@ const toolsSections: ToolSection[] = [
                 whatIs: "Nền tảng container hóa giúp đóng gói ứng dụng cùng dependencies.",
                 purpose: "Đảm bảo ứng dụng chạy giống nhau trên mọi môi trường (dev, staging, prod).",
                 features: ["Container nhẹ và nhanh", "Quản lý đa dịch vụ với Docker Compose", "Kho chứa ảnh (Image Registry) đa dạng", "Cô lập (Isolation) môi trường hoàn hảo", "Dễ dàng tái tạo (Reproduce) môi trường"]
+            }
+        ]
+    },
+    {
+        category: "AI Engineering & Local LLMs",
+        items: [
+            {
+                name: "Cline (Claude Dev)",
+                desc: "Biến VS Code thành AI Agent thực thụ.",
+                icon: Brain,
+                href: "https://github.com/cline/cline",
+                color: "text-purple-400",
+                whatIs: "Extension biến VS Code thành Autonomous Coding Agent.",
+                purpose: "Giao việc cho AI: 'Tạo file API, viết test, fix bug', và nó tự động chạy terminal/sửa file.",
+                features: ["Tự động chạy lệnh Terminal", "Tự động tạo/sửa file", "Hỗ trợ Claude 3.5 Sonnet & Local LLM", "Agentic Workflow (Làm việc tự chủ)", "Open Source"]
             },
             {
-                name: "Postman",
-                desc: "Test API.",
-                icon: Box,
-                href: "https://www.postman.com",
-                color: "text-orange-500",
-                whatIs: "Công cụ phổ biến nhất để test và phát triển API.",
-                purpose: "Gửi request, kiểm tra response, và document API một cách trực quan.",
-                features: ["Quản lý bộ thư viện (Collections)", "Biến môi trường (Environment Variables)", "Kiểm thử tự động (Automated Testing)", "Giả lập máy chủ (Mock Servers)", "Làm việc nhóm hiệu quả"]
+                name: "Supermaven",
+                desc: "Copilot siêu tốc độ với bộ nhớ khổng lồ.",
+                icon: Sparkles,
+                href: "https://supermaven.com",
+                color: "text-yellow-400",
+                whatIs: "Công cụ gợi ý code AI nhanh nhất hiện nay với Context Window 1 triệu token.",
+                purpose: "Gợi ý code tức thì, nhớ code bạn viết từ tuần trước.",
+                features: ["Tốc độ gợi ý cực nhanh", "Context Window 1.000.000 tokens", "Hiểu toàn bộ dự án", "Free Tier rất hào phóng", "Low Latency"]
             },
             {
-                name: "DBeaver",
-                desc: "Quản lý cơ sở dữ liệu đa năng.",
+                name: "Ollama",
+                desc: "Chạy LLM (AI) ngay trên máy cá nhân.",
+                icon: Terminal,
+                href: "https://ollama.com",
+                color: "text-white",
+                whatIs: "Công cụ giúp chạy các model AI (Llama 3, Deepseek Coder) offline.",
+                purpose: "Code, Chat với AI miễn phí, riêng tư, không cần internet.",
+                features: ["Chạy model Local (Offline)", "Hỗ trợ nhiều Model (Llama 3, Mistral)", "API tương thích OpenAI", "Tích hợp tốt với Cline/Extensions", "Bảo mật dữ liệu tuyệt đối"]
+            },
+            {
+                name: "Pinecone",
+                desc: "Vector Database cho ứng dụng AI.",
                 icon: Database,
-                href: "https://dbeaver.io",
-                color: "text-emerald-400",
-                whatIs: "Ứng dụng quản lý database đa năng, hỗ trợ hầu hết DBMS phổ biến.",
-                purpose: "Truy vấn, quản lý schema, và visualize dữ liệu từ nhiều loại database.",
-                features: ["Hỗ trợ đa cơ sở dữ liệu", "Trình soạn thảo SQL mạnh mẽ", "Biểu đồ quan hệ thực thể (ER Diagrams)", "Xuất dữ liệu (Data Export) đa định dạng", "Bản cộng đồng miễn phí"]
-            },
+                href: "https://www.pinecone.io",
+                color: "text-cyan-400",
+                whatIs: "Cơ sở dữ liệu Vector (Vector Database) hàng đầu để xây dựng ứng dụng LLM.",
+                purpose: "Lưu trữ và tìm kiếm vector (embeddings) cho RAG, Semantic Search.",
+                features: ["Tìm kiếm tương đồng (Similarity Search) cực nhanh", "Tích hợp sẵn với LangChain/OpenAI", "Serverless (Không cần quản lý server)", "Miễn phí gói Starter", "Chuẩn mực cho AI Engineer 2026"]
+            }
         ]
     },
     {
@@ -305,22 +340,32 @@ export default function ToolsPage() {
                 </div>
 
                 <div className="space-y-16">
-                    {toolsSections.map((section) => (
-                        <section key={section.category}>
+                    {toolsSections.map((section, sectionIdx) => (
+                        <motion.section
+                            key={section.category}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: sectionIdx * 0.1 }}
+                        >
                             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 border-l-4 border-indigo-500 pl-4">
                                 {section.category}
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {section.items.map((tool) => {
+                                {section.items.map((tool, toolIdx) => {
                                     const Icon = tool.icon;
                                     return (
-                                        <div
+                                        <motion.div
                                             key={tool.name}
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: toolIdx * 0.05 }}
                                             onClick={() => setSelectedTool(tool)}
-                                            className="cursor-pointer group"
+                                            className="cursor-pointer h-full"
                                         >
-                                            <GlassCard className="h-full hover:bg-white/10 transition-all">
-                                                <div className="flex items-start gap-4">
+                                            <SpotlightCard className="h-full hover:scale-[1.02] transition-transform duration-300" spotlightColor="rgba(99, 102, 241, 0.2)">
+                                                <div className="p-6 h-full flex flex-col items-start gap-4">
                                                     <div className={`p-3 rounded-lg bg-white/5 border border-white/10 ${tool.color}`}>
                                                         <Icon className="w-8 h-8" />
                                                     </div>
@@ -331,12 +376,12 @@ export default function ToolsPage() {
                                                         <p className="text-sm text-neutral-400">{tool.desc}</p>
                                                     </div>
                                                 </div>
-                                            </GlassCard>
-                                        </div>
+                                            </SpotlightCard>
+                                        </motion.div>
                                     );
                                 })}
                             </div>
-                        </section>
+                        </motion.section>
                     ))}
                 </div>
             </div>

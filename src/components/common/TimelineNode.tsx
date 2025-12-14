@@ -3,7 +3,33 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { X, ExternalLink, BookOpen, Terminal, Cpu, Video, Code, Globe, FileText, Brain, Target, CheckCircle2 } from "lucide-react";
-import type { PhaseData, Resource } from "@/data/roadmap";
+// import type { PhaseData, Resource } from "@/data/roadmap";
+
+interface Resource {
+  type: 'Video' | 'Docs' | 'Practice' | 'Tool' | 'Book' | 'Mental' | 'Lang' | 'Repo' | string;
+  name: string;
+  note?: string;
+  link?: string;
+  features?: string[];
+  usage?: string;
+}
+
+interface PhaseData {
+  id: string;
+  phase: string;
+  months: string;
+  title: string;
+  subtitle: string;
+  tagline: string;
+  detailedDescription: string;
+  color: string;
+  duration: string;
+  keyAction: string;
+  challenge: string;
+  keywords: string[];
+  milestones: string[];
+  resources: Resource[];
+}
 
 import { SpotlightCard } from "@/components/common/ui/SpotlightCard";
 
@@ -44,7 +70,7 @@ function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Res
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       className="group relative flex flex-col p-6 bg-white/3 hover:bg-white/8 border border-white/5 hover:border-white/20 rounded-2xl transition-all duration-500 overflow-hidden cursor-pointer"
-      style={{ 
+      style={{
         boxShadow: `0 0 0 0 ${phaseColor}00`,
       }}
       whileHover={{
@@ -53,27 +79,27 @@ function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Res
       }}
     >
       {/* Gradient overlay on hover */}
-      <div 
+      <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
           background: `linear-gradient(135deg, ${phaseColor}10 0%, transparent 50%)`,
         }}
       />
-      
+
       {/* Content */}
       <div className="relative z-10">
         <div className="flex justify-between items-start mb-4">
-          <div 
+          <div
             className="p-3 rounded-xl bg-black/50 transition-colors duration-300"
             style={{ color: phaseColor }}
           >
             {getResourceIcon(resource.type)}
           </div>
           <div className="flex items-center gap-2">
-            <span 
+            <span
               className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border"
-              style={{ 
-                color: phaseColor, 
+              style={{
+                color: phaseColor,
                 borderColor: `${phaseColor}40`,
                 backgroundColor: `${phaseColor}10`,
               }}
@@ -100,21 +126,21 @@ function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Res
 // Tool Detail Modal
 function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => void; color: string }) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[60] flex items-center justify-center p-4"
     >
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         className="relative bg-neutral-900 border border-white/10 p-8 rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden"
       >
         {/* Background Glow */}
-        <div 
+        <div
           className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-10 -translate-y-1/2 translate-x-1/2 pointer-events-none"
           style={{ backgroundColor: color }}
         />
@@ -122,7 +148,7 @@ function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => vo
         <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-10">
           <X className="w-5 h-5" />
         </button>
-        
+
         <div className="relative z-10">
           <div className="flex items-center gap-4 mb-6">
             <div className="p-4 rounded-xl bg-white/5 text-white border border-white/10">
@@ -139,7 +165,7 @@ function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => vo
               <div>
                 <h4 className="text-xs font-mono uppercase text-neutral-500 mb-3 tracking-widest">Tính Năng</h4>
                 <ul className="space-y-3">
-                  {tool.features.map((f, i) => (
+                  {tool.features.map((f: string, i: number) => (
                     <li key={i} className="flex items-start gap-3 text-neutral-300 text-sm">
                       <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color }} />
                       <span>{f}</span>
@@ -158,9 +184,9 @@ function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => vo
               </div>
             )}
 
-            <a 
-              href={tool.link} 
-              target="_blank" 
+            <a
+              href={tool.link}
+              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3.5 text-center rounded-xl font-bold text-black transition-all hover:scale-[1.02] hover:shadow-lg mt-8"
               style={{ backgroundColor: color, boxShadow: `0 0 20px -5px ${color}50` }}
@@ -184,7 +210,7 @@ function MilestoneItem({ milestone, index, phaseColor }: { milestone: string; in
       transition={{ delay: 0.3 + index * 0.1 }}
       className="flex items-start gap-3 group"
     >
-      <div 
+      <div
         className="mt-1 w-5 h-5 rounded-full flex items-center justify-center shrink-0"
         style={{ backgroundColor: `${phaseColor}20`, color: phaseColor }}
       >
@@ -201,7 +227,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTool, setSelectedTool] = useState<Resource | null>(null);
   const ref = useRef<HTMLDivElement>(null);
-  
+
   // Parallax effect for the card
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -224,9 +250,9 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
           <div onClick={() => setIsOpen(true)} className="cursor-pointer">
             <SpotlightCard className="p-8 md:p-10 rounded-3xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm hover:border-white/20 transition-colors group">
               {/* Phase number badge */}
-              <div 
+              <div
                 className="absolute top-6 right-6 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-widest border bg-neutral-950/50 backdrop-blur-md z-20"
-                style={{ 
+                style={{
                   borderColor: `${data.color}50`,
                   color: data.color,
                 }}
@@ -239,7 +265,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.3em] mb-2 block">
                   {data.phase}
                 </span>
-                <h2 
+                <h2
                   className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight text-white pr-24"
                 >
                   {data.title}
@@ -254,8 +280,8 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 {/* Keywords */}
                 <div className="flex flex-wrap gap-2 mb-8">
                   {data.keywords.map((kw) => (
-                    <span 
-                      key={kw} 
+                    <span
+                      key={kw}
                       className="px-3 py-1.5 rounded-full text-xs font-medium border bg-neutral-950/50 text-neutral-300 border-white/10"
                     >
                       {kw}
@@ -280,23 +306,23 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
       {/* Full Screen Modal (Glassmorphism) */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
             {/* Backdrop */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/90 backdrop-blur-2xl" 
-              onClick={() => setIsOpen(false)} 
+              className="absolute inset-0 bg-black/90 backdrop-blur-2xl"
+              onClick={() => setIsOpen(false)}
             />
-            
+
             {/* Modal Content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -304,7 +330,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
               className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl scrollbar-hide"
             >
               {/* Header Background */}
-              <div 
+              <div
                 className="absolute top-0 left-0 right-0 h-64 opacity-30"
                 style={{
                   background: `linear-gradient(180deg, ${data.color}40 0%, transparent 100%)`,
@@ -312,7 +338,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
               />
 
               {/* Close button */}
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-6 right-6 z-20 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all duration-300 hover:rotate-90"
               >
@@ -323,9 +349,9 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 {/* Header */}
                 <div className="mb-12">
                   <div className="flex items-center gap-4 mb-4">
-                    <span 
+                    <span
                       className="px-4 py-2 rounded-full text-xs font-mono uppercase tracking-widest border"
-                      style={{ 
+                      style={{
                         borderColor: `${data.color}50`,
                         backgroundColor: `${data.color}10`,
                         color: data.color,
@@ -335,8 +361,8 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                     </span>
                     <span className="text-gray-500 text-sm">{data.duration}</span>
                   </div>
-                  
-                  <h2 
+
+                  <h2
                     className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight"
                     style={{ color: data.color }}
                   >
@@ -350,7 +376,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 {/* Key Action & Challenge */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                   {/* Key Action */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
@@ -364,7 +390,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   </motion.div>
 
                   {/* Challenge Box */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -385,7 +411,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                     Cột Mốc Hàng Tuần
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {data.milestones.map((milestone, i) => (
+                    {data.milestones.map((milestone: string, i: number) => (
                       <MilestoneItem key={i} milestone={milestone} index={i} phaseColor={data.color} />
                     ))}
                   </div>
@@ -398,12 +424,12 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                     Tài Liệu Chọn Lọc
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {data.resources.map((res, i) => (
-                      <ResourceCard 
-                        key={i} 
-                        resource={res} 
-                        index={i} 
-                        phaseColor={data.color} 
+                    {data.resources.map((res: Resource, i: number) => (
+                      <ResourceCard
+                        key={i}
+                        resource={res}
+                        index={i}
+                        phaseColor={data.color}
                         onSelect={(r) => setSelectedTool(r)}
                       />
                     ))}
@@ -413,16 +439,16 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 {/* Tool Modal */}
                 <AnimatePresence>
                   {selectedTool && (
-                    <ToolModal 
-                      tool={selectedTool} 
-                      onClose={() => setSelectedTool(null)} 
-                      color={data.color} 
+                    <ToolModal
+                      tool={selectedTool}
+                      onClose={() => setSelectedTool(null)}
+                      color={data.color}
                     />
                   )}
                 </AnimatePresence>
 
                 {/* Footer CTA */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}

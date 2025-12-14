@@ -97,9 +97,14 @@ export const StorageService = {
         const db = StorageService.getUsersDB();
         StorageService.ensureUserExists(db, username);
 
-        db[username].quiz = result;
         db[username].profile.level = result.level;
         StorageService.saveUsersDB(db);
+    },
+
+    getUser: (): UserProfile | null => {
+        const username = StorageService.getCurrentUsername();
+        const db = StorageService.getUsersDB();
+        return db[username]?.profile || null;
     },
 
     getQuizResult: (): QuizResult | null => {
@@ -183,6 +188,75 @@ export const StorageService = {
             timestamp: new Date().toISOString(),
             data: userData
         }, null, 2);
+    },
+
+    importUserData: (jsonString: string): { success: boolean; message: string } => {
+        try {
+            const parsed = JSON.parse(jsonString);
+            if (!parsed.version || !parsed.data) return { success: false, message: 'Invalid file format' };
+
+            const userData = parsed.data as StoredUserData;
+            const username = userData.profile.id;
+
+            const db = StorageService.getUsersDB();
+            db[username] = userData;
+            StorageService.saveUsersDB(db);
+
+            // Auto switch to imported user
+            if (typeof window !== 'undefined') {
+                localStorage.setItem(STORAGE_KEYS.CURRENT_USER, username);
+            }
+            return { success: true, message: 'Data imported successfully' };
+        } catch (e) {
+            return { success: false, message: 'Failed to parse file' };
+        }
+    },
+
+    login: (username: string, password: string): { success: boolean; message: string, user?: UserProfile } => {
+        const db = StorageService.getUsersDB();
+        const user = db[username];
+
+        if (!user) {
+            // For guest/demo mode, if user doesn't exist but password is empty, maybe create guest?
+            // But following standard logic:
+            return { success: false, message: 'User not found' };
+        }
+
+        // Simple password check (in real app, hash this)
+        if (user.password !== password) {
+            return { success: false, message: 'Incorrect password' };
+        }
+
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, username);
+        }
+
+        // Update last login
+        user.profile.lastLogin = new Date().toISOString();
+        db[username] = user;
+        StorageService.saveUsersDB(db);
+
+        return { success: true, message: 'Login successful', user: user.profile };
+    },
+
+    register: (username: string, password: string, displayName: string, avatarUrl: string): { success: boolean; message: string } => {
+        const db = StorageService.getUsersDB();
+        if (db[username]) {
+            return { success: false, message: 'Username already taken' };
+        }
+
+        const newUser = createDefaultUser(username);
+        newUser.password = password;
+        newUser.profile.name = displayName;
+        newUser.profile.avatar = avatarUrl;
+
+        db[username] = newUser;
+        StorageService.saveUsersDB(db);
+
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, username);
+        }
+        return { success: true, message: 'Registration successful' };
     },
 
     // ... imports ...

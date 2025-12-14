@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Search, BookOpen, Code, Video, Brain, Wrench, Book, Languages, GitBranch, X, Target, Sparkles, CheckCircle } from 'lucide-react';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 
 type ResourceType = 'all' | 'docs' | 'practice' | 'video' | 'mental' | 'tool' | 'book' | 'lang' | 'repo';
 
@@ -224,6 +225,26 @@ const resources: Resource[] = [
         whatIs: 'Repo Github tổng hợp kiến thức System Design.',
         purpose: 'Học cách thiết kế hệ thống lớn như Netflix, Twitter.',
         features: ['Hơn 200k lượt thích (Stars)', 'Có bản dịch tiếng Việt', 'Thẻ ghi nhớ (Flashcards)', 'Ví dụ thực tế (Case studies)']
+    },
+    {
+        name: "Hugging Face",
+        description: "GitHub của thế giới AI",
+        type: 'repo',
+        phase: 'The Engineer',
+        url: 'https://huggingface.co',
+        whatIs: 'Nền tảng cộng đồng lớn nhất chia sẻ Models, Datasets và Demo App AI.',
+        purpose: 'Tìm kiếm model, dataset để fine-tune hoặc chạy các ứng dụng AI local.',
+        features: ['Kho Model khổng lồ (Llama 3, Mistral...)', 'Spaces để demo app trực tiếp', 'Dataset phong phú cho mọi ngành', 'Cộng đồng AI sôi động nhất thế giới']
+    },
+    {
+        name: "LangChain",
+        description: "Framework phát triển ứng dụng LLM",
+        type: 'docs',
+        phase: 'The Modern Tool',
+        url: 'https://python.langchain.com',
+        whatIs: 'Framework tiêu chuẩn để xây dựng ứng dụng sử dụng LLM.',
+        purpose: 'Kết nối LLM với dữ liệu riêng (RAG) và tạo Agent thông minh.',
+        features: ['Tích hợp mọi LLM (OpenAI, Anthropic...)', 'RAG Pipeline mạnh mẽ', 'Ecosystem phong phú (LangSmith, LangServe)', 'Cộng đồng AI Engineer lớn nhất']
     },
     {
         name: 'Tech Interview Handbook',
@@ -513,29 +534,49 @@ export default function ResourcesPage() {
                 </div>
 
                 {/* Resources Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ staggerChildren: 0.1 }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
                     {filteredResources.map((resource, idx) => (
-                        <div
+                        <motion.div
                             key={idx}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: idx * 0.05 }}
                             onClick={() => setSelectedResource(resource)}
-                            className="group p-5 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all cursor-pointer"
+                            className="h-full"
                         >
-                            <h3 className="font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
-                                {resource.name}
-                            </h3>
-                            <p className="text-sm text-neutral-400 mb-3">
-                                {resource.description}
-                            </p>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 flex items-center gap-1">
-                                    {typeIcons[resource.type]}
-                                    {typeLabels[resource.type]}
-                                </span>
-                                <span className="text-xs text-neutral-500">{resource.phase}</span>
-                            </div>
-                        </div>
+                            <SpotlightCard className="h-full cursor-pointer hover:scale-[1.02] transition-transform duration-300" spotlightColor="rgba(59, 130, 246, 0.2)">
+                                <div className="p-6 h-full flex flex-col">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className={`p-2 rounded-lg bg-white/5 border border-white/10 text-blue-400 group-hover:text-white transition-colors`}>
+                                            {typeIcons[resource.type]}
+                                        </div>
+                                        <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-1 rounded bg-white/5 text-neutral-500 border border-white/5">
+                                            {resource.phase}
+                                        </span>
+                                    </div>
+
+                                    <h3 className="font-bold text-xl text-white group-hover:text-blue-400 transition-colors mb-2">
+                                        {resource.name}
+                                    </h3>
+                                    <p className="text-sm text-neutral-400 mb-4 flex-grow leading-relaxed">
+                                        {resource.description}
+                                    </p>
+
+                                    <div className="flex items-center gap-2 mt-auto pt-4 border-t border-white/5">
+                                        <span className="text-xs text-neutral-500 group-hover:text-neutral-300 transition-colors flex items-center gap-1.5">
+                                            Xem chi tiết <ExternalLink className="w-3 h-3" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </SpotlightCard>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 {filteredResources.length === 0 && (
                     <div className="text-center py-16 text-neutral-500">

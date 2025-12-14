@@ -105,7 +105,7 @@ const ParticleCard: React.FC<{
 }) => {
         const cardRef = useRef<HTMLDivElement>(null);
         const particlesRef = useRef<HTMLDivElement[]>([]);
-        const timeoutsRef = useRef<number[]>([]);
+        const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
         const isHoveredRef = useRef(false);
         const memoizedParticles = useRef<HTMLDivElement[]>([]);
         const particlesInitialized = useRef(false);
@@ -526,7 +526,7 @@ const MagicBento: React.FC<BentoProps> = ({
             --glow-intensity: 0;
             --glow-radius: 200px;
             --glow-color: ${glowColor};
-            --border-color: #392e4e;
+            --border-color: rgba(255, 255, 255, 0.1);
             --background-dark: #060010;
             --white: hsl(0, 0%, 100%);
             --purple-primary: rgba(132, 0, 255, 1);
@@ -642,7 +642,7 @@ const MagicBento: React.FC<BentoProps> = ({
 
                         // Define custom style handling background image if present
                         const cardStyle: React.CSSProperties = {
-                            backgroundColor: card.img ? 'transparent' : (card.color || 'var(--background-dark)'),
+                            backgroundColor: card.color || 'var(--background-dark)',
                             borderColor: 'var(--border-color)',
                             color: 'var(--white)',
                             '--glow-x': '50%',
@@ -657,8 +657,21 @@ const MagicBento: React.FC<BentoProps> = ({
                             <>
                                 {card.img && (
                                     <div className="absolute inset-0 z-0 select-none pointer-events-none">
-                                        <img src={card.img} alt="" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                                        {/* Background GIF (Always playing underneath) */}
+                                        <img
+                                            src={card.img}
+                                            alt=""
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
+
+                                        {/* Static Placeholder (Fades out on hover) */}
+                                        <img
+                                            src={`https://wsrv.nl/?url=${encodeURIComponent(card.img)}&output=jpg`}
+                                            alt=""
+                                            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-0"
+                                        />
+
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
                                     </div>
                                 )}
 

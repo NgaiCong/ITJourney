@@ -4,7 +4,7 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { ChevronDown } from 'lucide-react'
-import { roadmapData } from '@/data/roadmap'
+import { landingRoadmapData } from '@/data/landing-roadmap'
 import SpotlightCard from '../ui/SpotlightCard'
 
 export default function Roadmap() {
@@ -31,7 +31,7 @@ export default function Roadmap() {
                     />
                 </div>
 
-                {roadmapData.map((item, index) => (
+                {landingRoadmapData.map((item, index) => (
                     <RoadmapNode key={item.id} data={item} index={index} />
                 ))}
             </div>
