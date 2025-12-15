@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 interface EdgeTTSOptions {
     text: string;
     voice?: string;
-    rate?: string; // e.g. "+0%", "+10%"
-    pitch?: string; // e.g. "+0Hz"
+    rate?: string;
+    pitch?: string;
 }
 
 export class EdgeTTS {
@@ -19,7 +19,7 @@ export class EdgeTTS {
             const requestId = uuidv4().replace(/-/g, '');
 
             ws.on('open', () => {
-                // 1. Send Speech Config
+
                 const config = {
                     context: {
                         synthesis: {
@@ -42,7 +42,7 @@ export class EdgeTTS {
 
                 ws.send(configMessage);
 
-                // 2. Send SSML
+
                 const voice = options.voice || 'vi-VN-HoaiMyNeural';
                 const rate = options.rate || '+0%';
                 const pitch = options.pitch || '+0Hz';
@@ -70,11 +70,9 @@ export class EdgeTTS {
                     const header = buffer.subarray(2, 2 + headerLength).toString();
 
                     if (header.includes('Path:audio')) {
-                        // Audio data starts after header
                         const audioData = buffer.subarray(2 + headerLength);
                         audioChunks.push(audioData);
                     } else if (header.includes('Path:turn.end')) {
-                        // End of stream
                         ws.close();
                         resolve(Buffer.concat(audioChunks));
                     }

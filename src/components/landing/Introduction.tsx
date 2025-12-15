@@ -30,7 +30,6 @@ const features = [
 export default function Introduction() {
     return (
         <section className="py-24 bg-neutral-950 relative overflow-hidden">
-            {/* Background Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
@@ -50,7 +49,8 @@ export default function Introduction() {
                         transition={{ delay: 0.1 }}
                         className="text-lg text-neutral-400 max-w-2xl mx-auto"
                     >
-                        JourneyOfIT là bản đồ chỉ đường dành cho người mới bắt đầu.
+                        IT Journey là bản đồ chỉ đường dành cho người mới bắt đầu.
+
                         Chúng tôi tập trung vào những kiến thức nền tảng "bất biến" giúp bạn đi xa hơn trong ngành công nghệ.
                     </motion.p>
                 </div>

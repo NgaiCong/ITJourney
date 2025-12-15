@@ -76,9 +76,7 @@ export default function NotFound() {
     return (
         <main className="min-h-[100dvh] w-full bg-[#121212] text-white flex flex-col items-center justify-center relative overflow-hidden px-4 pb-[env(safe-area-inset-bottom)]">
 
-            {/* Eyes Container */}
             <div className="flex gap-[4vmin] md:gap-[3vw] mb-[5vh] md:mb-12">
-                {/* Left Eye */}
                 <motion.div
                     className="w-[35vmin] h-[35vmin] max-w-[200px] max-h-[200px] md:w-[25vw] md:h-[25vw] md:max-w-[500px] md:max-h-[500px] bg-white rounded-full flex items-center justify-center overflow-hidden relative shadow-[0_0_50px_rgba(255,255,255,0.1)]"
                     animate={{ scaleY: isBlinking ? 0.1 : 1 }}
@@ -90,7 +88,6 @@ export default function NotFound() {
                         transition={{ type: 'spring', stiffness: 120, damping: 20 }}
                     />
                 </motion.div>
-                {/* Right Eye */}
                 <motion.div
                     className="w-[35vmin] h-[35vmin] max-w-[200px] max-h-[200px] md:w-[25vw] md:h-[25vw] md:max-w-[500px] md:max-h-[500px] bg-white rounded-full flex items-center justify-center overflow-hidden relative shadow-[0_0_50px_rgba(255,255,255,0.1)]"
                     animate={{ scaleY: isBlinking ? 0.1 : 1 }}
@@ -104,7 +101,6 @@ export default function NotFound() {
                 </motion.div>
             </div>
 
-            {/* Text Content */}
             <motion.div
                 className="text-center z-10 space-y-6 md:space-y-8 max-w-[90vw] mx-auto"
                 initial={{ opacity: 0, y: 20 }}

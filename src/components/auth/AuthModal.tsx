@@ -20,13 +20,13 @@ const AVATAR_COLORS = [
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [isLogin, setIsLogin] = useState(true);
-    const [step, setStep] = useState(1); // 1: Credentials, 2: Profile (Register only)
+    const [step, setStep] = useState(1);
 
-    // Form States
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
-    const [selectedColor, setSelectedColor] = useState(AVATAR_COLORS[8]); // Default indigo
+    const [selectedColor, setSelectedColor] = useState(AVATAR_COLORS[8]);
     const [error, setError] = useState('');
 
     const { login, register, loading } = useAuth();
@@ -49,7 +49,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (isLogin) {
             handleLogin();
         } else {
-            setStep(2); // Go to Profile setup
+            setStep(2);
         }
     };
 
@@ -84,20 +84,20 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop */}
+
             <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             />
 
-            {/* Modal */}
+
             <motion.div
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 className="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl p-8 z-10 overflow-hidden"
             >
-                {/* Close Button */}
+
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-20"
@@ -124,7 +124,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                 </p>
                             </div>
 
-                            {/* Tabs */}
+
                             <div className="flex bg-white/5 p-1 rounded-lg mb-6">
                                 <button
                                     className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${isLogin ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-400 hover:text-white'}`}

@@ -38,7 +38,7 @@ export default function FeatureGallery() {
         <section ref={targetRef} className="relative h-[300vh] bg-background">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
                 <motion.div style={{ x }} className="flex gap-12 px-12 md:px-24">
-                    {/* Title Card */}
+
                     <div className="w-[50vw] md:w-[30vw] shrink-0 flex flex-col justify-center">
                         <h2 className="text-display-giant text-luxury-silver leading-[0.8]">
                             THE<br />PATH
@@ -59,7 +59,7 @@ export default function FeatureGallery() {
                                 <p className="text-muted-foreground">{feature.desc}</p>
                             </div>
 
-                            {/* Hover Line */}
+
                             <div className="absolute bottom-0 left-0 w-full h-[2px] bg-luxury-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[0.16,1,0.3,1] origin-left" />
                         </div>
                     ))}

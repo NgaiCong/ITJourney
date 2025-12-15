@@ -34,7 +34,7 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Mobile Navigation (Staggered Menu) */}
+
       <div className="md:hidden">
         <StaggeredMenu
           items={menuItems}
@@ -46,10 +46,10 @@ export default function Navigation() {
         />
       </div>
 
-      {/* Desktop Navigation */}
+
       <div className="hidden md:flex fixed top-0 left-0 w-full z-50 items-center justify-between px-6 py-6 pointer-events-none">
 
-        {/* Logo - Left */}
+
         <Link href="/" className="pointer-events-auto transition-transform hover:scale-105">
           <img
             src="/images/logongang.png"
@@ -58,7 +58,7 @@ export default function Navigation() {
           />
         </Link>
 
-        {/* Navigation Links - Right */}
+
         <div className="pointer-events-auto flex items-center gap-2 p-1.5 rounded-full border border-white/10 bg-black/20 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)] ring-1 ring-white/5">
           <nav
             className="flex items-center gap-1"
@@ -81,7 +81,7 @@ export default function Navigation() {
                   <Icon className={cn("w-4 h-4 transition-colors", isActive ? "text-white" : "group-hover:text-white")} />
                   <span className="relative z-10">{item.name}</span>
 
-                  {/* Hover Indicator */}
+
                   {hoveredTab === item.href && !isActive && (
                     <motion.div
                       layoutId="nav-hover"
@@ -93,7 +93,7 @@ export default function Navigation() {
                     />
                   )}
 
-                  {/* Active Indicator */}
+
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill"
@@ -107,10 +107,10 @@ export default function Navigation() {
               );
             })}
 
-            {/* Separator */}
+
             <div className="w-px h-6 bg-white/10 mx-2" />
 
-            {/* GitHub Star Button */}
+
             <GitHubStarButton />
           </nav>
         </div>

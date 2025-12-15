@@ -8,10 +8,10 @@ export interface BentoCardProps {
     label?: string;
     textAutoHide?: boolean;
     disableAnimations?: boolean;
-    img?: string; // Added for background image support
-    link?: string; // Added for navigation
+    img?: string;
+    link?: string;
     onClick?: () => void;
-    colSpan?: number; // Responsive span
+    colSpan?: number;
     rowSpan?: number;
 }
 
@@ -27,7 +27,7 @@ export interface BentoProps {
     glowColor?: string;
     clickEffect?: boolean;
     enableMagnetism?: boolean;
-    items?: BentoCardProps[]; // Added to accept dynamic data
+    items?: BentoCardProps[];
 }
 
 const DEFAULT_PARTICLE_COUNT = 12;
@@ -35,7 +35,7 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
 const MOBILE_BREAKPOINT = 768;
 
-// Default data if none provided
+
 const defaultCardData: BentoCardProps[] = [
     {
         color: '#060010',
@@ -43,7 +43,7 @@ const defaultCardData: BentoCardProps[] = [
         description: 'Track user behavior',
         label: 'Insights'
     },
-    // ... other defaults omitted for brevity / custom usage
+
 ];
 
 const createParticleElement = (x: number, y: number, color: string = DEFAULT_GLOW_COLOR): HTMLDivElement => {
@@ -558,7 +558,7 @@ const MagicBento: React.FC<BentoProps> = ({
             content: '';
             position: absolute;
             inset: 0;
-            padding: 8px; /* Slightly thicker border for visibility */
+            padding: 8px;
             background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
                 rgba(${glowColor}, calc(var(--glow-intensity) * 0.8)) 0%,
                 rgba(${glowColor}, calc(var(--glow-intensity) * 0.4)) 30%,
@@ -657,14 +657,12 @@ const MagicBento: React.FC<BentoProps> = ({
                             <>
                                 {card.img && (
                                     <div className="absolute inset-0 z-0 select-none pointer-events-none">
-                                        {/* Background GIF (Always playing underneath) */}
                                         <img
                                             src={card.img}
                                             alt=""
                                             className="absolute inset-0 w-full h-full object-cover"
                                         />
 
-                                        {/* Static Placeholder (Fades out on hover) */}
                                         <img
                                             src={`https://wsrv.nl/?url=${encodeURIComponent(card.img)}&output=jpg`}
                                             alt=""
@@ -721,8 +719,6 @@ const MagicBento: React.FC<BentoProps> = ({
                                 onClick={card.onClick}
                                 ref={el => {
                                     if (!el) return;
-                                    // (Logic for non-star cards - kept same as provided but optimized?)
-                                    // For brevity, using same logic as provided in prompt:
                                     const handleMouseMove = (e: MouseEvent) => {
                                         if (shouldDisableAnimations) return;
                                         const rect = el.getBoundingClientRect();
@@ -748,7 +744,8 @@ const MagicBento: React.FC<BentoProps> = ({
 
                                     el.addEventListener('mousemove', handleMouseMove);
                                     el.addEventListener('mouseleave', handleMouseLeave);
-                                    // Not re-adding click listener here as it's on the div prop
+                                    el.addEventListener('mousemove', handleMouseMove);
+                                    el.addEventListener('mouseleave', handleMouseLeave);
                                 }}
                             >
                                 {content}

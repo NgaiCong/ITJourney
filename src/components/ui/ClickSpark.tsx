@@ -166,7 +166,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                     position: 'absolute',
                     inset: 0,
                     pointerEvents: 'none',
-                    zIndex: 9999 // Ensure sparks are visible
+                    zIndex: 9999
                 }}
             />
             {children}

@@ -56,7 +56,7 @@ const getAnchorAndDir = (
             return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] };
         case 'bottom-right':
             return { anchor: [w, (1 + outside) * h], dir: [0, -1] };
-        default: // "top-center"
+        default:
             return { anchor: [0.5 * w, -outside * h], dir: [0, 1] };
     }
 };
@@ -321,7 +321,6 @@ void main() {
                 if (followMouse && mouseInfluence > 0.0) {
                     const isIdle = Date.now() - lastMouseMoveTimeRef.current > 2000;
                     if (isIdle) {
-                        // Auto sway logic for mobile/idle
                         const speed = 0.5;
                         mouseRef.current = {
                             x: 0.5 + Math.sin(t * 0.001 * speed) * 0.3,
@@ -360,7 +359,7 @@ void main() {
                 if (renderer) {
                     try {
                         const canvas = renderer.gl.canvas;
-                        // const loseContextExt = renderer.gl.getExtension('WEBGL_lose_context');
+
                         if (canvas && canvas.parentNode) {
                             canvas.parentNode.removeChild(canvas);
                         }

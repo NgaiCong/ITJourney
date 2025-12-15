@@ -1,7 +1,7 @@
 export interface DsaVideo {
     title: string;
-    index: number; // YouTube Playlist Index
-    videoId?: string; // Specific YouTube Video ID (for better control)
+    index: number;
+    videoId?: string;
     description?: string;
     application?: string;
     codeExample?: string;

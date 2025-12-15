@@ -17,7 +17,7 @@ export default function GitHubStarButton({ className }: GitHubStarButtonProps) {
     useEffect(() => {
         const fetchStars = async () => {
             try {
-                // Fetching from NgaiCong/ITJourney repository
+
                 const response = await fetch('https://api.github.com/repos/NgaiCong/ITJourney');
                 if (response.ok) {
                     const data = await response.json();
@@ -45,7 +45,7 @@ export default function GitHubStarButton({ className }: GitHubStarButtonProps) {
                 className
             )}
         >
-            {/* Subtle Gradient Glow Background */}
+
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/5 to-yellow-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
             <span className="hidden lg:inline-block font-medium text-neutral-300 group-hover:text-white transition-colors">

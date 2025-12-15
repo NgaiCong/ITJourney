@@ -36,11 +36,11 @@ export default function RecentActivity({ activities }: RecentActivityProps) {
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
       <h3 className="font-bold text-gray-800 mb-6">Hoạt động gần đây</h3>
-      
+
       <div className="relative pl-4 border-l-2 border-gray-100 space-y-8">
         {activities.map((activity) => (
           <div key={activity.id} className="relative">
-            {/* Timeline dot */}
+
             <div className={`absolute -left-[25px] top-0 w-8 h-8 rounded-full border-4 border-white ${getActivityColor(activity.type)} flex items-center justify-center`}>
               {getActivityIcon(activity.type)}
             </div>

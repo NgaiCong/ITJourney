@@ -65,10 +65,11 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-space)", "sans-serif"],
+        sans: ["var(--font-inter)", "sans-serif"],
         mono: ["monospace"], // Removed missing geist-mono
-        display: ["var(--font-space)", "sans-serif"],
+        display: ["var(--font-inter)", "sans-serif"],
       },
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',

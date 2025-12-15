@@ -47,10 +47,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         const el = containerRef.current;
         if (!el) return;
 
-        // Use window as default scroller if ref not provided. 
-        // IMPORTANT: For Next.js/React environments, check if window is defined.
-        // If using a custom smooth scroller (like Lenis), you might need to adjust this.
-        // For now, we fallback to window.
+
         const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
 
         gsap.fromTo(

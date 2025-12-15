@@ -2,7 +2,7 @@ export interface VocabularyItem {
     term: string;
     meaning: string;
     example: string;
-    type: string; // noun, verb, adjective, etc.
+    type: string;
     ipa: string;
 }
 

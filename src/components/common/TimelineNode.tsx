@@ -1,9 +1,9 @@
-// components/TimelineNode.tsx
+
 "use client";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { X, ExternalLink, BookOpen, Terminal, Cpu, Video, Code, Globe, FileText, Brain, Target, CheckCircle2 } from "lucide-react";
-// import type { PhaseData, Resource } from "@/data/roadmap";
+
 
 interface Resource {
   type: 'Video' | 'Docs' | 'Practice' | 'Tool' | 'Book' | 'Mental' | 'Lang' | 'Repo' | string;
@@ -33,7 +33,7 @@ interface PhaseData {
 
 import { SpotlightCard } from "@/components/common/ui/SpotlightCard";
 
-// Get icon based on resource type
+
 function getResourceIcon(type: Resource["type"]) {
   switch (type) {
     case "Video": return <Video className="w-5 h-5" />;
@@ -49,7 +49,7 @@ function getResourceIcon(type: Resource["type"]) {
 }
 
 
-// Resource Card Component
+
 function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Resource; index: number; phaseColor: string; onSelect: (r: Resource) => void }) {
   const isTool = resource.type === 'Tool';
 
@@ -78,7 +78,7 @@ function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Res
         y: -5,
       }}
     >
-      {/* Gradient overlay on hover */}
+
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
@@ -86,7 +86,7 @@ function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Res
         }}
       />
 
-      {/* Content */}
+
       <div className="relative z-10">
         <div className="flex justify-between items-start mb-4">
           <div
@@ -117,13 +117,13 @@ function ResourceCard({ resource, index, phaseColor, onSelect }: { resource: Res
         </p>
       </div>
 
-      {/* Shine effect */}
+
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/5 to-transparent skew-x-12" />
     </motion.a>
   );
 }
 
-// Tool Detail Modal
+
 function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => void; color: string }) {
   return (
     <motion.div
@@ -139,7 +139,7 @@ function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => vo
         exit={{ scale: 0.9, opacity: 0 }}
         className="relative bg-neutral-900 border border-white/10 p-8 rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden"
       >
-        {/* Background Glow */}
+
         <div
           className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-10 -translate-y-1/2 translate-x-1/2 pointer-events-none"
           style={{ backgroundColor: color }}
@@ -201,7 +201,7 @@ function ToolModal({ tool, onClose, color }: { tool: Resource; onClose: () => vo
   );
 }
 
-// Milestone Item Component
+
 function MilestoneItem({ milestone, index, phaseColor }: { milestone: string; index: number; phaseColor: string }) {
   return (
     <motion.div
@@ -228,7 +228,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
   const [selectedTool, setSelectedTool] = useState<Resource | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Parallax effect for the card
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -245,11 +245,11 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
         style={{ y, opacity, scale }}
         className="w-full"
       >
-        {/* The Card */}
+
         <div className="w-full">
           <div onClick={() => setIsOpen(true)} className="cursor-pointer">
             <SpotlightCard className="p-8 md:p-10 rounded-3xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm hover:border-white/20 transition-colors group">
-              {/* Phase number badge */}
+
               <div
                 className="absolute top-6 right-6 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-widest border bg-neutral-950/50 backdrop-blur-md z-20"
                 style={{
@@ -260,7 +260,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 {data.months}
               </div>
 
-              {/* Content */}
+
               <div className="relative z-10">
                 <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.3em] mb-2 block">
                   {data.phase}
@@ -277,7 +277,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   {data.tagline}
                 </p>
 
-                {/* Keywords */}
+
                 <div className="flex flex-wrap gap-2 mb-8">
                   {data.keywords.map((kw) => (
                     <span
@@ -289,7 +289,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   ))}
                 </div>
 
-                {/* CTA */}
+
                 <div className="flex items-center gap-2 text-sm text-neutral-500 group-hover:text-white transition-colors">
                   <Target className="w-4 h-4" />
                   <span>Nhấn để xem chi tiết</span>
@@ -299,11 +299,11 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
           </div>
         </div>
 
-        {/* Center Node on the Line - REMOVED */}
-        {/* Empty space for the other side - REMOVED */}
+
+
       </motion.div>
 
-      {/* Full Screen Modal (Glassmorphism) */}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -312,7 +312,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            {/* Backdrop */}
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -321,7 +321,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Modal Content */}
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -329,7 +329,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl scrollbar-hide"
             >
-              {/* Header Background */}
+
               <div
                 className="absolute top-0 left-0 right-0 h-64 opacity-30"
                 style={{
@@ -337,7 +337,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                 }}
               />
 
-              {/* Close button */}
+
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-6 right-6 z-20 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all duration-300 hover:rotate-90"
@@ -346,7 +346,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
               </button>
 
               <div className="relative z-10 p-8 md:p-12">
-                {/* Header */}
+
                 <div className="mb-12">
                   <div className="flex items-center gap-4 mb-4">
                     <span
@@ -373,9 +373,9 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   </p>
                 </div>
 
-                {/* Key Action & Challenge */}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                  {/* Key Action */}
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -389,7 +389,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                     <p className="text-gray-200 text-lg">{data.keyAction}</p>
                   </motion.div>
 
-                  {/* Challenge Box */}
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -404,7 +404,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   </motion.div>
                 </div>
 
-                {/* Milestones */}
+
                 <div className="mb-12">
                   <h3 className="text-sm font-mono text-gray-500 uppercase tracking-widest mb-6 flex items-center gap-3">
                     <div className="w-8 h-px" style={{ backgroundColor: data.color }} />
@@ -417,7 +417,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   </div>
                 </div>
 
-                {/* Resources Bento Grid */}
+
                 <div>
                   <h3 className="text-sm font-mono text-gray-500 uppercase tracking-widest mb-6 flex items-center gap-3">
                     <div className="w-8 h-px" style={{ backgroundColor: data.color }} />
@@ -436,7 +436,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   </div>
                 </div>
 
-                {/* Tool Modal */}
+
                 <AnimatePresence>
                   {selectedTool && (
                     <ToolModal
@@ -447,7 +447,7 @@ export default function TimelineNode({ data }: { data: PhaseData }) {
                   )}
                 </AnimatePresence>
 
-                {/* Footer CTA */}
+
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

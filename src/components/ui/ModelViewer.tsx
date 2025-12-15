@@ -36,7 +36,7 @@ export interface ViewerProps {
 
 const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 const deg2rad = (d: number) => (d * Math.PI) / 180;
-const DECIDE = 8; // px before we decide horizontal vs vertical
+const DECIDE = 8;
 const ROTATE_SPEED = 0.005;
 const INERTIA = 0.925;
 const PARALLAX_MAG = 0.05;
@@ -105,32 +105,31 @@ interface ModelInnerProps {
 const ProceduralLaptop = () => {
     return (
         <group position={[0, -0.5, 0]}>
-            {/* Base (Thinner and Aluminum color) */}
+
             <mesh position={[0, 0, 0]}>
                 <boxGeometry args={[1.6, 0.08, 1.1]} />
                 <meshStandardMaterial color="#A0A0A0" roughness={0.3} metalness={0.9} />
             </mesh>
 
-            {/* Keyboard Area (Darker recess) */}
+
             <mesh position={[0, 0.041, -0.1]}>
                 <planeGeometry args={[1.4, 0.5]} />
                 <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
             </mesh>
 
-            {/* Trackpad */}
+
             <mesh position={[0, 0.041, 0.35]}>
                 <planeGeometry args={[0.5, 0.35]} />
                 <meshStandardMaterial color="#909090" roughness={0.3} metalness={0.5} />
             </mesh>
 
-            {/* Screen Hinge */}
             <group position={[0, 0.05, -0.55]} rotation={[THREE.MathUtils.degToRad(-15), 0, 0]}>
-                {/* Screen Case */}
+
                 <mesh position={[0, 0.55, 0]}>
                     <boxGeometry args={[1.6, 1.1, 0.05]} />
                     <meshStandardMaterial color="#A0A0A0" roughness={0.3} metalness={0.9} />
                 </mesh>
-                {/* Screen Display */}
+
                 <mesh position={[0, 0.55, 0.026]}>
                     <planeGeometry args={[1.5, 1]} />
                     <meshStandardMaterial
@@ -141,12 +140,12 @@ const ProceduralLaptop = () => {
                         metalness={0.8}
                     />
                 </mesh>
-                {/* Webcam dot */}
+
                 <mesh position={[0, 0.98, 0.027]}>
                     <circleGeometry args={[0.007, 16]} />
                     <meshStandardMaterial color="#111" />
                 </mesh>
-                {/* Logo */}
+
                 <mesh position={[0, 0.55, -0.026]} rotation={[0, Math.PI, 0]}>
                     <circleGeometry args={[0.08, 32]} />
                     <meshStandardMaterial color="#E0E0E0" emissive="#FFFFFF" emissiveIntensity={0.2} roughness={0.4} metalness={0.8} />
@@ -189,8 +188,8 @@ const ModelInner: FC<ModelInnerProps> = ({
     const isBuiltin = url === 'builtin:macbook';
 
     const content = useMemo<THREE.Object3D | null>(() => {
-        if (isBuiltin) return null; // Handled separately
-        // Note: in a real app, handle errors gracefully if loader fails
+        if (isBuiltin) return null;
+
         try {
             if (ext === 'glb' || ext === 'gltf') return useGLTF(url).scene.clone();
             if (ext === 'fbx') return useFBX(url).clone();
@@ -206,7 +205,6 @@ const ModelInner: FC<ModelInnerProps> = ({
     const pivotW = useRef(new THREE.Vector3());
     useLayoutEffect(() => {
         if (isBuiltin) {
-            // Basic centering for procedural
             if (onLoaded) onLoaded();
             return;
         }
@@ -214,13 +212,13 @@ const ModelInner: FC<ModelInnerProps> = ({
         if (!content) return;
         const g = inner.current;
 
-        // Safety check if g is available
+
         if (!g) return;
 
         g.updateWorldMatrix(true, true);
 
         const sphere = new THREE.Box3().setFromObject(g).getBoundingSphere(new THREE.Sphere());
-        const s = 1 / (sphere.radius * 2 || 1); // Avoid div by zero
+        const s = 1 / (sphere.radius * 2 || 1);
         g.position.set(-sphere.center.x, -sphere.center.y, -sphere.center.z);
         g.scale.setScalar(s);
 
@@ -249,7 +247,7 @@ const ModelInner: FC<ModelInnerProps> = ({
             persp.updateProjectionMatrix();
         }
 
-        /* optional fade-in */
+
         if (fadeIn) {
             let t = 0;
             const id = setInterval(() => {

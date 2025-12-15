@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
         }
 
         const data = await res.json();
-        // Return a simplified list for the user
+
         const voices = data.voices.map((v: any) => ({
             name: v.name,
             voice_id: v.voice_id,

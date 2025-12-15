@@ -1,8 +1,8 @@
 'use client';
 
-// Types
+
 export interface UserProfile {
-    id: string; // username
+    id: string;
     name: string;
     email: string;
     avatar?: string;
@@ -56,7 +56,7 @@ const createDefaultUser = (id: string): StoredUserData => ({
         joinDate: new Date().toISOString(),
         streak: 1,
         lastLogin: new Date().toISOString(),
-        avatar: 'bg-indigo-500' // Default color
+        avatar: 'bg-indigo-500'
     },
     password: '',
     flashcards: {},
@@ -81,16 +81,16 @@ export const StorageService = {
         return localStorage.getItem(STORAGE_KEYS.CURRENT_USER) || GUEST_ID;
     },
 
-    // Ensure user exists before performing actions
+
     ensureUserExists: (db: Record<string, StoredUserData>, username: string) => {
         if (!db[username]) {
             db[username] = createDefaultUser(username);
-            return true; // Modified
+            return true;
         }
         return false;
     },
 
-    // --- Data Access (Auto-handles Guest) ---
+
 
     saveQuizResult: (result: QuizResult) => {
         const username = StorageService.getCurrentUsername();
@@ -171,7 +171,7 @@ export const StorageService = {
         StorageService.saveUsersDB(db);
     },
 
-    // Keeping logout/export just in case, but they are hidden from UI
+
     logout: () => {
         localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
         window.location.reload();
@@ -202,7 +202,7 @@ export const StorageService = {
             db[username] = userData;
             StorageService.saveUsersDB(db);
 
-            // Auto switch to imported user
+
             if (typeof window !== 'undefined') {
                 localStorage.setItem(STORAGE_KEYS.CURRENT_USER, username);
             }
@@ -217,12 +217,10 @@ export const StorageService = {
         const user = db[username];
 
         if (!user) {
-            // For guest/demo mode, if user doesn't exist but password is empty, maybe create guest?
-            // But following standard logic:
             return { success: false, message: 'User not found' };
         }
 
-        // Simple password check (in real app, hash this)
+
         if (user.password !== password) {
             return { success: false, message: 'Incorrect password' };
         }
@@ -231,7 +229,7 @@ export const StorageService = {
             localStorage.setItem(STORAGE_KEYS.CURRENT_USER, username);
         }
 
-        // Update last login
+
         user.profile.lastLogin = new Date().toISOString();
         db[username] = user;
         StorageService.saveUsersDB(db);
@@ -259,5 +257,5 @@ export const StorageService = {
         return { success: true, message: 'Registration successful' };
     },
 
-    // ... imports ...
+
 };

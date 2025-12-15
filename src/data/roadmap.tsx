@@ -6,9 +6,7 @@ import {
     Rocket,
 } from 'lucide-react';
 
-// ==========================================
-// NEW INTERFACES
-// ==========================================
+
 
 export interface Resource {
     type: 'docs' | 'practice' | 'video' | 'mental' | 'tool' | 'book' | 'repo';
@@ -55,32 +53,30 @@ export interface RoadmapPhase {
     icon: React.ReactNode;
     color: string;
 
-    // NEW: Why & Purpose
+
     whyImportant: string;
     practicalApplications: string[];
     prerequisites: string[];
     estimatedHoursPerWeek: number;
 
-    // Goals & Checkpoints
+
     goals: string[];
     checkpoints: string[];
     commonMistakes?: string[];
 
-    // Detailed Content
+
     detailedTopics: DetailedTopic[];
     comparisonTables?: ComparisonTable[];
 
-    // Project
+
     realWorldProject: RealWorldProject;
 
-    // Resources
+
     resources: Resource[];
     summary: string[];
 }
 
-// ==========================================
-// PHASE 1: NỀN TẢNG KHOA HỌC MÁY TÍNH
-// ==========================================
+
 
 const phase1: RoadmapPhase = {
     id: 'phase-1',
@@ -301,9 +297,7 @@ def dot_product(a, b):
     ]
 };
 
-// ==========================================
-// PHASE 2: BACKEND HIỆU NĂNG CAO
-// ==========================================
+
 
 const phase2: RoadmapPhase = {
     id: 'phase-2',
@@ -501,9 +495,7 @@ CREATE POLICY "Users see own docs" ON documents
     ]
 };
 
-// ==========================================
-// PHASE 3: FRONTEND AI-NATIVE
-// ==========================================
+
 
 const phase3: RoadmapPhase = {
     id: 'phase-3',
@@ -689,9 +681,7 @@ Create a landing page for an AI writing tool
     ]
 };
 
-// ==========================================
-// PHASE 4: HỆ THỐNG NÂNG CAO & BẢO MẬT
-// ==========================================
+
 
 const phase4: RoadmapPhase = {
     id: 'phase-4',

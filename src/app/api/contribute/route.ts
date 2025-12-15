@@ -10,24 +10,24 @@ export async function POST(request: Request) {
         const dataDir = path.join(process.cwd(), 'src', 'data');
         const filePath = path.join(dataDir, 'contributions.json');
 
-        // Ensure directory exists
+
         if (!fs.existsSync(dataDir)) {
             fs.mkdirSync(dataDir, { recursive: true });
         }
 
-        // Read existing data
+
         let contributions = [];
         if (fs.existsSync(filePath)) {
             const fileContent = fs.readFileSync(filePath, 'utf-8');
             try {
                 contributions = JSON.parse(fileContent);
             } catch (e) {
-                // If file is corrupted or empty, start fresh
+
                 contributions = [];
             }
         }
 
-        // Add new contribution
+
         const newContribution = {
             id: Date.now().toString(),
             email,
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
 
         contributions.push(newContribution);
 
-        // Write back to file
+
         fs.writeFileSync(filePath, JSON.stringify(contributions, null, 2));
 
         return NextResponse.json({ success: true, message: 'Contribution saved', data: newContribution });

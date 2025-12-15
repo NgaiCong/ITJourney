@@ -35,7 +35,7 @@ const resourceLabels: Record<Resource['type'], string> = {
     repo: 'Repo',
 };
 
-// Expandable Topic Component
+
 function TopicSection({ topic, index }: { topic: DetailedTopic; index: number }) {
     const [isExpanded, setIsExpanded] = useState(index === 0);
 
@@ -55,7 +55,7 @@ function TopicSection({ topic, index }: { topic: DetailedTopic; index: number })
 
             {isExpanded && (
                 <div className="p-4 space-y-4 bg-white/[0.02]">
-                    {/* Why Learn This */}
+
                     <div>
                         <h5 className="text-sm font-bold text-amber-400 mb-2 flex items-center gap-2">
                             <Lightbulb className="w-4 h-4" />
@@ -64,7 +64,7 @@ function TopicSection({ topic, index }: { topic: DetailedTopic; index: number })
                         <p className="text-neutral-300 text-sm leading-relaxed">{topic.whyLearnThis}</p>
                     </div>
 
-                    {/* Key Concepts */}
+
                     <div>
                         <h5 className="text-sm font-bold text-blue-400 mb-2">Khái niệm cốt lõi:</h5>
                         <ul className="space-y-1">
@@ -77,7 +77,7 @@ function TopicSection({ topic, index }: { topic: DetailedTopic; index: number })
                         </ul>
                     </div>
 
-                    {/* Code Examples */}
+
                     {topic.codeExamples && topic.codeExamples.length > 0 && (
                         <div>
                             <h5 className="text-sm font-bold text-green-400 mb-2">Ví dụ code:</h5>
@@ -92,7 +92,7 @@ function TopicSection({ topic, index }: { topic: DetailedTopic; index: number })
                         </div>
                     )}
 
-                    {/* Practical Use Cases */}
+
                     <div>
                         <h5 className="text-sm font-bold text-purple-400 mb-2">Ứng dụng thực tế:</h5>
                         <ul className="space-y-1">
@@ -105,7 +105,7 @@ function TopicSection({ topic, index }: { topic: DetailedTopic; index: number })
                         </ul>
                     </div>
 
-                    {/* Tasks */}
+
                     <div>
                         <h5 className="text-sm font-bold text-cyan-400 mb-2">Thực hành:</h5>
                         <ul className="space-y-1">
@@ -123,7 +123,7 @@ function TopicSection({ topic, index }: { topic: DetailedTopic; index: number })
     );
 }
 
-// Comparison Table Component
+
 function ComparisonTableSection({ table }: { table: ComparisonTable }) {
     return (
         <div className="mb-4">
@@ -164,7 +164,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
         <AnimatePresence>
             {stage && (
                 <>
-                    {/* Backdrop */}
+
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -173,7 +173,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                         className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
                     />
 
-                    {/* Modal */}
+
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -181,7 +181,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                         className="fixed inset-4 md:inset-8 lg:inset-16 z-50 rounded-2xl bg-neutral-900 border border-white/10 shadow-2xl flex flex-col"
                     >
-                        {/* Close Button */}
+
                         <button
                             onClick={onClose}
                             className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -189,12 +189,12 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                             <X className="w-5 h-5 text-white" />
                         </button>
 
-                        {/* Content */}
+
                         <div
                             data-lenis-prevent
                             className="flex-1 overflow-y-auto p-6 md:p-10 overscroll-contain [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]"
                         >
-                            {/* Header */}
+
                             <div className="mb-8">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="text-xs font-bold tracking-widest uppercase text-white/50">
@@ -213,12 +213,12 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                 </p>
                             </div>
 
-                            {/* Two Column Layout */}
+
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                {/* Left Column - Main Content */}
+
                                 <div className="lg:col-span-2 space-y-8">
 
-                                    {/* Why Important */}
+
                                     <section className="p-5 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
                                         <div className="flex items-center gap-2 mb-3">
                                             <Lightbulb className="w-5 h-5 text-amber-400" />
@@ -227,7 +227,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         <p className="text-neutral-300 text-sm leading-relaxed">{stage.whyImportant}</p>
                                     </section>
 
-                                    {/* Practical Applications */}
+
                                     <section>
                                         <div className="flex items-center gap-2 mb-4">
                                             <Target className="w-5 h-5 text-emerald-400" />
@@ -243,7 +243,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </ul>
                                     </section>
 
-                                    {/* Goals */}
+
                                     <section>
                                         <div className="flex items-center gap-2 mb-4">
                                             <Rocket className="w-5 h-5 text-blue-400" />
@@ -259,7 +259,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </ul>
                                     </section>
 
-                                    {/* Detailed Topics */}
+
                                     <section>
                                         <div className="flex items-center gap-2 mb-4">
                                             <BookOpen className="w-5 h-5 text-purple-400" />
@@ -272,7 +272,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </div>
                                     </section>
 
-                                    {/* Comparison Tables */}
+
                                     {stage.comparisonTables && stage.comparisonTables.length > 0 && (
                                         <section>
                                             <div className="flex items-center gap-2 mb-4">
@@ -285,7 +285,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </section>
                                     )}
 
-                                    {/* Real World Project */}
+
                                     <section className="p-5 rounded-xl bg-gradient-to-br from-purple-500/10 to-violet-500/10 border border-purple-500/20">
                                         <div className="flex items-center gap-2 mb-3">
                                             <Rocket className="w-5 h-5 text-purple-400" />
@@ -326,9 +326,9 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                     </section>
                                 </div>
 
-                                {/* Right Column - Sidebar */}
+
                                 <div className="lg:col-span-1 space-y-6">
-                                    {/* Prerequisites */}
+
                                     <section>
                                         <div className="flex items-center gap-2 mb-3">
                                             <CheckCircle className="w-4 h-4 text-green-400" />
@@ -344,7 +344,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </ul>
                                     </section>
 
-                                    {/* Checkpoints */}
+
                                     <section>
                                         <div className="flex items-center gap-2 mb-3">
                                             <ListChecks className="w-4 h-4 text-blue-400" />
@@ -360,7 +360,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </ul>
                                     </section>
 
-                                    {/* Common Mistakes */}
+
                                     {stage.commonMistakes && stage.commonMistakes.length > 0 && (
                                         <section className="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
                                             <div className="flex items-center gap-2 mb-3">
@@ -378,7 +378,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </section>
                                     )}
 
-                                    {/* Resources */}
+
                                     <section>
                                         <h3 className="text-sm font-bold text-white mb-3">Tài Liệu Chọn Lọc</h3>
                                         <div className="space-y-2">
@@ -408,7 +408,7 @@ export default function StageDetailModal({ stage, onClose }: StageDetailModalPro
                                         </div>
                                     </section>
 
-                                    {/* Summary */}
+
                                     <section className="p-4 rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20">
                                         <h3 className="text-sm font-bold text-white mb-2">Tóm Tắt</h3>
                                         <ul className="space-y-2">

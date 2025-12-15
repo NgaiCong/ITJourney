@@ -20,22 +20,22 @@ export default function StageCard({ stage, index }: StageCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
     >
-      <Link 
+      <Link
         href={isLocked ? "#" : `/roadmap/stage-${stage.id}`}
         className={`block relative group ${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
       >
         <div className={`
           relative z-10 bg-white rounded-2xl p-6 border-2 transition-all duration-300
-          ${isLocked 
-            ? 'border-gray-100 bg-gray-50' 
+          ${isLocked
+            ? 'border-gray-100 bg-gray-50'
             : 'border-gray-100 hover:border-blue-500 hover:shadow-lg'
           }
         `}>
           <div className="flex justify-between items-start mb-4">
             <div className={`
               w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold
-              ${isLocked 
-                ? 'bg-gray-200 text-gray-400' 
+              ${isLocked
+                ? 'bg-gray-200 text-gray-400'
                 : 'bg-blue-100 text-blue-600'
               }
             `}>
@@ -56,20 +56,20 @@ export default function StageCard({ stage, index }: StageCardProps) {
           <h3 className={`text-xl font-bold mb-2 ${isLocked ? 'text-gray-400' : 'text-gray-800'}`}>
             {stage.title}
           </h3>
-          
+
           <p className={`text-sm mb-6 line-clamp-2 ${isLocked ? 'text-gray-400' : 'text-gray-500'}`}>
             {stage.description}
           </p>
 
-          {/* Progress Bar */}
+
           <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               className={`h-full rounded-full ${isLocked ? 'bg-gray-300' : 'bg-blue-500'}`}
             />
           </div>
-          
+
           <div className="mt-2 flex justify-between text-xs text-gray-400">
             <span>{stage.months?.length || 0} tháng</span>
             <span>{progress}% hoàn thành</span>

@@ -19,14 +19,11 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 
     const animate = useCallback(() => {
         if (divRef.current && !isHoveredRef.current) {
-            const time = Date.now() / 2000; // Speed factor
+            const time = Date.now() / 2000;
             const width = divRef.current.offsetWidth;
             const height = divRef.current.offsetHeight;
 
-            // Swaying logic: Figure-8 or simple sway
-            // X: Center +/- 40% of width
             const x = width / 2 + Math.cos(time) * (width * 0.4);
-            // Y: Center +/- 20% of height (gentle bobbing)
             const y = height / 2 + Math.sin(time * 0.8) * (height * 0.2);
 
             divRef.current.style.setProperty('--mouse-x', `${x}px`);

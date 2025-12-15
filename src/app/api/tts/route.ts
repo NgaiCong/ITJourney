@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Text is required' }, { status: 400 });
         }
 
-        // 0. Priority: ElevenLabs (High Quality + Cached)
+
         if (process.env.ELEVENLABS_API_KEY) {
             const elevenBuffer = await ElevenLabsTTS.generate(text);
             if (elevenBuffer) {
@@ -25,10 +25,10 @@ export async function POST(req: NextRequest) {
                     headers: { 'Content-Type': 'audio/mpeg' },
                 });
             }
-            // If null, fall through to OpenAI/Edge
+
         }
 
-        // 1. Try OpenAI if Key is present and seems valid
+
         if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.startsWith('sk-')) {
             try {
                 const mp3 = await openai.audio.speech.create({
@@ -45,12 +45,12 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // 2. Fallback: Edge TTS (Neural Quality - Free)
+
         try {
             const edgeBuffer = await EdgeTTS.generate({
                 text,
-                voice: 'vi-VN-HoaiMyNeural', // High quality Vietnamese
-                rate: '+10%', // Slightly faster for flow
+                voice: 'vi-VN-HoaiMyNeural',
+                rate: '+10%',
             });
 
             return new NextResponse(edgeBuffer as any, {
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
             console.warn("Edge TTS Failed, switching to Google TTS:", edgeError);
         }
 
-        // 3. Fallback: Google TTS (Last Resort)
+
         const googleUrl = getAudioUrl(text, {
             lang: 'vi',
             slow: false,

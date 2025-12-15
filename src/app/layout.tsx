@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ["latin", "vietnamese"],
   display: "swap",
-  variable: "--font-space",
+  variable: "--font-inter",
 });
+
 
 export const viewport: Viewport = {
   themeColor: "#050505",
@@ -85,14 +86,13 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <head>
-        {/* Preconnect to external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className={`${spaceGrotesk.variable} font-sans antialiased bg-black text-white`}
+        className={`${inter.variable} font-sans antialiased bg-black text-white`}
+        suppressHydrationWarning
       >
-        {/* Skip to main content for accessibility */}
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg"

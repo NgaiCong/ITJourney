@@ -25,7 +25,7 @@ export default function WikiPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isContributionOpen, setIsContributionOpen] = useState(false);
 
-    // Dynamic content topics
+
     const contentTopics: Topic[] = [
         {
             title: 'Vibe Coding',
@@ -33,7 +33,6 @@ export default function WikiPage() {
             label: 'Featured • New Era',
             path: '/wiki/vibecoding',
             img: 'https://nationalcioreview.com/wp-content/uploads/2025/09/TNCR-graphics-KB-2.gif',
-            // Default size 1 for scalability
         },
         {
             title: 'Prompt Engineering',
@@ -65,7 +64,7 @@ export default function WikiPage() {
         }
     ];
 
-    // Special Community Topic (Always Footer)
+
     const communityTopic: Topic = {
         title: "Đóng góp chủ đề",
         description: "Cùng nhau xây dựng kho tàng kiến thức mở. Đóng góp bài viết, sửa lỗi và chia sẻ kinh nghiệm.",
@@ -73,7 +72,7 @@ export default function WikiPage() {
         path: '#',
         img: "http://i.pinimg.com/originals/d6/74/e7/d674e764a10d6b4f8cdd011f030c886f.gif",
         isContribution: true,
-        colSpan: 3, // Full width
+        colSpan: 3,
         color: '#7c3aed'
     };
 
@@ -110,10 +109,9 @@ export default function WikiPage() {
 
     return (
         <main className="min-h-screen bg-[#0a0a0a] text-white pt-36 pb-10 relative overflow-hidden">
-            {/* Background Effect */}
             <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
                 <Silk
-                    color="#7c3aed" // Violet-600
+                    color="#7c3aed"
                     speed={5.0}
                     scale={1.2}
                     noiseIntensity={0.5}
@@ -124,7 +122,7 @@ export default function WikiPage() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-white/10 pb-8">
                     <div>
                         <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
-                            <span className="bg-gradient-to-r from-purple-400 via-violet-300 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(139,92,246,0.3)]">
+                            <span className="inline-block py-4 leading-[1.3] bg-gradient-to-r from-purple-400 via-violet-300 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(139,92,246,0.3)]">
                                 WIKI KIẾN THỨC
                             </span>
                         </h1>
@@ -148,7 +146,6 @@ export default function WikiPage() {
                     </div>
                 </div>
 
-                {/* Main Content Grid */}
                 <div className="mb-8">
                     {cards.length > 0 ? (
                         <MagicBento
@@ -168,7 +165,6 @@ export default function WikiPage() {
                     )}
                 </div>
 
-                {/* Persistent Community Section (Footer) */}
                 <div className="mt-8 border-t border-white/5 pt-8">
                     <MagicBento
                         items={[communityCard]}

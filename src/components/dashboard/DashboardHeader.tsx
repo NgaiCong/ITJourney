@@ -29,8 +29,8 @@ export default function DashboardHeader({ user, streak }: DashboardHeaderProps) 
         </div>
 
         <div className="flex gap-4 w-full md:w-auto">
-          {/* Streak Badge */}
-          <motion.div 
+
+          <motion.div
             whileHover={{ scale: 1.05 }}
             className="flex items-center gap-2 bg-orange-50 dark:bg-orange-900/20 px-4 py-2 rounded-lg border border-orange-100 dark:border-orange-800"
           >
@@ -41,8 +41,8 @@ export default function DashboardHeader({ user, streak }: DashboardHeaderProps) 
             </div>
           </motion.div>
 
-          {/* Level Badge */}
-          <motion.div 
+
+          <motion.div
             whileHover={{ scale: 1.05 }}
             className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-lg border border-blue-100 dark:border-blue-800 flex-1 md:flex-none min-w-[140px]"
           >
@@ -53,7 +53,7 @@ export default function DashboardHeader({ user, streak }: DashboardHeaderProps) 
                 <span className="text-[10px] text-blue-500">{Math.round(xpProgress)}%</span>
               </div>
               <div className="w-full bg-blue-200 dark:bg-blue-800 rounded-full h-1.5">
-                <div 
+                <div
                   className="bg-blue-500 h-1.5 rounded-full transition-all duration-500"
                   style={{ width: `${xpProgress}%` }}
                 />

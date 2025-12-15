@@ -75,21 +75,21 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                 width: typeof width === 'number' ? `${width}px` : width,
                 height: typeof height === 'number' ? `${height}px` : height,
                 borderRadius: `${borderRadius}px`,
-                background: `rgba(255, 255, 255, 0.03)`, // Very subtle background
-                backdropFilter: `blur(12px)`, // Standard blur
+                background: `rgba(255, 255, 255, 0.03)`,
+                backdropFilter: `blur(12px)`,
                 WebkitBackdropFilter: `blur(12px)`,
-                boxShadow: `0 4px 30px rgba(0, 0, 0, 0.1)`, // Subtle shadow
-                border: `1px solid rgba(255, 255, 255, 0.1)`, // Glass border
+                boxShadow: `0 4px 30px rgba(0, 0, 0, 0.1)`,
+                border: `1px solid rgba(255, 255, 255, 0.1)`,
             }}
         >
-            {/* Hover Sheen Effect */}
+
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none z-0" />
 
             <div className="w-full h-full relative z-10">
                 {children}
             </div>
 
-            {/* Optional: Subtle noise texture or gradient overlay could go here if needed, but staying minimal for perf */}
+
         </div>
     );
 };

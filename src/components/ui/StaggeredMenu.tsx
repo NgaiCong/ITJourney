@@ -32,7 +32,7 @@ export interface StaggeredMenuProps {
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     position = 'right',
-    // Dark theme colors for layers
+
     colors = ['#18181b', '#27272a', '#3f3f46'],
     items = [],
     socialItems = [],
@@ -44,7 +44,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     openMenuButtonColor = '#fff',
     changeMenuColorOnOpen = true,
     accentColor = '#fff',
-    isFixed = true, // Default to fixed for typical nav usage
+    isFixed = true,
     closeOnClickAway = true,
     onMenuOpen,
     onMenuClose
@@ -257,7 +257,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         spinTweenRef.current?.kill();
 
         if (opening) {
-            // ensure container never rotates
+
             gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
             spinTweenRef.current = gsap
                 .timeline({ defaults: { ease: 'power4.out' } })
@@ -408,7 +408,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     aria-label="Main navigation header"
                 >
                     <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
-                        {/* Logo handled mainly by caller or updated here */}
+
                         <Link href="/" onClick={closeMenu}>
                             <img
                                 src={logoUrl}

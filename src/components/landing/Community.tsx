@@ -14,7 +14,7 @@ export default function Community() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 mb-6">
+                    <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 mb-6 py-2 leading-relaxed">
                         Cộng Đồng Của Chúng Ta
                     </h2>
                     <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
@@ -62,7 +62,7 @@ export default function Community() {
                 </motion.div>
             </div>
 
-            {/* Ambient Background */}
+
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none" />
         </section>
     );

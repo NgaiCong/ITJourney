@@ -5,7 +5,7 @@ export const linearAlgebraCourseData: DsaModule[] = [
         id: 'visual-intuition',
         title: 'Tư Duy Trực Quan (Visual Intuition) - 3Blue1Brown',
         description: 'Hiểu bản chất Đại số tuyến tính qua hình ảnh. Không còn là những con số khô khan.',
-        playlistId: 'PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab', // 3Blue1Brown
+        playlistId: 'PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab',
         keyConcepts: ['Vectors', 'Linear Combinations', 'Span', 'Basis', 'Linear Transformations'],
         overview: 'Module này tập trung vào bản chất hình học (Geometric Essence) - phần mà các khóa học đại học thường bỏ qua. Xem trước để hiểu "tại sao" trước khi học "như thế nào".',
         videos: [

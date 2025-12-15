@@ -9,10 +9,7 @@ import RotatingText from '@/components/ui/RotatingText'
 export default function Hero() {
     return (
         <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
-            {/* Background Effects */}
             <div className="absolute inset-0 bg-black">
-
-                {/* Light Rays Effect */}
                 <div className="absolute inset-0 z-0 opacity-100">
                     <LightRays
                         raysOrigin="top-center"
@@ -27,11 +24,8 @@ export default function Hero() {
                         className="w-full h-full"
                     />
                 </div>
-
-
             </div>
 
-            {/* Content */}
             <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -50,13 +44,15 @@ export default function Hero() {
                     <div className="flex items-center justify-center gap-2 md:gap-4 overflow-hidden py-2" style={{ minWidth: '300px' }}>
                         <RotatingText
                             texts={['Gốc Rễ', 'Tư Duy', 'Tương Lai', 'Sự Nghiệp']}
-                            mainClassName="bg-white text-black px-3 md:px-6 py-0.5 md:py-2 rounded-xl md:rounded-2xl overflow-hidden justify-center"
+                            mainClassName="bg-white text-black px-3 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl overflow-hidden justify-center"
+
                             staggerFrom="last"
                             initial={{ y: "100%" }}
                             animate={{ y: 0 }}
                             exit={{ y: "-120%" }}
                             staggerDuration={0.025}
-                            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                            splitLevelClassName="overflow-hidden py-1 sm:py-2"
+
                             transition={{ type: "spring", damping: 30, stiffness: 400 }}
                             rotationInterval={2000}
                         />

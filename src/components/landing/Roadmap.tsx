@@ -18,12 +18,10 @@ export default function Roadmap() {
 
     return (
         <section id="roadmap" className="relative py-32 px-4 md:px-0 bg-neutral-950 overflow-hidden" ref={containerRef}>
-            {/* Subtle background glow - black/white theme */}
             <div className="absolute top-1/4 right-0 w-[30vw] h-[30vw] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-1/4 left-0 w-[30vw] h-[30vw] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="max-w-6xl mx-auto relative">
-                {/* Timeline - black/white gradient */}
                 <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] md:w-[2px] bg-neutral-800 -translate-x-1/2">
                     <motion.div
                         style={{ scaleY, transformOrigin: "top" }}
@@ -47,12 +45,10 @@ const RoadmapNode = ({ data, index }: { data: any, index: number }) => {
     return (
         <div ref={ref} className={cn("relative flex flex-col md:flex-row items-center justify-between w-full mb-24 md:mb-40", index % 2 === 0 ? '' : 'md:flex-row-reverse')}>
 
-            {/* Timeline Connector Dot */}
             <div className="absolute left-4 md:left-1/2 top-0 -translate-x-1/2 flex items-center justify-center w-8 h-8 md:w-12 md:h-12 rounded-full bg-neutral-950 border border-white/20 z-20">
                 <div className="w-3 h-3 rounded-full bg-white" />
             </div>
 
-            {/* Content Card with SpotlightCard */}
             <motion.div
                 className={cn("w-full md:w-[42%] relative z-10 cursor-pointer pl-12 md:pl-0")}
                 initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
@@ -67,7 +63,6 @@ const RoadmapNode = ({ data, index }: { data: any, index: number }) => {
                     const selection = window.getSelection();
                     const isSelecting = !!selection && selection.toString().length > 0;
 
-                    // Prevent toggle if currently selecting OR if clicked to clear an existing selection
                     if (isSelecting || hasSelectionRef.current) return;
 
                     setIsOpen(!isOpen);
@@ -77,7 +72,6 @@ const RoadmapNode = ({ data, index }: { data: any, index: number }) => {
                     className="!p-0 !bg-[#111] !border-[#222]"
                     spotlightColor="rgba(255, 255, 255, 0.15)"
                 >
-                    {/* Top accent line */}
                     <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
                     <div className="p-6 md:p-8">
@@ -97,7 +91,6 @@ const RoadmapNode = ({ data, index }: { data: any, index: number }) => {
                             {data.description}
                         </p>
 
-                        {/* Summary View */}
                         {!isOpen && (
                             <div className="space-y-3">
                                 {data.summary.map((detail: string, idx: number) => (
@@ -113,7 +106,6 @@ const RoadmapNode = ({ data, index }: { data: any, index: number }) => {
                         )}
                     </div>
 
-                    {/* Expanded View */}
                     <AnimatePresence>
                         {isOpen && (
                             <motion.div
@@ -145,7 +137,6 @@ const RoadmapNode = ({ data, index }: { data: any, index: number }) => {
                 </SpotlightCard>
             </motion.div>
 
-            {/* Empty Div for Layout Balance */}
             <div className="hidden md:block w-[42%]" />
         </div>
     )
