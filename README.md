@@ -52,5 +52,5 @@ Dự án được xây dựng với các công nghệ web hiện đại, tập t
 ---
 
 <div align="center">
-  <p>Built with ❤️ by <a href="https://github.com/NgaiCong">NgaiCong</a></p>
+  <p>Built with 🤍 by <a href="https://github.com/NgaiCong">NgaiCong</a></p>
 </div>
