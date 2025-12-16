@@ -50,13 +50,13 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Luxurious Palette
+
         luxury: {
           onyx: "#050505",
           charcoal: "#0F0F0F",
           gold: "#D4AF37",
           silver: "#C0C0C0",
-          iridescent: "#3D3D3D", // Fallback for gradients
+          iridescent: "#3D3D3D",
         }
       },
       borderRadius: {
@@ -66,7 +66,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
-        mono: ["monospace"], // Removed missing geist-mono
+        mono: ["monospace"],
         display: ["var(--font-inter)", "sans-serif"],
       },
 

@@ -16,7 +16,7 @@ export default function SubtitleOverlay({ currentTime, transcript, isEnabled }: 
     }, [currentTime, transcript]);
 
     return (
-        <div className="absolute bottom-16 left-0 right-0 z-20 pointer-events-none flex justify-center px-4">
+        <div className="absolute bottom-8 md:bottom-16 left-0 right-0 z-20 pointer-events-none flex justify-center px-4 w-full">
             <AnimatePresence mode="wait">
                 {currentSubtitle && (
                     <motion.div
@@ -24,9 +24,9 @@ export default function SubtitleOverlay({ currentTime, transcript, isEnabled }: 
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="bg-black/70 backdrop-blur-md px-6 py-3 rounded-xl border border-white/10 shadow-2xl max-w-3xl text-center"
+                        className="bg-black/60 backdrop-blur-sm px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl border border-white/5 shadow-xl max-w-[90%] md:max-w-3xl text-center mx-auto"
                     >
-                        <p className="text-xl md:text-2xl font-medium text-yellow-300 drop-shadow-md leading-relaxed">
+                        <p className="text-base md:text-2xl font-medium text-yellow-300 drop-shadow-md leading-relaxed">
                             {currentSubtitle.text}
                         </p>
                     </motion.div>

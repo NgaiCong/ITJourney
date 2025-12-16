@@ -11,9 +11,9 @@ import GlassCard from '@/components/ui/GlassCard';
 import { cn } from '@/lib/utils';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
-// ============================================
+
 // DATA: Khái niệm chính
-// ============================================
+
 const keyConcepts = [
     {
         term: 'Vibe Coding',
@@ -53,9 +53,9 @@ const keyConcepts = [
     }
 ];
 
-// ============================================
+
 // DATA: Bảng so sánh
-// ============================================
+
 const comparisonData = [
     { criteria: 'Vai trò con người', vibe: 'Ra lệnh và sao chép mã AI tạo', assisted: 'Là người điều khiển, xác minh và chỉnh sửa mã' },
     { criteria: 'Tính an toàn', vibe: 'Thấp, nhiều lỗi bảo mật và ảo giác', assisted: 'Cao hơn, kiểm tra kỹ lưỡng và đảm bảo chất lượng' },
@@ -64,9 +64,9 @@ const comparisonData = [
     { criteria: 'Tác động lâu dài', vibe: 'Gây hổng nhân sự, mất kỹ năng lập trình trung cấp', assisted: 'Duy trì sự phát triển bền vững về kỹ năng và ngành công nghiệp' }
 ];
 
-// ============================================
+
 // DATA: Case Studies thực tế
-// ============================================
+
 const caseStudies = [
     {
         name: 'Leo',
@@ -88,9 +88,9 @@ const caseStudies = [
     }
 ];
 
-// ============================================
+
 // DATA: Các vấn đề phân tích
-// ============================================
+
 const analysisProblems = [
     {
         title: 'Ảo giác AI và tính toán không chính xác',
@@ -114,9 +114,9 @@ const analysisProblems = [
     }
 ];
 
-// ============================================
+
 // DATA: Ưu điểm của Vibe Coding
-// ============================================
+
 const advantages = [
     {
         title: 'Tốc độ cực nhanh',
@@ -136,9 +136,9 @@ const advantages = [
     }
 ];
 
-// ============================================
+
 // DATA: Nguy cơ và rủi ro
-// ============================================
+
 const risks = [
     {
         title: 'Mất gốc kiến thức nền tảng',
@@ -158,9 +158,9 @@ const risks = [
     }
 ];
 
-// ============================================
+
 // DATA: Nguyên tắc làm việc với AI
-// ============================================
+
 const principles = [
     {
         number: '01',
@@ -212,9 +212,9 @@ const principles = [
     }
 ];
 
-// ============================================
+
 // DATA: Công cụ AI
-// ============================================
+
 const aiTools = [
     { name: 'Builder', type: 'Plugin Figma', use: 'Tạo mã giao diện từ file thiết kế Figma', pros: 'Tự động tạo HTML/CSS/JS responsive; hỗ trợ nhiều framework', cons: 'Giới hạn token (~1000 từ); thích hợp cho thành phần nhỏ' },
     { name: 'Lovable', type: 'Full Project Builder', use: 'Tạo giao diện, code frontend và backend fullstack', pros: 'Tạo dự án hoàn thiện, responsive, animation, dark mode, backend (Supabase)', cons: 'Giới hạn bản miễn phí; cần trả phí $20-50/tháng' },
@@ -227,9 +227,9 @@ const aiTools = [
     { name: 'Perplexity', type: 'AI Search', use: 'Tìm thông tin và tổng hợp có dẫn chứng nguồn', pros: 'Đỡ bị tin giả; Có nguồn tham khảo', cons: 'Không chuyên về code' }
 ];
 
-// ============================================
+
 // DATA: Lộ trình xây dựng ứng dụng
-// ============================================
+
 const buildRoadmap = [
     {
         step: '1',
@@ -268,9 +268,9 @@ const buildRoadmap = [
     }
 ];
 
-// ============================================
+
 // DATA: Bảng thuật ngữ
-// ============================================
+
 const glossary = [
     { term: 'Vibe Coding', definition: 'Phương pháp lập trình sử dụng tác nhân AI để tự động sinh mã từ yêu cầu thay vì viết thủ công.' },
     { term: 'Tác nhân AI (AI Agent)', definition: 'Hệ thống AI tự động thực hiện các tác vụ cài đặt dựa trên lệnh và đặc tả của người dùng.' },
@@ -283,9 +283,9 @@ const glossary = [
     { term: 'POC', definition: 'Bằng chứng về tính khả thi của ý tưởng hoặc công nghệ.' }
 ];
 
-// ============================================
+
 // DATA: Key Takeaways
-// ============================================
+
 const keyTakeaways = [
     'Vibe Coding là công cụ hỗ trợ, không phải giải pháp toàn diện.',
     'Kiến thức nền tảng và tư duy hệ thống vẫn rất cần thiết trong việc phát triển phần mềm.',

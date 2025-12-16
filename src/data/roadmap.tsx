@@ -6,8 +6,6 @@ import {
     Rocket,
 } from 'lucide-react';
 
-
-
 export interface Resource {
     type: 'docs' | 'practice' | 'video' | 'mental' | 'tool' | 'book' | 'repo';
     name: string;
@@ -53,30 +51,23 @@ export interface RoadmapPhase {
     icon: React.ReactNode;
     color: string;
 
-
     whyImportant: string;
     practicalApplications: string[];
     prerequisites: string[];
     estimatedHoursPerWeek: number;
 
-
     goals: string[];
     checkpoints: string[];
     commonMistakes?: string[];
 
-
     detailedTopics: DetailedTopic[];
     comparisonTables?: ComparisonTable[];
 
-
     realWorldProject: RealWorldProject;
-
 
     resources: Resource[];
     summary: string[];
 }
-
-
 
 const phase1: RoadmapPhase = {
     id: 'phase-1',
@@ -297,8 +288,6 @@ def dot_product(a, b):
     ]
 };
 
-
-
 const phase2: RoadmapPhase = {
     id: 'phase-2',
     phase: 'Giai đoạn 02',
@@ -495,8 +484,6 @@ CREATE POLICY "Users see own docs" ON documents
     ]
 };
 
-
-
 const phase3: RoadmapPhase = {
     id: 'phase-3',
     phase: 'Giai đoạn 03',
@@ -680,8 +667,6 @@ Create a landing page for an AI writing tool
         'Chất lượng: AI tạo giao diện hoàn hảo nhờ MCP cung cấp ngữ cảnh'
     ]
 };
-
-
 
 const phase4: RoadmapPhase = {
     id: 'phase-4',
@@ -868,10 +853,8 @@ app.post('/api/messages', async (c) => {
     ]
 };
 
-// ==========================================
-// PHASE 5: DỰ ÁN TỔNG HỢP - IDEAFORGE
-// ==========================================
 
+// Phase 5: Dự án tổng hợp
 const phase5: RoadmapPhase = {
     id: 'phase-5',
     phase: 'Giai đoạn 05',

@@ -11,9 +11,7 @@ import GlassCard from '@/components/ui/GlassCard';
 import { cn } from '@/lib/utils';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
-// ============================================
 // DATA: Introduction
-// ============================================
 const introduction = {
     what: 'Fine-tuning là quá trình huấn luyện lại (retrain) một pre-trained model với dữ liệu riêng của bạn để chuyên môn hóa cho task cụ thể.',
     why: 'Tăng accuracy cho domain-specific tasks, Giảm hallucinations, Consistent output format, Giảm chi phí long-term.',
@@ -21,9 +19,7 @@ const introduction = {
     cost: 'Training: $0.008/1K tokens (GPT-3.5), Inference: 8x cheaper than base model sau khi fine-tune.'
 };
 
-// ============================================
 // DATA: When to Fine-tune vs Prompt Engineering
-// ============================================
 const vsPromptEngineering = [
     {
         scenario: 'General tasks (summarization, translation)',
@@ -57,9 +53,7 @@ const vsPromptEngineering = [
     }
 ];
 
-// ============================================
 // DATA: Training Data Preparation
-// ============================================
 const dataPreparation = [
     {
         aspect: 'Format',
@@ -87,9 +81,7 @@ const dataPreparation = [
     }
 ];
 
-// ============================================
 // DATA: Fine-tuning Methods Comparison
-// ============================================
 const methodsComparison = [
     {
         method: 'Full Fine-tuning',
@@ -125,9 +117,7 @@ const methodsComparison = [
     }
 ];
 
-// ============================================
 // DATA: Hyperparameters
-// ============================================
 const hyperparameters = [
     {
         param: 'Learning Rate',
@@ -155,9 +145,7 @@ const hyperparameters = [
     }
 ];
 
-// ============================================
 // DATA: Training Process
-// ============================================
 const trainingProcess = [
     {
         step: '1. Data Collection',
@@ -211,9 +199,7 @@ const trainingProcess = [
     }
 ];
 
-// ============================================
 // DATA: Evaluation Metrics
-// ============================================
 const evaluationMetrics = [
     {
         metric: 'Perplexity',
@@ -247,9 +233,7 @@ const evaluationMetrics = [
     }
 ];
 
-// ============================================
 // DATA: Tools & Platforms
-// ============================================
 const toolsPlatforms = [
     {
         platform: 'OpenAI API',
@@ -289,9 +273,7 @@ const toolsPlatforms = [
     }
 ];
 
-// ============================================
 // DATA: Cost Analysis
-// ============================================
 const costAnalysis = {
     openai: {
         training: '$0.008 per 1K tokens (50K tokens = $0.40)',
@@ -314,9 +296,7 @@ const costAnalysis = {
     }
 };
 
-// ============================================
 // DATA: Common Mistakes
-// ============================================
 const commonMistakes = [
     {
         mistake: 'Quá ít training data (<50 examples)',
@@ -350,9 +330,7 @@ const commonMistakes = [
     }
 ];
 
-// ============================================
 // DATA: Production Deployment
-// ============================================
 const productionDeployment = [
     {
         phase: 'A/B Testing',
@@ -381,9 +359,7 @@ const productionDeployment = [
     }
 ];
 
-// ============================================
 // DATA: Glossary
-// ============================================
 const glossary = [
     { term: 'Fine-tuning', definition: 'Retrain pre-trained model với domain-specific data.' },
     { term: 'LoRA', definition: 'Low-Rank Adaptation: Train adapter thay vì full model.' },
@@ -393,9 +369,7 @@ const glossary = [
     { term: 'Quantization', definition: 'Giảm precision (32-bit → 4-bit) để tiết kiệm memory.' }
 ];
 
-// ============================================
 // DATA: Key Takeaways
-// ============================================
 const keyTakeaways = [
     'Fine-tuning là "last resort": Thử prompt engineering trước.',
     'LoRA > Full fine-tuning: 10-100x cheaper, tránh catastrophic forgetting.',

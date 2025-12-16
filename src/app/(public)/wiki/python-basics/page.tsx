@@ -5,6 +5,7 @@ import { pythonCourseData, Chapter } from '@/data/python-course';
 import { Play, BookOpen, Code, Clock, ChevronRight, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import InteractiveTerminal from '@/components/wiki/InteractiveTerminal';
 
 export default function PythonCoursePage() {
     const [activeChapter, setActiveChapter] = useState<Chapter>(pythonCourseData[0]);
@@ -112,24 +113,37 @@ export default function PythonCoursePage() {
                                 )}
 
                                 {activeChapter.code && (
-                                    <div className="mt-8 rounded-xl overflow-hidden border border-white/10 bg-[#1e1e1e]">
-                                        <div className="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/5">
-                                            <div className="flex items-center gap-2">
-                                                <Terminal className="w-4 h-4 text-neutral-400" />
-                                                <span className="text-xs font-mono text-neutral-400">example.py</span>
+                                    <>
+                                        <div className="mt-8 rounded-xl overflow-hidden border border-white/10 bg-[#1e1e1e]">
+                                            <div className="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/5">
+                                                <div className="flex items-center gap-2">
+                                                    <Terminal className="w-4 h-4 text-neutral-400" />
+                                                    <span className="text-xs font-mono text-neutral-400">example.py</span>
+                                                </div>
+                                                <div className="flex gap-1.5">
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/20" />
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/20" />
+                                                </div>
                                             </div>
-                                            <div className="flex gap-1.5">
-                                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/20" />
-                                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
-                                                <div className="w-2.5 h-2.5 rounded-full bg-green-500/20" />
+                                            <div className="p-6 overflow-x-auto">
+                                                <pre className="font-mono text-sm leading-relaxed">
+                                                    <code className="text-blue-100">{activeChapter.code}</code>
+                                                </pre>
                                             </div>
                                         </div>
-                                        <div className="p-6 overflow-x-auto">
-                                            <pre className="font-mono text-sm leading-relaxed">
-                                                <code className="text-blue-100">{activeChapter.code}</code>
-                                            </pre>
+                                        <div className="mt-6">
+                                            <h4 className="text-sm uppercase tracking-wide text-neutral-500 font-bold mb-3 flex items-center gap-2">
+                                                <Terminal className="w-4 h-4" />
+                                                Interactive Output
+                                            </h4>
+                                            <InteractiveTerminal
+                                                title="python3"
+                                                initialCode={activeChapter.code}
+                                                welcomeMessage="Python 3.10.0 Interactive Shell. Type code to run."
+                                            />
                                         </div>
-                                    </div>
+                                    </>
                                 )}
                             </div>
                         </motion.div>

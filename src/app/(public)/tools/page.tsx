@@ -348,7 +348,7 @@ export default function ToolsPage() {
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-center">
                         <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-red-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)]">
-                            CÔNG CỤ NÊN CÓ
+                            CÔNG CỤ NÊN&nbsp;CÓ
                         </span>
                     </h1>
                     <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
@@ -416,6 +416,6 @@ export default function ToolsPage() {
                 tool={selectedTool}
                 onClose={() => setSelectedTool(null)}
             />
-        </main>
+        </main >
     );
 }

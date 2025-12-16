@@ -45,22 +45,36 @@ export default function WikiPage() {
             title: 'DSA Foundations',
             description: 'Cấu trúc dữ liệu & Thuật toán cốt lõi. Array, Linked List, Heap, Graph và tư duy tối ưu.',
             label: 'Core • CS',
-            path: '/learning/dsa',
+            path: '/wiki/dsa',
             img: 'https://i.pinimg.com/originals/81/52/58/81525851413fac11dca44e57076b396a.gif',
         },
         {
             title: 'Linear Algebra',
             description: 'Tư duy hình học về vector, ma trận và không gian tuyến tính. Nền tảng của AI & Graphics.',
             label: 'Math • Visual',
-            path: '/learning/linear-algebra',
+            path: '/wiki/linear-algebra',
             img: 'https://i.makeagif.com/media/4-14-2017/y2n4Hw.gif',
         },
         {
-            title: 'Python Masters',
-            description: 'Khóa học Python toàn diện từ con số 0. Video bài giảng kèm code mẫu và bài tập thực hành chi tiết.',
-            label: 'Course • Free',
-            path: '/learning/python-basics',
+            title: 'Python Programming',
+            description: 'Từ dự án Giáng sinh 1989 đến ngôn ngữ thống trị AI. Khóa học Python toàn diện với interactive terminal.',
+            label: 'Course • Popular',
+            path: '/wiki/python',
             img: 'https://topdev.vn/blog/wp-content/uploads/2017/12/python1.png',
+        },
+        {
+            title: 'C++ Programming',
+            description: 'Gã khổng lồ thầm lặng suốt 4 thập kỷ. Từ Bell Labs đến game engine, hệ điều hành và AI.',
+            label: 'Course • Featured',
+            path: '/wiki/cpp',
+            img: 'https://media.licdn.com/dms/image/v2/C4E12AQGhFbRMPvf0tg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1636293868291?e=2147483647&v=beta&t=FCJhH87K7rV_e2SMvtEGjIexbUj-ro6bu0V34XXJoH0',
+        },
+        {
+            title: 'Rust Programming',
+            description: 'Ngôn ngữ an toàn bộ nhớ, hiệu năng cao. Ownership, Borrowing, Async/Await và hệ sinh thái Cargo.',
+            label: 'Course • New',
+            path: '/wiki/rust',
+            img: 'https://media.licdn.com/dms/image/v2/D4E22AQGE-eoRbzqMSw/feedshare-shrink_800/B4EZcDRSNWH0Ak-/0/1748106552967?e=2147483647&v=beta&t=XKmwZ4ZUpTNWmqBYXbxQcuc0lEq8ywZIhji_uZdYhyk',
         }
     ];
 

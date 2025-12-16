@@ -513,7 +513,7 @@ export default function ResourcesPage() {
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-center">
                         <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]">
-                            TÀI NGUYÊN HỌC TẬP
+                            TÀI NGUYÊN HỌC&nbsp;TẬP
                         </span>
                     </h1>
                     <p className="text-neutral-400 max-w-2xl mx-auto text-lg">
@@ -615,6 +615,6 @@ export default function ResourcesPage() {
                 resource={selectedResource}
                 onClose={() => setSelectedResource(null)}
             />
-        </main>
+        </main >
     );
 }

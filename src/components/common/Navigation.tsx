@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Home, Map, Library, Wrench, Book } from 'lucide-react';
-import StaggeredMenu from '@/components/ui/StaggeredMenu';
 import GitHubStarButton from '@/components/common/GitHubStarButton';
+import MobileNavbar from '@/components/common/MobileNavbar';
 
 const navItems = [
   { name: 'Trang Chủ', href: '/', icon: Home },
@@ -35,19 +35,10 @@ export default function Navigation() {
   return (
     <>
 
-      <div className="md:hidden">
-        <StaggeredMenu
-          items={menuItems}
-          socialItems={socialItems}
-          logoUrl="/images/logongang.png"
-          accentColor="#fff"
-          menuButtonColor="#fff"
-          openMenuButtonColor="#fff"
-        />
-      </div>
+      <MobileNavbar />
 
 
-      <div className="hidden md:flex fixed top-0 left-0 w-full z-50 items-center justify-between px-6 py-6 pointer-events-none">
+      <div className="hidden xl:flex fixed top-0 left-0 w-full z-50 items-center justify-between px-6 py-6 pointer-events-none">
 
 
         <Link href="/" className="pointer-events-auto transition-transform hover:scale-105">

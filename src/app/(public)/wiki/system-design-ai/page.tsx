@@ -11,9 +11,9 @@ import GlassCard from '@/components/ui/GlassCard';
 import { cn } from '@/lib/utils';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
-// ============================================
+
 // DATA: Fundamentals
-// ============================================
+
 const fundamentals = [
     {
         concept: 'Scalability',
@@ -45,9 +45,9 @@ const fundamentals = [
     }
 ];
 
-// ============================================
+
 // DATA: AI Architecture Patterns
-// ============================================
+
 const aiPatterns = [
     {
         pattern: 'RAG (Retrieval-Augmented Generation)',
@@ -79,9 +79,9 @@ const aiPatterns = [
     }
 ];
 
-// ============================================
+
 // DATA: Scalability Patterns
-// ============================================
+
 const scalabilityPatterns = [
     {
         aspect: 'Vector Database Scaling',
@@ -118,9 +118,9 @@ const scalabilityPatterns = [
     }
 ];
 
-// ============================================
+
 // DATA: Microservices Breakdown
-// ============================================
+
 const microservices = [
     {
         service: 'API Gateway',
@@ -154,9 +154,9 @@ const microservices = [
     }
 ];
 
-// ============================================
+
 // DATA: Real-time Patterns
-// ============================================
+
 const realtimePatterns = [
     {
         technology: 'Server-Sent Events (SSE)',
@@ -181,9 +181,9 @@ const realtimePatterns = [
     }
 ];
 
-// ============================================
+
 // DATA: Database Design
-// ============================================
+
 const databaseDesign = [
     {
         aspect: 'Schema Design cho AI',
@@ -214,9 +214,9 @@ const databaseDesign = [
     }
 ];
 
-// ============================================
+
 // DATA: Monitoring & Observability
-// ============================================
+
 const monitoring = [
     {
         layer: 'Application Metrics',
@@ -238,9 +238,9 @@ const monitoring = [
     }
 ];
 
-// ============================================
+
 // DATA: Security Checklist
-// ============================================
+
 const securityChecklist = [
     {
         category: 'Authentication & Authorization',
@@ -280,9 +280,9 @@ const securityChecklist = [
     }
 ];
 
-// ============================================
+
 // DATA: Case Studies
-// ============================================
+
 const caseStudies = [
     {
         company: 'Perplexity AI',
@@ -310,9 +310,9 @@ const caseStudies = [
     }
 ];
 
-// ============================================
+
 // DATA: Design Principles
-// ============================================
+
 const designPrinciples = [
     {
         principle: 'Design for Failure',
@@ -336,9 +336,9 @@ const designPrinciples = [
     }
 ];
 
-// ============================================
+
 // DATA: Tools & Technologies
-// ============================================
+
 const toolsTech = [
     { category: 'Runtime', tools: 'Bun (5x faster than Node), Deno (secure by default)', recommendation: 'Bun for performance, Deno for security' },
     { category: 'Framework', tools: 'Hono (edge-optimized), Fastify (Node), FastAPI (Python)', recommendation: 'Hono for AI workloads' },
@@ -350,9 +350,9 @@ const toolsTech = [
     { category: 'Deployment', tools: 'Vercel (frontend), Railway (backend), Fly.io', recommendation: 'Vercel for Next.js, Railway for Bun' }
 ];
 
-// ============================================
+
 // DATA: Glossary
-// ============================================
+
 const glossary = [
     { term: 'CAP Theorem', definition: 'Consistency, Availability, Partition Tolerance - chỉ đạt được 2/3 cùng lúc.' },
     { term: 'ACID', definition: 'Atomicity, Consistency, Isolation, Durability - đảm bảo transaction integrity.' },
@@ -362,9 +362,9 @@ const glossary = [
     { term: 'Blue-Green Deployment', definition: 'Chạy 2 môi trường (blue & green), switch traffic để zero-downtime deployment.' }
 ];
 
-// ============================================
+
 // DATA: Key Takeaways
-// ============================================
+
 const keyTakeaways = [
     'AI systems cần architecture khác biệt: Async processing, Vector search, Streaming responses.',
     'Scalability cho AI: Horizontal scaling >>> Vertical. Queue async tasks, cache embeddings.',

@@ -51,10 +51,12 @@ print("Tôi đang học Python")`,
         title: 'Biến và Kiểu dữ liệu',
         description: 'Cách lưu trữ và quản lý dữ liệu.',
         mainContent: 'Biến (Variable) giống như một cái hộp chứa giá trị. Python tự động nhận diện kiểu dữ liệu (Dynamic Typing).',
-        code: `character_name = "John"
-character_age = 35
-print("Tên tôi là " + character_name)
-print("Tôi", character_age, "tuổi")`,
+        code: `# Dùng input() để nhận tên từ người dùng
+name = input("Nhập tên của bạn: ")
+# Nhận tuổi (lưu ý: input() trả về string)
+age = input("Nhập tuổi: ")
+# Dùng + để nối các chuỗi lại với nhau
+print("Xin chào " + name + ", bạn " + age + " tuổi!")`,
         keyPoints: ['String (Chuỗi): "Text"', 'Integer (Số nguyên): 10', 'Float (Số thực): 3.14', 'Boolean: True/False'],
         seconds: timeToSeconds('00:06:59')
     },
@@ -64,11 +66,16 @@ print("Tôi", character_age, "tuổi")`,
         title: 'Thao tác với string',
         description: 'Xử lý chuỗi ký tự nâng cao.',
         mainContent: 'String trong Python là một chuỗi các ký tự. Bạn có thể nối chuỗi, chuyển đổi chữ hoa/thường, hoặc lấy độ dài.',
-        code: `phrase = "Học Viện Giraffe"
-print(phrase.lower()) # Chữ thường
-print(phrase.upper()) # Chữ hoa
-print(len(phrase))    # Độ dài
-print(phrase[0])      # Lấy ký tự đầu tiên`,
+        code: `# Nhận chuỗi từ người dùng
+phrase = input("Nhập một cụm từ: ")
+# .lower() chuyển thành chữ thường
+print("Chữ thường:", phrase.lower())
+# .upper() chuyển thành chữ HOA
+print("Chữ hoa:", phrase.upper())
+# len() đếm số ký tự
+print("Số ký tự:", len(phrase))
+# [0] lấy ký tự đầu tiên (index bắt đầu từ 0)
+print("Ký tự đầu tiên:", phrase[0])`,
         seconds: timeToSeconds('00:15:10')
     },
     {
@@ -78,11 +85,11 @@ print(phrase[0])      # Lấy ký tự đầu tiên`,
         description: 'Làm việc với số học trong Python.',
         mainContent: 'Python hỗ trợ các phép toán cộng, trừ, nhân, chia, chia lấy dư... và các hàm toán học nâng cao qua thư viện math.',
         code: `from math import *
-print(2 * 3)       # 6
-print(10 % 3)      # 1 (Chia lấy dư)
-print(abs(-5))     # 5 (Giá trị tuyệt đối)
-print(pow(3, 2))   # 9 (Lũy thừa)
-print(sqrt(36))    # 6 (Căn bậc 2)`,
+print(2 * 3)       # 2 x 3 = 6
+print(10 % 3)      #  = 1 (10 : 3 = 3 dư 1)
+print(abs(-5))     # 5 (Giá trị tuyệt đối của -5)
+print(pow(3, 2))   # 9 (3 mũ 2 = 9)
+print(sqrt(36))    # 6 (Căn bậc 2 của 36 = 6)`,
         seconds: timeToSeconds('00:23:38')
     },
     {
@@ -102,9 +109,12 @@ print("Xin chào " + name + ", bạn " + age + " tuổi!")`,
         title: 'Build ứng dụng máy tính cơ bản',
         description: 'Dự án thực hành đầu tiên.',
         mainContent: 'Kết hợp input() và chuyển đổi kiểu dữ liệu (ép kiểu) để thực hiện phép cộng 2 số.',
-        code: `num1 = input("Nhập số thứ nhất: ")
+        code: `# Nhận 2 số từ người dùng (dạng string)
+num1 = input("Nhập số thứ nhất: ")
 num2 = input("Nhập số thứ hai: ")
+# float() chuyển string -> số thực để tính toán
 result = float(num1) + float(num2)
+# In kết quả
 print(result)`,
         keyPoints: ['input() trả về string', 'Dùng int() hoặc float() để ép kiểu sang số'],
         seconds: timeToSeconds('00:36:07')
@@ -115,12 +125,12 @@ print(result)`,
         title: 'Nối chuỗi với hàm format()',
         description: 'Cách chuyên nghiệp để chèn biến vào chuỗi.',
         mainContent: 'Thay vì dùng dấu +, f-string (Python 3.6+) hoặc .format() giúp code gọn gàng và dễ đọc hơn.',
-        code: `name = "Alice"
-age = 25
-# Cách cũ
-print("Tên: " + name + ", Tuổi: " + str(age))
-
-# F-String (Khuyên dùng)
+        code: `name = input("Nhập tên: ")
+age = input("Nhập tuổi: ")
+# Cách 1: Nối chuỗi bằng dấu +
+print("Tên: " + name + ", Tuổi: " + age)
+# Cách 2: f-string (hiện đại, dễ đọc hơn)
+# Đặt f trước dấu ngoặc, dùng {biến} để chèn
 print(f"Tên: {name}, Tuổi: {age}")`,
         seconds: timeToSeconds('00:40:04')
     },
@@ -159,9 +169,16 @@ print(friends.index("Kevin"))  # Tìm vị trí`,
         title: 'Tuples',
         description: 'Danh sách bất biến (Immutable).',
         mainContent: 'Tuple giống List nhưng không thể thay đổi giá trị sau khi tạo. Dùng cho dữ liệu cố định (ví dụ tọa độ).',
-        code: `coordinates = (4, 5)
-# coordinates[0] = 10 -> Lỗi! Không thể sửa
-print(coordinates[0])`,
+        code: `# Tuple dùng ngoặc tròn ()
+coordinates = (4, 5)
+print("Tọa độ ban đầu:", coordinates)
+print("Phần tử đầu:", coordinates[0])
+
+# Thử sửa tuple -> sẽ bị lỗi!
+try:
+    coordinates[0] = 10
+except TypeError as e:
+    print("Lỗi khi sửa tuple:", e)`,
         keyPoints: ['Dùng ngoặc tròn ()', 'Immutable (Bất biến)', 'Nhanh hơn List'],
         seconds: timeToSeconds('01:00:32')
     },
@@ -171,11 +188,17 @@ print(coordinates[0])`,
         title: 'Hàm (Functions)',
         description: 'Tổ chức code thành các khối tái sử dụng.',
         mainContent: 'Hàm giúp chia nhỏ chương trình thành các tác vụ cụ thể. Dùng từ khóa `def`.',
-        code: `def say_hi(name, age):
+        code: `# Định nghĩa hàm bằng từ khóa def
+# name và age là tham số (parameters)
+def say_hi(name, age):
+    # Sử dụng f-string để chèn biến vào chuỗi
     print(f"Xin chào {name}, bạn {age} tuổi")
 
-say_hi("Mike", 35)
-say_hi("Steve", 70)`,
+# Nhận dữ liệu từ người dùng
+ten = input("Nhập tên: ")
+tuoi = input("Nhập tuổi: ")
+# Gọi hàm và truyền đối số (arguments)
+say_hi(ten, tuoi)`,
         seconds: timeToSeconds('01:05:20')
     },
     {
@@ -184,11 +207,17 @@ say_hi("Steve", 70)`,
         title: 'Lệnh return trong hàm',
         description: 'Trả về giá trị từ hàm.',
         mainContent: 'Hàm có thể trả về dữ liệu để sử dụng tiếp. Code sau lệnh return sẽ không được thực thi.',
-        code: `def cube(num):
+        code: `# Hàm tính lũy thừa 3
+def cube(num):
+    # return trả về kết quả cho nơi gọi hàm
     return num * num * num
 
-result = cube(4)
-print(result) # 64`,
+# Nhận số từ người dùng
+so = input("Nhập một số: ")
+# int() chuyển string -> số nguyên
+result = cube(int(so))
+# In kết quả với f-string
+print(f"{so} mũ 3 = {result}")`,
         seconds: timeToSeconds('01:14:06')
     },
     {
@@ -214,7 +243,9 @@ else:
         title: 'So sánh và Toán tử logic',
         description: 'So sánh giá trị.',
         mainContent: 'Tạo các hàm so sánh phức tạp hơn.',
-        code: `def max_num(num1, num2, num3):
+        code: `# Hàm tìm số lớn nhất trong 3 số
+def max_num(num1, num2, num3):
+    # So sánh từng cặp với toán tử and
     if num1 >= num2 and num1 >= num3:
         return num1
     elif num2 >= num1 and num2 >= num3:
@@ -222,7 +253,12 @@ else:
     else:
         return num3
 
-print(max_num(3, 40, 5))`,
+# Nhận 3 số từ người dùng
+a = int(input("Nhập số thứ 1: "))
+b = int(input("Nhập số thứ 2: "))
+c = int(input("Nhập số thứ 3: "))
+# Gọi hàm và in kết quả
+print(f"Số lớn nhất là: {max_num(a, b, c)}")`,
         seconds: timeToSeconds('01:23:18')
     },
     {
@@ -258,8 +294,8 @@ else:
     "Feb": "February",
     "Mar": "March",
 }
-print(monthConversions["Jan"])
-print(monthConversions.get("Dec", "Not Found"))`,
+key = input("Nhập viết tắt tháng (Jan/Feb/Mar): ")
+print(monthConversions.get(key, "Không tìm thấy"))`,
         seconds: timeToSeconds('01:32:52')
     },
     {
@@ -268,8 +304,9 @@ print(monthConversions.get("Dec", "Not Found"))`,
         title: 'Vòng lặp While',
         description: 'Lặp theo điều kiện.',
         mainContent: 'Thực thi khối code lặp đi lặp lại miễn là điều kiện còn đúng.',
-        code: `i = 1
-while i <= 10:
+        code: `n = int(input("In số từ 1 đến bao nhiêu? "))
+i = 1
+while i <= n:
     print(i)
     i += 1
 print("Done loop")`,
@@ -306,15 +343,13 @@ else:
         title: 'Vòng lặp For',
         description: 'Duyệt qua danh sách hoặc chuỗi.',
         mainContent: 'For loop dùng để duyệt qua từng phần tử của một tập hợp (List, String, Range).',
-        code: `for letter in "Giraffe Academy":
+        code: `text = input("Nhập một câu: ")
+for letter in text:
     print(letter)
 
-friends = ["Jim", "Karen", "Kevin"]
-for friend in friends:
-    print(friend)
-
-for index in range(10):
-    print(index) # 0 đến 9`,
+n = int(input("In số từ 0 đến bao nhiêu? "))
+for i in range(n):
+    print(i)`,
         seconds: timeToSeconds('01:54:40')
     },
     {
@@ -329,7 +364,9 @@ for index in range(10):
         result = result * base_num
     return result
 
-print(raise_to_power(3, 2)) # 9`,
+base = int(input("Nhập số cơ sở: "))
+power = int(input("Nhập số mũ: "))
+print(f"{base} mũ {power} = {raise_to_power(base, power)}")`,
         seconds: timeToSeconds('01:59:46')
     },
     {

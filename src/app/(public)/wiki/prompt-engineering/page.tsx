@@ -7,18 +7,14 @@ import GlassCard from '@/components/ui/GlassCard';
 import { cn } from '@/lib/utils';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
-// ============================================
 // DATA: Introduction
-// ============================================
 const introContent = {
     title: 'Prompt Engineering là gì?',
     description: 'Prompt Engineering là nghệ thuật và khoa học tạo ra các câu hỏi hoặc hướng dẫn phù hợp để AI tạo ra phản hồi chính xác và hữu ích nhất. Giống như việc đưa ra hướng dẫn rõ ràng cho GPS - hướng đi càng rõ ràng, tuyến đường càng chính xác.',
     analogy: 'Hãy tưởng tượng bạn đang hướng dẫn một đầu bếp nấu ăn. Nếu chỉ nói "làm bữa tối", kết quả sẽ ngẫu nhiên. Nhưng nếu nói "làm món pasta Ý cho 4 người, không có hải sản, phong cách gia đình", bạn sẽ có đúng những gì cần.'
 };
 
-// ============================================
 // DATA: Anatomy of a Good Prompt
-// ============================================
 const promptAnatomy = [
     { component: 'Bối cảnh (Context)', description: 'Thông tin nền tảng giúp AI hiểu tình huống', example: 'Tôi là nhân viên mới, cần viết email xin nghỉ phép...', icon: BookOpen, color: 'text-blue-400' },
     { component: 'Nhiệm vụ (Task)', description: 'Việc cụ thể bạn muốn AI thực hiện', example: 'Hãy viết một email ngắn gọn, lịch sự', icon: Target, color: 'text-green-400' },
@@ -28,9 +24,7 @@ const promptAnatomy = [
     { component: 'Giọng điệu (Tone)', description: 'Thái độ và cảm xúc của câu trả lời', example: 'Trang trọng, chân thành nhưng không quá cứng nhắc', icon: MessageSquare, color: 'text-pink-400' }
 ];
 
-// ============================================
 // DATA: Weak vs Strong Prompts
-// ============================================
 const promptComparison = [
     {
         weak: 'Kể cho tôi về AI',
@@ -52,9 +46,7 @@ const promptComparison = [
     }
 ];
 
-// ============================================
 // DATA: Use Cases by Industry
-// ============================================
 const useCases = [
     { industry: 'Sáng tạo nội dung', icon: Palette, tasks: ['Viết blog, bài quảng cáo, kịch bản', 'Lên ý tưởng bài đăng mạng xã hội', 'Tối ưu hóa bài viết cho SEO', 'Soạn lời thoại video/podcast'], color: 'from-pink-500 to-rose-500' },
     { industry: 'Chăm sóc khách hàng', icon: MessageSquare, tasks: ['Tự động trả lời tin nhắn', 'Xử lý khiếu nại mẫu', 'Soạn tài liệu đào tạo nhân viên', 'Tạo bộ câu hỏi thường gặp (FAQ)'], color: 'from-blue-500 to-cyan-500' },
@@ -66,9 +58,7 @@ const useCases = [
     { industry: 'Marketing', icon: TrendingUp, tasks: ['Nghiên cứu từ khóa', 'Viết lời quảng cáo (Ad Copy)', 'Lên kế hoạch chiến dịch', 'Tạo nội dung cho A/B testing'], color: 'from-teal-500 to-cyan-500' }
 ];
 
-// ============================================
 // DATA: How AI Understands Prompts
-// ============================================
 const aiUnderstanding = [
     { concept: 'Token hóa (Chia từ)', description: 'AI không đọc từng từ như người, mà đọc các mảnh ký tự gọi là "token". Ví dụ: "Xin chào" có thể là 2-3 token. Càng nhiều token, AI càng cần xử lý nhiều.', icon: Layers },
     { concept: 'Cửa sổ ngữ cảnh (Bộ nhớ)', description: 'AI có trí nhớ ngắn hạn giới hạn. Nếu cuộc trò chuyện quá dài, nó sẽ "quên" phần đầu. Giống như bạn không thể nhớ nguyên văn cuốn sách vừa đọc.', icon: Brain },
@@ -76,9 +66,7 @@ const aiUnderstanding = [
     { concept: 'Nhiệt độ (Độ sáng tạo)', description: 'Thông số chỉnh độ "bay bổng" của AI. Thấp (0.1) thì AI trả lời rập khuôn, chính xác. Cao (0.8) thì AI sáng tạo hơn nhưng dễ sai sót hơn.', icon: Settings }
 ];
 
-// ============================================
 // DATA: Google 5-Step Framework (TCREI)
-// ============================================
 const googleFramework = [
     { step: 'Task (Nhiệm vụ)', description: 'Xác định rõ bạn muốn AI làm gì', example: 'Gợi ý quà sinh nhật liên quan đến anime cho bạn tôi', icon: Target, color: 'text-green-400' },
     { step: 'Context (Bối cảnh)', description: 'Cung cấp thông tin bổ sung giúp AI trả lời chính xác hơn', example: 'Bạn tôi 29 tuổi, thích Naruto, Solo Leveling, Shangri-La Frontier...', icon: BookOpen, color: 'text-blue-400' },
@@ -87,9 +75,7 @@ const googleFramework = [
     { step: 'Iterate (Cải tiến)', description: 'Chỉnh sửa câu lệnh dựa trên kết quả để có đáp án tốt hơn', example: 'Thêm yêu cầu: "Chỉ chọn món dưới $50 và có bán ở Việt Nam"', icon: RefreshCw, color: 'text-cyan-400' }
 ];
 
-// ============================================
 // DATA: Zero-shot vs Few-shot
-// ============================================
 const shotLearning = {
     zeroShot: {
         title: 'Prompt không ví dụ (Zero-Shot)',
@@ -107,9 +93,7 @@ const shotLearning = {
     }
 };
 
-// ============================================
 // DATA: AI Hallucinations & Bias
-// ============================================
 const aiIssues = [
     {
         issue: 'Ảo giác (Hallucination)',
@@ -127,9 +111,7 @@ const aiIssues = [
     }
 ];
 
-// ============================================
 // DATA: Advanced Techniques (Expanded)
-// ============================================
 const advancedTechniques = [
     {
         technique: 'Suy luận theo chuỗi (Chain of Thought)',
@@ -175,9 +157,7 @@ const advancedTechniques = [
     }
 ];
 
-// ============================================
 // DATA: Context Engineering vs Vibe Coding
-// ============================================
 const contextVsVibe = {
     vibeCoding: {
         title: 'Code theo cảm tính (Vibe Coding)',
@@ -193,9 +173,7 @@ const contextVsVibe = {
     }
 };
 
-// ============================================
 // DATA: Tools Comparison
-// ============================================
 const toolsComparison = [
     { tool: 'ChatGPT', model: 'GPT-4 Turbo', contextWindow: '128K tokens', strengths: 'Suy luận giỏi, làm code tốt', weaknesses: 'Đôi khi vẫn ảo giác', bestFor: 'Đa dụng, Lên ý tưởng, Viết code' },
     { tool: 'Claude', model: 'Claude 3.5', contextWindow: '200K tokens', strengths: 'Viết văn hay, ngữ cảnh dài, an toàn', weaknesses: 'Đôi khi quá thận trọng', bestFor: 'Viết lách, Tóm tắt tài liệu dài' },
@@ -203,9 +181,7 @@ const toolsComparison = [
     { tool: 'GitHub Copilot', model: 'Codex-based', contextWindow: 'File context', strengths: 'Tích hợp sâu vào trình soạn code', weaknesses: 'Chỉ chuyên về code', bestFor: 'Lập trình viên, Pair programming' }
 ];
 
-// ============================================
 // DATA: Multimodal Prompting
-// ============================================
 const multimodalTypes = [
     { type: 'Text', icon: FileText, description: 'Ngôn ngữ viết - prompts, documents', color: 'text-blue-400' },
     { type: 'Image', icon: Eye, description: 'Nội dung visual - photos, charts, diagrams', color: 'text-green-400' },
@@ -213,9 +189,7 @@ const multimodalTypes = [
     { type: 'Video', icon: Video, description: 'Time-based visual và audio content', color: 'text-orange-400' }
 ];
 
-// ============================================
 // DATA: Iteration Methods (4 cách cải tiến prompt)
-// ============================================
 const iterationMethods = [
     { method: 'Rà soát Framework', description: 'Kiểm tra xem đã đủ Bối cảnh, Nhiệm vụ, hay Vai trò chưa?', example: 'Thêm: "Bạn là chuyên gia marketing..." hoặc thêm mẫu output' },
     { method: 'Chia nhỏ vấn đề', description: 'Tách câu lệnh phức tạp thành các bước nhỏ hơn, dễ hiểu hơn', example: 'Thay vì 1 đoạn dài → Tách thành 3 gạch đầu dòng rõ ràng' },
@@ -223,9 +197,7 @@ const iterationMethods = [
     { method: 'Thêm ràng buộc (Constraints)', description: 'Giới hạn phạm vi để AI không đi lạc đề', example: 'Thêm: "dưới 200 từ", "chỉ dùng số liệu năm 2024", "không dùng từ ngữ chuyên ngành"' }
 ];
 
-// ============================================
 // DATA: AI Agents
-// ============================================
 const aiAgents = {
     description: 'AI được thiết kế như một nhân viên ảo chuyên trách, có tính cách riêng và khả năng thực hiện chuỗi nhiệm vụ',
     types: [
@@ -251,9 +223,7 @@ const aiAgents = {
     ]
 };
 
-// ============================================
 // DATA: Best Practices
-// ============================================
 const bestPractices = [
     { practice: 'Viết rõ ràng như nói với một người thông minh nhưng chưa biết gì', example: 'Thay vì nói cụt lủn, hãy giải thích bối cảnh và mong muốn cụ thể' },
     { practice: 'Luôn gán vai trò (Persona) cho AI', example: '"Bạn là giáo viên tiếng Anh..." sẽ tốt hơn là chỉ hỏi "Dịch câu này"' },
@@ -263,9 +233,7 @@ const bestPractices = [
     { practice: 'Quy định rõ định dạng đầu ra', example: 'Muốn bảng biểu? Muốn JSON? Muốn danh sách? Hãy nói rõ điều đó' }
 ];
 
-// ============================================
 // DATA: Common Pitfalls
-// ============================================
 const commonPitfalls = [
     { pitfall: 'Prompt quá dài dòng, lan man', consequence: 'AI bị "trôi" thông tin, quên mất yêu cầu chính', solution: 'Tóm tắt lại, đưa thông tin cần thiết nhất lên đầu hoặc cuối' },
     { pitfall: 'Yêu cầu mâu thuẫn nhau', consequence: 'AI bối rối, trả lời không đầu không đuôi', solution: 'Ưu tiên yêu cầu quan trọng nhất, kiểm tra lại logic của câu lệnh' },
@@ -275,9 +243,7 @@ const commonPitfalls = [
     { pitfall: 'Tin tưởng tuyệt đối vào AI', consequence: 'Dùng sai thông tin bịa đặt (ảo giác)', solution: 'Luôn kiểm chứng lại số liệu và sự kiện quan trọng' }
 ];
 
-// ============================================
 // DATA: Key Takeaways (Comprehensive)
-// ============================================
 const keyTakeaways = [
     'Prompt Engineering là kỹ năng giao tiếp cốt lõi với AI - hãy nói chuyện với nó rõ ràng như với một đồng nghiệp.',
     'Dùng Framework Google (TCREI): Nhiệm vụ -> Bối cảnh -> Tham khảo -> Đánh giá -> Cải tiến.',
@@ -291,9 +257,7 @@ const keyTakeaways = [
     'Hãy kiên nhẫn và thử lại (Iterate). Không ai viết prompt hoàn hảo ngay lần đầu tiên.'
 ];
 
-// ============================================
 // DATA: Glossary (Expanded)
-// ============================================
 const glossary = [
     { term: 'Token', definition: 'Đơn vị xử lý văn bản của AI. Một từ tiếng Việt thường tốn 2-3 token.' },
     { term: 'Context Window (Cửa sổ ngữ cảnh)', definition: 'Bộ nhớ tạm thời của AI trong một cuộc hội thoại. Hết bộ nhớ này AI sẽ quên những gì đã nói lúc đầu.' },
@@ -306,9 +270,7 @@ const glossary = [
     { term: 'AI Agent', definition: 'Một "nhân viên AI" có tính cách, vai trò cụ thể và khả năng thực hiện nhiệm vụ tự chủ.' }
 ];
 
-// ============================================
 // TOC Items (Expanded)
-// ============================================
 const tocItems = [
     { id: 'intro', label: '1. Giới thiệu' },
     { id: 'google-framework', label: '2. Công thức Google (TCREI)' },
@@ -330,9 +292,7 @@ const tocItems = [
     { id: 'takeaways', label: '18. Tổng kết' }
 ];
 
-// ============================================
 // COMPONENT: Main Page
-// ============================================
 export default function PromptEngineeringPage() {
     const [activeSection, setActiveSection] = useState('intro');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -574,8 +534,6 @@ export default function PromptEngineeringPage() {
                             <p className="text-amber-300 text-sm">💡 <strong>Khi nào dùng Few-Shot?</strong> Khi cần kiểm soát format output, làm task không phổ biến, hoặc cần AI follow pattern cụ thể.</p>
                         </GlassCard>
                     </motion.section>
-
-
 
                     {/* Section 6: Advanced Techniques */}
                     {/* Section 6: Advanced Techniques */}

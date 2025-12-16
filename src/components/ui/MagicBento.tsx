@@ -180,6 +180,53 @@ const ParticleCard: React.FC<{
             });
         }, [initializeParticles]);
 
+        const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+            if (onClick) onClick();
+            if (disableAnimations || !clickEffect) return;
+
+            const element = e.currentTarget;
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const maxDistance = Math.max(
+                Math.hypot(x, y),
+                Math.hypot(x - rect.width, y),
+                Math.hypot(x, y - rect.height),
+                Math.hypot(x - rect.width, y - rect.height)
+            );
+
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+        position: absolute;
+        width: ${maxDistance * 2}px;
+        height: ${maxDistance * 2}px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(${glowColor}, 0.4) 0%, rgba(${glowColor}, 0.2) 30%, transparent 70%);
+        left: ${x - maxDistance}px;
+        top: ${y - maxDistance}px;
+        pointer-events: none;
+        z-index: 1000;
+      `;
+
+            element.appendChild(ripple);
+
+            gsap.fromTo(
+                ripple,
+                {
+                    scale: 0,
+                    opacity: 1
+                },
+                {
+                    scale: 1,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    onComplete: () => ripple.remove()
+                }
+            );
+        };
+
         useEffect(() => {
             if (disableAnimations || !cardRef.current) return;
 
@@ -258,63 +305,17 @@ const ParticleCard: React.FC<{
                 }
             };
 
-            const handleClick = (e: MouseEvent) => {
-                if (onClick) onClick();
-                if (!clickEffect) return;
 
-                const rect = element.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const maxDistance = Math.max(
-                    Math.hypot(x, y),
-                    Math.hypot(x - rect.width, y),
-                    Math.hypot(x, y - rect.height),
-                    Math.hypot(x - rect.width, y - rect.height)
-                );
-
-                const ripple = document.createElement('div');
-                ripple.style.cssText = `
-        position: absolute;
-        width: ${maxDistance * 2}px;
-        height: ${maxDistance * 2}px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(${glowColor}, 0.4) 0%, rgba(${glowColor}, 0.2) 30%, transparent 70%);
-        left: ${x - maxDistance}px;
-        top: ${y - maxDistance}px;
-        pointer-events: none;
-        z-index: 1000;
-      `;
-
-                element.appendChild(ripple);
-
-                gsap.fromTo(
-                    ripple,
-                    {
-                        scale: 0,
-                        opacity: 1
-                    },
-                    {
-                        scale: 1,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power2.out',
-                        onComplete: () => ripple.remove()
-                    }
-                );
-            };
 
             element.addEventListener('mouseenter', handleMouseEnter);
             element.addEventListener('mouseleave', handleMouseLeave);
             element.addEventListener('mousemove', handleMouseMove);
-            element.addEventListener('click', handleClick);
 
             return () => {
                 isHoveredRef.current = false;
                 element.removeEventListener('mouseenter', handleMouseEnter);
                 element.removeEventListener('mouseleave', handleMouseLeave);
                 element.removeEventListener('mousemove', handleMouseMove);
-                element.removeEventListener('click', handleClick);
                 clearAllParticles();
             };
         }, [animateParticles, clearAllParticles, disableAnimations, enableTilt, enableMagnetism, clickEffect, glowColor, onClick]);
@@ -324,6 +325,7 @@ const ParticleCard: React.FC<{
                 ref={cardRef}
                 className={`${className} relative overflow-hidden`}
                 style={{ ...style, position: 'relative', overflow: 'hidden' }}
+                onClick={handleCardClick}
             >
                 {children}
             </div>

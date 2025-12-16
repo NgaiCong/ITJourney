@@ -35,24 +35,22 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.h1
-                    className="text-4xl md:text-7xl font-bold tracking-tighter text-white mb-10 leading-[1.2] flex flex-row flex-wrap items-center justify-center gap-x-3 md:gap-x-4"
+                    className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-10 leading-[1.2] flex flex-row flex-wrap items-center justify-center gap-x-3 md:gap-x-4"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.2, type: "spring" }}
                 >
                     <span className="">Xây Dựng Lại</span>
-                    <div className="flex items-center justify-center gap-2 md:gap-4 overflow-hidden py-2" style={{ minWidth: '300px' }}>
+                    <div className="flex items-center justify-center gap-2 md:gap-4 overflow-hidden py-2" style={{ minWidth: 'auto' }}>
                         <RotatingText
                             texts={['Gốc Rễ', 'Tư Duy', 'Tương Lai', 'Sự Nghiệp']}
-                            mainClassName="bg-white text-black px-3 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl overflow-hidden justify-center"
-
+                            mainClassName="bg-white text-black px-3 md:px-5 lg:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl overflow-hidden justify-center shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                             staggerFrom="last"
                             initial={{ y: "100%" }}
                             animate={{ y: 0 }}
                             exit={{ y: "-120%" }}
                             staggerDuration={0.025}
                             splitLevelClassName="overflow-hidden py-1 sm:py-2"
-
                             transition={{ type: "spring", damping: 30, stiffness: 400 }}
                             rotationInterval={2000}
                         />
